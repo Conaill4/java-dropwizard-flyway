@@ -9,5 +9,4 @@ import static org.mockito.Mockito.when;
 
 public class JobRoleControllerTest {
 
-
 }
