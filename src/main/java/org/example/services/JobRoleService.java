@@ -2,7 +2,8 @@ package org.example.services;
 
 import org.example.daos.DatabaseConnector;
 import org.example.daos.JobRoleDao;
-import org.example.models.JobRole;
+import org.example.mappers.JobRoleMapper;
+import org.example.models.JobRoleResponse;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,7 +17,13 @@ public class JobRoleService {
         this.jobRoleDao = jobRoleDao;
         this.databaseConnector = databaseConnector;
     }
-    public List<JobRole> getAllJobRoles() throws SQLException {
-        return jobRoleDao.getJobRoles();
+
+    public List<JobRoleResponse> getAllJobRoles() {
+        try {
+            return JobRoleMapper.mapOrderListToJobRoleResponseList(
+                    jobRoleDao.getJobRoles());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

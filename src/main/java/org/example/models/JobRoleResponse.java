@@ -1,31 +1,33 @@
 package org.example.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
 public class JobRoleResponse {
+    private int jobRoleId;
     private String roleName;
     private String location;
     private int capabilityId;
     private int bandId;
     private Date closingDate;
 
-    @JsonCreator
-    public JobRoleResponse(
-            @JsonProperty("roleName") final String roleName,
-            @JsonProperty("location") final String location,
-            @JsonProperty("capabilityId") final int capabilityId,
-            @JsonProperty("bandId") final int bandId,
-            @JsonProperty("closingDate") final Date closingDate) {
-        this.setRoleName(roleName);
-        this.setLocation(location);
-        this.setCapabilityId(capabilityId);
-        this.setBandId(bandId);
-        this.setClosingDate(closingDate);
+    public JobRoleResponse(final int jobRoleId, final String roleName,
+                           final String location, final int capabilityId,
+                           final int bandId, final Date closingDate) {
+        this.jobRoleId = jobRoleId;
+        this.roleName = roleName;
+        this.location = location;
+        this.capabilityId = capabilityId;
+        this.bandId = bandId;
+        this.closingDate = closingDate;
     }
 
+    public int getJobRoleId() {
+        return jobRoleId;
+    }
+    public void setJobRoleId(final int jobRoleId) {
+        this.jobRoleId = jobRoleId;
+    }
     public String getRoleName() {
         return roleName;
     }
