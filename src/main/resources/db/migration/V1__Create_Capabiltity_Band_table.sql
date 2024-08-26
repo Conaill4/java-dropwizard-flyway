@@ -1,6 +1,6 @@
 CREATE TABLE Capability(
 capabilityId int PRIMARY KEY AUTO_INCREMENT NOT NULL,
-capabilityName enum('Intern', 'Graduate','Junior', 'Mid- Level', 'Senior', 'Lead')
+capabilityName enum('Intern', 'Graduate','Junior', 'Mid-Level', 'Senior', 'Lead')
 );
 
 CREATE TABLE Band (
