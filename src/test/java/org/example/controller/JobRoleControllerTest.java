@@ -1,4 +1,11 @@
 package org.example.controller;
 
-public class JobRoleControllerTest {
+import org.example.services.JobRoleService;
+import org.mockito.Mockito;
+
+
+class JobRoleControllerTest {
+    JobRoleService jobRoleService = Mockito.mock(
+            JobRoleService.class
+    )
 }
