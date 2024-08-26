@@ -19,7 +19,7 @@ public class JobRoleDao {
                     + "capability.capabilityName, band.bandName, "
                     + "closingDate FROM job-roles"
                      + "JOIN capability using(capability.id)"
-                     + "JOIN band band using(band.id)");
+                     + "JOIN band using(band.id)");
             while (resultSet.next()) {
                 JobRole jobRole = new JobRole(
                         resultSet.getInt("jobRoleId"),
