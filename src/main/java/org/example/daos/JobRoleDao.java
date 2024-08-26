@@ -16,7 +16,10 @@ public class JobRoleDao {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
                     "SELECT jobRoleId, roleName, location,"
-                    + "capabilityId, bandId, closingDate FROM job-roles");
+                    + "capability.capabilityName, band.bandName, "
+                    + "closingDate FROM job-roles"
+                     + "JOIN capability using(capability.id)"
+                     + "JOIN band band using(band.id)");
             while (resultSet.next()) {
                 JobRole jobRole = new JobRole(
                         resultSet.getInt("jobRoleId"),
