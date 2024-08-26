@@ -10,12 +10,9 @@ import java.util.List;
 
 public class JobRoleService {
     private final JobRoleDao jobRoleDao;
-    private final DatabaseConnector databaseConnector;
 
-    public JobRoleService(final JobRoleDao jobRoleDao,
-                          final DatabaseConnector databaseConnector) {
+    public JobRoleService(final JobRoleDao jobRoleDao) {
         this.jobRoleDao = jobRoleDao;
-        this.databaseConnector = databaseConnector;
     }
 
     public List<JobRoleResponse> getAllJobRoles() {
