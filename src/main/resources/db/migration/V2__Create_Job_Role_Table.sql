@@ -1,4 +1,3 @@
-
 CREATE TABLE job-roles (
 
     jobRoleId int PRIMARY KEY NOT NULL,
