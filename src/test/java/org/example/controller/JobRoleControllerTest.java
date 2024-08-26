@@ -1,5 +1,8 @@
 package org.example.controller;
 
+import org.example.controllers.JobRoleController;
+import org.example.models.JobRole;
+import org.example.services.JobRoleService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import javax.ws.rs.core.Response;
