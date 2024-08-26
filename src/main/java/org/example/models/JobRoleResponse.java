@@ -7,18 +7,18 @@ public class JobRoleResponse {
     private int jobRoleId;
     private String roleName;
     private String location;
-    private int capabilityId;
-    private int bandId;
+    private String capabilityName;
+    private String bandName;
     private Date closingDate;
 
     public JobRoleResponse(final int jobRoleId, final String roleName,
-                           final String location, final int capabilityId,
-                           final int bandId, final Date closingDate) {
+                           final String location, final String capabilityName,
+                           final String bandName, final Date closingDate) {
         this.jobRoleId = jobRoleId;
         this.roleName = roleName;
         this.location = location;
-        this.capabilityId = capabilityId;
-        this.bandId = bandId;
+        this.capabilityName = capabilityName;
+        this.bandName = bandName;
         this.closingDate = closingDate;
     }
 
@@ -40,17 +40,17 @@ public class JobRoleResponse {
     public void setLocation(final String location) {
         this.location = location;
     }
-    public int getCapabilityId() {
-        return capabilityId;
+    public String getCapabilityName() {
+        return capabilityName;
     }
-    public void setCapabilityId(final int capabilityId) {
-        this.capabilityId = capabilityId;
+    public void setCapabilityName(final String capabilityName) {
+        this.capabilityName = capabilityName;
     }
-    public int getBandId() {
-        return bandId;
+    public String getBandName() {
+        return bandName;
     }
-    public void setBandId(final int bandId) {
-        this.bandId = bandId;
+    public void setBandName(final String bandName) {
+        this.bandName = bandName;
     }
     public Date getClosingDate() {
         return closingDate;

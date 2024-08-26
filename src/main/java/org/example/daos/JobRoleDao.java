@@ -3,9 +3,9 @@ package org.example.daos;
 import org.example.models.JobRole;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,20 +13,20 @@ public class JobRoleDao {
     public List<JobRole> getJobRoles() throws SQLException {
         List<JobRole> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(
-                    "SELECT jobRoleId, roleName, location,"
-                    + "capability.capabilityName, band.bandName, "
+            String query = "SELECT jobRoleId, roleName, location,"
+                    + " Capability.capabilityName, Band.bandName, "
                     + "closingDate FROM `job-roles`"
-                     + "JOIN capability using(Capability.capabilityId)"
-                     + "JOIN band using(Band.bandId)");
+                    + " JOIN Capability using(capabilityId)"
+                    + " JOIN Band using(bandId)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 JobRole jobRole = new JobRole(
                         resultSet.getInt("jobRoleId"),
                         resultSet.getString("roleName"),
                         resultSet.getString("location"),
-                        resultSet.getInt("capabilityId"),
-                        resultSet.getInt("bandId"),
+                        resultSet.getString("capabilityName"),
+                        resultSet.getString("bandName"),
                         resultSet.getDate("closingDate"));
                 jobRoles.add(jobRole);
             }
