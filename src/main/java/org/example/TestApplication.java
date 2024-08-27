@@ -9,6 +9,7 @@ import org.example.controllers.JobRoleController;
 import org.example.controllers.TestController;
 import org.example.daos.JobRoleDao;
 import org.example.daos.TestDao;
+import org.example.mappers.JobRoleMapper;
 import org.example.services.JobRoleService;
 import org.example.services.TestService;
 
@@ -37,7 +38,7 @@ public class TestApplication extends Application<TestConfiguration> {
                 .register(new TestController(new TestService(new TestDao())));
         environment.jersey()
                 .register((new JobRoleController(new JobRoleService(
-                        new JobRoleDao()))));
+                        new JobRoleDao(), new JobRoleMapper()))));
     }
 
 }

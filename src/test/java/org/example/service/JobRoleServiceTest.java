@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.daos.JobRoleDao;
+import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRole;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
@@ -22,14 +23,14 @@ class JobRoleServiceTest {
 
     JobRoleDao jobRoleDao = Mockito.mock(JobRoleDao.class);
     JobRoleService jobRoleService = Mockito.mock(JobRoleService.class);
-
-    Connection conn;
+    JobRoleMapper jobRoleMapper = Mockito.mock(JobRoleMapper.class);
 
     @Test
-    void getEmployees_shouldReturnListOfEmployees_whenDaoReturnsEmployeeList()
+    void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsJobRoleList()
             throws SQLException {
-        List<JobRole> expectedJobRoles = new ArrayList<>();
-        Mockito.when(jobRoleDao.getJobRoles()).thenReturn(expectedJobRoles);
+        List<JobRoleResponse> expectedJobRoles = new ArrayList<>();
+        Mockito.when(jobRoleMapper.mapOrderListToJobRoleResponseList(
+                jobRoleDao.getJobRoles())).thenReturn(expectedJobRoles);
 
         List<JobRoleResponse> JobRoleList = jobRoleService.getAllJobRoles();
 
@@ -37,12 +38,12 @@ class JobRoleServiceTest {
     }
 
     @Test
-    void getEmployees_shouldReturnSQLException_whenDaoThrowsSQLException()
+    void getAllJobRoles_shouldReturnSQLException()
             throws SQLException{
-        Mockito.when(jobRoleDao.getJobRoles()).thenThrow(SQLException.class);
+        Mockito.when(jobRoleService.getAllJobRoles())
+                .thenThrow(SQLException.class);
 
-        assertThrows(SQLException.class,
-                () -> jobRoleService.getAllJobRoles());
+        assertThrows(SQLException.class, () -> jobRoleService.getAllJobRoles());
     }
 
 }

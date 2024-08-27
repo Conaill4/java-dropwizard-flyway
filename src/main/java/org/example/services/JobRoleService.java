@@ -9,13 +9,20 @@ import java.util.List;
 
 public class JobRoleService {
     private final JobRoleDao jobRoleDao;
+    private final JobRoleMapper jobRoleMapper;
 
-    public JobRoleService(final JobRoleDao jobRoleDao) {
+    public JobRoleService(final JobRoleDao jobRoleDao,
+                          final JobRoleMapper jobRoleMapper) {
         this.jobRoleDao = jobRoleDao;
+        this.jobRoleMapper = jobRoleMapper;
     }
 
     public List<JobRoleResponse> getAllJobRoles() throws SQLException {
-            return JobRoleMapper.mapOrderListToJobRoleResponseList(
+        try {
+            return jobRoleMapper.mapOrderListToJobRoleResponseList(
                     jobRoleDao.getJobRoles());
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }
     }
 }

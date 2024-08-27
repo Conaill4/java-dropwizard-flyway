@@ -3,15 +3,12 @@ package org.example.mappers;
 import org.example.models.JobRole;
 import org.example.models.JobRoleResponse;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class JobRoleMapper {
-
-    private JobRoleMapper() {
-    }
-
-    public static List<JobRoleResponse> mapOrderListToJobRoleResponseList(
+public class JobRoleMapper {
+    public List<JobRoleResponse> mapOrderListToJobRoleResponseList(
             final List<JobRole> jobRoles) {
         return jobRoles
                 .stream()
