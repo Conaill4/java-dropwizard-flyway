@@ -21,7 +21,14 @@ public class JobRoleController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllJobRoles() throws SQLException {
-        return Response.ok().entity(jobRoleService.getAllJobRoles()).build();
+    public Response getAllJobRoles() {
+        try {
+            return Response.ok().entity(jobRoleService.getAllJobRoles())
+                    .build();
+        } catch (SQLException e) {
+            System.out.println(e);
+            return Response.status(
+                    Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
