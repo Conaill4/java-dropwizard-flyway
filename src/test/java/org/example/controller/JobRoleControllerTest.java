@@ -35,7 +35,7 @@ class JobRoleControllerTest {
             Date.valueOf("2024-12-30"));
 
     @Test
-    void getJobRoles_shouldReturnResponseCode200() throws SQLException {
+    void getJobRoles_shouldReturnListOfEmployees() throws SQLException {
         List<JobRoleResponse> mockJobRoles = Arrays.asList(jobRole1, jobRole2);
         Mockito.when(jobRoleService.getAllJobRoles()).thenReturn(mockJobRoles);
         Response response = jobRoleController.getAllJobRoles();
@@ -44,7 +44,7 @@ class JobRoleControllerTest {
     }
 
     @Test
-    void getAllJobRoles_shouldThrowSQLException_whenServiceThrowsException() throws SQLException {
+    void getAllJobRoles_shouldThrowSQLException_whenServiceThrowsSQLException() throws SQLException {
         Mockito.when(jobRoleService.getAllJobRoles()).thenThrow(SQLException.class);
         Response response = jobRoleController.getAllJobRoles();
 
