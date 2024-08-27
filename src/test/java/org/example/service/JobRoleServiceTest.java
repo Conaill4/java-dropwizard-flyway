@@ -26,7 +26,7 @@ class JobRoleServiceTest {
     JobRoleMapper jobRoleMapper = Mockito.mock(JobRoleMapper.class);
 
     @Test
-    void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsJobRoleList()
+    void getAllJobRoles_shouldReturnListOfJobRoles()
             throws SQLException {
         List<JobRoleResponse> expectedJobRoles = new ArrayList<>();
         Mockito.when(jobRoleMapper.mapOrderListToJobRoleResponseList(
