@@ -21,7 +21,7 @@ public class JobRoleMapper {
                 .collect(Collectors.toList());
     }
 
-    public JobRoleDetailedResponse mapJobRoleListToJobRoleDeatiledResponse(
+    public JobRoleDetailedResponse mapJobRoleListToJobRoleDetailedResponse(
             final JobRole jobRole) {
                 return new JobRoleDetailedResponse(
                         jobRole.getJobRoleId(),

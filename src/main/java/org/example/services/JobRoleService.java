@@ -29,7 +29,7 @@ public class JobRoleService {
     public JobRoleDetailedResponse getJobRoleById(final int id)
             throws SQLException {
         try {
-            return jobRoleMapper.mapJobRoleListToJobRoleDeatiledResponse(
+            return jobRoleMapper.mapJobRoleListToJobRoleDetailedResponse(
                     jobRoleDao.getJobRole(id));
         } catch (SQLException e) {
             throw new SQLException(e);

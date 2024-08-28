@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -65,10 +64,10 @@ class JobRoleServiceTest {
     @Test
     void getJobRoleById_shouldReturnJobRoleDetailedResponse() throws SQLException {
         JobRole jobRole = jobRoleDao.getJobRole(jobRoleDetailed1.getJobRoleId());
-        Mockito.when(jobRoleMapper.mapJobRoleListToJobRoleDeatiledResponse(
+        Mockito.when(jobRoleMapper.mapJobRoleListToJobRoleDetailedResponse(
                 jobRoleDao.getJobRole(jobRoleDetailed1.getJobRoleId()))).thenReturn(jobRoleDetailed1);
 
-        JobRoleDetailedResponse result = jobRoleMapper.mapJobRoleListToJobRoleDeatiledResponse(jobRole);
+        JobRoleDetailedResponse result = jobRoleMapper.mapJobRoleListToJobRoleDetailedResponse(jobRole);
 
 
         assertEquals(jobRoleDetailed1, result);

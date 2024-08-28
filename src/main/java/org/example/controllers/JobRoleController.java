@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
 
-@Api
+@Api("JobRole API")
 @Path("/api/job-roles")
 public class JobRoleController {
     JobRoleService jobRoleService;
