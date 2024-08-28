@@ -2,7 +2,7 @@ package org.example.models;
 
 import java.sql.Date;
 
-public class JobRole {
+public class JobRoleDetailedResponse {
     private int jobRoleId;
     private String roleName;
     private String location;
@@ -55,7 +55,7 @@ public class JobRole {
         this.status = status;
     }
 
-    public JobRole(final int jobRoleId,
+    public JobRoleDetailedResponse(final int jobRoleId,
                    final String roleName,
                    final String location,
                    final String capabilityName,
