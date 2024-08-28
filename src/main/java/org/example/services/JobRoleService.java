@@ -26,7 +26,7 @@ public class JobRoleService {
             throw new SQLException(e);
         }
     }
-    public JobRoleDetailedResponse getJobRoleById(final int id)
+    public List<JobRoleDetailedResponse> getJobRoleById(final int id)
             throws SQLException {
         try {
             return jobRoleMapper.mapJobRoleListToJobRoleDetailedResponse(

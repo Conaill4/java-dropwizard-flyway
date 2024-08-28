@@ -54,6 +54,7 @@ public class JobRole {
     public void setStatus(final String status) {
         this.status = status;
     }
+    
 
     public JobRole(final int jobRoleId,
                    final String roleName,

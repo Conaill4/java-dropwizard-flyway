@@ -1,6 +1,6 @@
 package org.example.daos;
 
-import org.example.models.JobRole;
+import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 
 import java.sql.Connection;
@@ -35,7 +35,10 @@ public class JobRoleDao {
         return jobRoles;
     }
 
-    public JobRole getJobRole(final int jobRoleId) throws SQLException {
+    public List<JobRoleDetailedResponse> getJobRole(final int jobRoleId)
+            throws SQLException {
+        List<JobRoleDetailedResponse> jobRoleDetailedResponses =
+                new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT jobRoleId, roleName, description, location,"
                     + " responsibilities, sharepointUrl,"
@@ -51,7 +54,7 @@ public class JobRoleDao {
             statement.setInt(1, jobRoleId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                JobRole jobRole =  new JobRole(
+                JobRoleDetailedResponse jobRole =  new JobRoleDetailedResponse(
                         resultSet.getInt("jobRoleId"),
                         resultSet.getString("roleName"),
                         resultSet.getString("location"),
@@ -64,10 +67,9 @@ public class JobRoleDao {
                         resultSet.getInt("numberOfOpenPositions"),
                         resultSet.getString("statusName")
                 );
-                jobRole.setJobRoleId(jobRoleId);
-                return jobRole;
+                jobRoleDetailedResponses.add(jobRole);
             }
-            return null;
+            return jobRoleDetailedResponses;
         }
     }
 }

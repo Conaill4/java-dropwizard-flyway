@@ -12,7 +12,8 @@ public class JobRoleMapper {
             final List<JobRoleResponse> jobRoles) {
         return jobRoles
                 .stream()
-                .map(jobRole -> new JobRoleResponse(jobRole.getJobRoleId(),
+                .map(jobRole -> new JobRoleResponse(
+                        jobRole.getJobRoleId(),
                         jobRole.getRoleName(),
                         jobRole.getLocation(),
                         jobRole.getCapabilityName(),
@@ -21,9 +22,12 @@ public class JobRoleMapper {
                 .collect(Collectors.toList());
     }
 
-    public JobRoleDetailedResponse mapJobRoleListToJobRoleDetailedResponse(
-            final JobRole jobRole) {
-                return new JobRoleDetailedResponse(
+    public List<JobRoleDetailedResponse>
+    mapJobRoleListToJobRoleDetailedResponse(
+            final List<JobRoleDetailedResponse> jobRoles) {
+        return jobRoles
+                .stream()
+                .map(jobRole -> new JobRoleDetailedResponse(
                         jobRole.getJobRoleId(),
                         jobRole.getRoleName(),
                         jobRole.getLocation(),
@@ -34,7 +38,7 @@ public class JobRoleMapper {
                         jobRole.getResponsibilities(),
                         jobRole.getSharepointUrl(),
                         jobRole.getNumberOfOpenPositions(),
-                        jobRole.getStatus()
-                );
+                        jobRole.getStatus()))
+                .collect(Collectors.toList());
     }
 }

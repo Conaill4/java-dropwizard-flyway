@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -69,10 +70,12 @@ class JobRoleControllerTest {
 
     @Test
     void getJobRoleById_shouldReturnJobRole() throws SQLException {
-        Mockito.when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRoleId())).thenReturn(jobRoleDetailed1);
+        List<JobRoleDetailedResponse> expected = new ArrayList<>();
+        expected.add(jobRoleDetailed1);
+        Mockito.when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRoleId())).thenReturn(expected);
         Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRoleId());
         assertEquals(200, response.getStatus());
-        assertEquals(jobRoleDetailed1, response.getEntity());
+        assertEquals(expected, response.getEntity());
     }
 
     @Test
