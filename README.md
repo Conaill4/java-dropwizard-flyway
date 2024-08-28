@@ -20,8 +20,7 @@ Database Migration - Local
     - Click next
     - Check the box 
     - Apply and Ok
-  
-      
+
 2. Add your SQL script to `resources.db.migration` directory
 3. Add the following lines to your ~/.zshrc file:
 
@@ -78,7 +77,6 @@ Health Check
 ---
 
 To see your applications health enter url `http://localhost:8081/healthcheck`
-
 
 Testing
 -----------
