@@ -8,75 +8,20 @@ public class JobRoleDetailedResponse {
     private String location;
     private String capabilityName;
     private String bandName;
-    private Date closingDate;
-    private String description;
-    private String responsibilities;
-    private String sharepointUrl;
-    private int numberOfOpenPositions;
-    private String status;
+    private JobDetailedResponse jobDetailed;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
-    }
-
-    public String getSharepointUrl() {
-        return sharepointUrl;
-    }
-
-    public void setSharepointUrl(final String sharepointUrl) {
-        this.sharepointUrl = sharepointUrl;
-    }
-
-    public String getResponsibilities() {
-        return responsibilities;
-    }
-
-    public void setResponsibilities(final String responsibilities) {
-        this.responsibilities = responsibilities;
-    }
-
-    public int getNumberOfOpenPositions() {
-        return numberOfOpenPositions;
-    }
-
-    public void setNumberOfOpenPositions(final int numberOfOpenPositions) {
-        this.numberOfOpenPositions = numberOfOpenPositions;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(final String status) {
-        this.status = status;
-    }
-
-    public JobRoleDetailedResponse(final int jobRoleId,
-                   final String roleName,
-                   final String location,
-                   final String capabilityName,
-                   final String bandName,
-                   final Date closingDate,
+    public JobRoleDetailedResponse(final Date closingDate,
                    final String description,
                    final String responsibilities,
                    final String sharepointUrl,
-                   final int numberOfOpenPositions,
-                   final String status) {
+                   final String status,
+                    final JobDetailedResponse jobDetailed) {
         this.jobRoleId = jobRoleId;
         this.roleName = roleName;
         this.location = location;
         this.capabilityName = capabilityName;
         this.bandName = bandName;
-        this.closingDate = closingDate;
-        this.description = description;
-        this.responsibilities = responsibilities;
-        this.sharepointUrl = sharepointUrl;
-        this.numberOfOpenPositions = numberOfOpenPositions;
-        this.status = status;
+        this.jobDetailed = jobDetailed;
     }
 
     public int getJobRoleId() {
@@ -85,14 +30,6 @@ public class JobRoleDetailedResponse {
 
     public void setJobRoleId(final int jobRoleId) {
         this.jobRoleId = jobRoleId;
-    }
-
-    public Date getClosingDate() {
-        return closingDate;
-    }
-
-    public void setClosingDate(final Date closingDate) {
-        this.closingDate = closingDate;
     }
 
     public String getCapabilityName() {
@@ -125,5 +62,9 @@ public class JobRoleDetailedResponse {
 
     public void setRoleName(final String roleName) {
         this.roleName = roleName;
+    }
+
+    public JobDetailedResponse getJobDetailed() {
+        return jobDetailed;
     }
 }

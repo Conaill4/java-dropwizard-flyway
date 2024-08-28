@@ -33,12 +33,7 @@ public class JobRoleMapper {
                         jobRole.getLocation(),
                         jobRole.getCapabilityName(),
                         jobRole.getBandName(),
-                        jobRole.getClosingDate(),
-                        jobRole.getDescription(),
-                        jobRole.getResponsibilities(),
-                        jobRole.getSharepointUrl(),
-                        jobRole.getNumberOfOpenPositions(),
-                        jobRole.getStatus()))
+                        jobRole.getJobDetailed())
                 .collect(Collectors.toList());
     }
 }
