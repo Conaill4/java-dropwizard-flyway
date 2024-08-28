@@ -44,7 +44,7 @@ class JobRoleControllerTest {
     }
 
     @Test
-    void getAllJobRoles_shouldThrowSQLException_whenServiceThrowsSQLException() throws SQLException {
+    void getAllJobRoles_shouldReturnError_whenServiceThrowsSQLException() throws SQLException {
         Mockito.when(jobRoleService.getAllJobRoles()).thenThrow(SQLException.class);
         Response response = jobRoleController.getAllJobRoles();
 

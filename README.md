@@ -78,3 +78,15 @@ Health Check
 ---
 
 To see your applications health enter url `http://localhost:8081/healthcheck`
+
+
+Testing
+-----------
+Run `mvn test` to build your application
+This will show you the full breakdown within the test suite 
+- Test run -> Shows the overall test ran 
+- Test passed -> Out of the overall test ran, shows the test passed 
+- Test failed -> Out of the overall test ran, shows the test failed 
+- Test skipped -> Out of the overall test ran, shows the test skipped 
+
+
