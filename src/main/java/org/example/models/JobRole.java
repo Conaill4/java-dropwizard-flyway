@@ -9,19 +9,74 @@ public class JobRole {
     private String capabilityName;
     private String bandName;
     private Date closingDate;
+    private String description;
+    private String responsibilities;
+    private String sharepointUrl;
+    private int numberOfOpenPositions;
+    private int status;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public String getSharepointUrl() {
+        return sharepointUrl;
+    }
+
+    public void setSharepointUrl(final String sharepointUrl) {
+        this.sharepointUrl = sharepointUrl;
+    }
+
+    public String getResponsibilities() {
+        return responsibilities;
+    }
+
+    public void setResponsibilities(final String responsibilities) {
+        this.responsibilities = responsibilities;
+    }
+
+    public int getNumberOfOpenPositions() {
+        return numberOfOpenPositions;
+    }
+
+    public void setNumberOfOpenPositions(final int numberOfOpenPositions) {
+        this.numberOfOpenPositions = numberOfOpenPositions;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(final int status) {
+        this.status = status;
+    }
 
     public JobRole(final int jobRoleId,
                    final String roleName,
                    final String location,
                    final String capabilityName,
                    final String bandName,
-                   final Date closingDate) {
+                   final Date closingDate,
+                   final String description,
+                   final String responsibilities,
+                   final String sharepointUrl,
+                   final int numberOfOpenPositions,
+                   final int status) {
         this.jobRoleId = jobRoleId;
         this.roleName = roleName;
         this.location = location;
         this.capabilityName = capabilityName;
         this.bandName = bandName;
         this.closingDate = closingDate;
+        this.description = description;
+        this.responsibilities = responsibilities;
+        this.sharepointUrl = sharepointUrl;
+        this.numberOfOpenPositions = numberOfOpenPositions;
+        this.status = status;
     }
 
     public int getJobRoleId() {
