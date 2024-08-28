@@ -40,7 +40,8 @@ public class JobRoleController {
             return Response.ok().entity(jobRoleService.getJobRoleById(id))
                     .build();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return Response.status(
+                    Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.daos.JobRoleDao;
 import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRole;
+import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,20 @@ class JobRoleServiceTest {
     JobRoleDao jobRoleDao = Mockito.mock(JobRoleDao.class);
     JobRoleService jobRoleService = Mockito.mock(JobRoleService.class);
     JobRoleMapper jobRoleMapper = Mockito.mock(JobRoleMapper.class);
+
+    JobRoleDetailedResponse jobRoleDetailed1 = new JobRoleDetailedResponse(
+            3,
+            "Manager",
+            "Derry",
+            "Senior",
+            "Grade 5 -£50,001+",
+            Date.valueOf("2024-12-28"),
+            "Kainos Senior Front End Developer",
+            "Managing front end projects for clients",
+            "https://learn.microsoft.com/en-us/sharepoint/dev/general-development/urls-and-tokens-in-sharepoint",
+            1,
+            "OPEN"
+    );
 
     @Test
     void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsJobRoleList()
@@ -44,6 +60,16 @@ class JobRoleServiceTest {
                 .thenThrow(SQLException.class);
 
         assertThrows(SQLException.class, () -> jobRoleService.getAllJobRoles());
+    }
+
+    @Test
+    void getJobRoleById_shouldReturnJobRoleDetailedResponse() throws SQLException {
+        Mockito.when(jobRoleMapper.mapJobRoleListToJobRoleDeatiledResponse(
+                jobRoleDao.getJobRole(jobRoleDetailed1.getJobRoleId()))).thenReturn(jobRoleDetailed1);
+
+        List<JobRoleResponse> JobRoleList = jobRoleService.getAllJobRoles();
+
+        assertEquals(expectedJobRoles, JobRoleList);
     }
 
 }

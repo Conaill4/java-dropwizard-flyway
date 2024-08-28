@@ -1,6 +1,5 @@
 package org.example.mappers;
 
-import org.example.daos.JobRoleDao;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
