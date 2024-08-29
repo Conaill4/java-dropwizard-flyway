@@ -2,8 +2,7 @@ package org.example.service;
 
 import org.example.daos.JobRoleDao;
 import org.example.mappers.JobRoleMapper;
-import org.example.models.BasicJobRole;
-import org.example.models.JobRole;
+import org.example.models.DetailedJobRole;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
@@ -33,7 +32,7 @@ class JobRoleServiceTest {
             "Derry",
             "Senior",
             "Grade 5 -£50,001+",
-            new BasicJobRole(
+            new DetailedJobRole(
                     Date.valueOf("2024-12-28"),
                     "Kainos Senior Front End Developer",
                     "Managing front end projects for clients",

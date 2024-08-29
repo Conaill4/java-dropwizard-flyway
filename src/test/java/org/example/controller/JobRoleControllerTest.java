@@ -1,7 +1,7 @@
 package org.example.controller;
 
 import org.example.controllers.JobRoleController;
-import org.example.models.BasicJobRole;
+import org.example.models.DetailedJobRole;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
@@ -44,7 +44,7 @@ class JobRoleControllerTest {
             "Derry",
             "Senior",
             "Grade 5 -£50,001+",
-            new BasicJobRole(
+            new DetailedJobRole(
                     Date.valueOf("2024-12-28"),
                     "Kainos Senior Front End Developer",
                     "Managing front end projects for clients",
