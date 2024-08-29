@@ -17,7 +17,8 @@ public class JobRoleDao {
                     + " Capability.capabilityName, Band.bandName, "
                     + "closingDate FROM `job-roles`"
                     + " JOIN Capability using(capabilityId)"
-                    + " JOIN Band using(bandId)";
+                    + " JOIN Band using(bandId)"
+                    + " WHERE closingDate > current_date();";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
