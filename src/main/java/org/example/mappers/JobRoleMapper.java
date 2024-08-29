@@ -33,10 +33,14 @@ public class JobRoleMapper {
                         jobRole.getCapabilityName(),
                         jobRole.getBandName(),
 <<<<<<< HEAD
+<<<<<<< HEAD
                         jobRole.getJobDetailed())
 =======
                         jobRole.getBasicJobRole()))
 >>>>>>> 397c0ec507b5c9a528ff7416290ab10f9db7e8d4
+=======
+                        jobRole.getDetailedJobRole()))
+>>>>>>> 0106adc7a9aebe4595c2364ce90edb4988031e43
                 .collect(Collectors.toList());
     }
 }
