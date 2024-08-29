@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.daos.JobRoleDao;
 import org.example.mappers.JobRoleMapper;
+import org.example.models.BasicJobRole;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
@@ -32,12 +33,15 @@ class JobRoleServiceTest {
             "Derry",
             "Senior",
             "Grade 5 -£50,001+",
-            Date.valueOf("2024-12-28"),
-            "Kainos Senior Front End Developer",
-            "Managing front end projects for clients",
-            "https://learn.microsoft.com/en-us/sharepoint/dev/general-development/urls-and-tokens-in-sharepoint",
-            1,
-            "OPEN"
+            new BasicJobRole(
+                    Date.valueOf("2024-12-28"),
+                    "Kainos Senior Front End Developer",
+                    "Managing front end projects for clients",
+                    "https://learn.microsoft.com/en-us/sharepoint/dev/general-development/urls-and-tokens-in-sharepoint",
+                    1,
+                    "OPEN"
+            )
+
     );
 
     @Test

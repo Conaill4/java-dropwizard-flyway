@@ -1,6 +1,5 @@
 package org.example.mappers;
 
-import org.example.models.JobRole;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 
@@ -33,12 +32,7 @@ public class JobRoleMapper {
                         jobRole.getLocation(),
                         jobRole.getCapabilityName(),
                         jobRole.getBandName(),
-                        jobRole.getClosingDate(),
-                        jobRole.getDescription(),
-                        jobRole.getResponsibilities(),
-                        jobRole.getSharepointUrl(),
-                        jobRole.getNumberOfOpenPositions(),
-                        jobRole.getStatus()))
+                        jobRole.getBasicJobRole()))
                 .collect(Collectors.toList());
     }
 }
