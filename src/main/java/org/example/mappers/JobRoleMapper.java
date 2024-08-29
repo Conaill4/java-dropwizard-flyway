@@ -32,7 +32,7 @@ public class JobRoleMapper {
                         jobRole.getLocation(),
                         jobRole.getCapabilityName(),
                         jobRole.getBandName(),
-                        jobRole.getBasicJobRole()))
+                        jobRole.getDetailedJobRole()))
                 .collect(Collectors.toList());
     }
 }

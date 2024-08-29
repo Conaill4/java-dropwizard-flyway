@@ -7,11 +7,11 @@ public class JobRoleDetailedResponse {
     private String capabilityName;
     private String bandName;
 
-    public DetailedJobRole getBasicJobRole() {
+    public DetailedJobRole getDetailedJobRole() {
         return detailedJobRole;
     }
 
-    public void setBasicJobRole(final DetailedJobRole detailedJobRole) {
+    public void setDetailedJobRole(final DetailedJobRole detailedJobRole) {
         this.detailedJobRole = detailedJobRole;
     }
 
