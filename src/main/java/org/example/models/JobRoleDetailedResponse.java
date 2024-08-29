@@ -1,7 +1,5 @@
 package org.example.models;
 
-import java.sql.Date;
-
 public class JobRoleDetailedResponse {
     private int jobRoleId;
     private String roleName;
@@ -10,18 +8,29 @@ public class JobRoleDetailedResponse {
     private String bandName;
     private JobDetailedResponse jobDetailed;
 
-    public JobRoleDetailedResponse(final Date closingDate,
-                   final String description,
-                   final String responsibilities,
-                   final String sharepointUrl,
-                   final String status,
-                    final JobDetailedResponse jobDetailed) {
+    public DetailedJobRole getBasicJobRole() {
+        return detailedJobRole;
+    }
+
+    public void setBasicJobRole(final DetailedJobRole detailedJobRole) {
+        this.detailedJobRole = detailedJobRole;
+    }
+
+    private DetailedJobRole detailedJobRole;
+
+    public JobRoleDetailedResponse(final int jobRoleId,
+                   final String roleName,
+                   final String location,
+                   final String capabilityName,
+                   final String bandName,
+                   final DetailedJobRole detailedJobRole) {
         this.jobRoleId = jobRoleId;
         this.roleName = roleName;
         this.location = location;
         this.capabilityName = capabilityName;
         this.bandName = bandName;
         this.jobDetailed = jobDetailed;
+        this.detailedJobRole = detailedJobRole;
     }
 
     public int getJobRoleId() {

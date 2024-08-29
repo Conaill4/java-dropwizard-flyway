@@ -1,5 +1,6 @@
 package org.example.daos;
 
+import org.example.models.DetailedJobRole;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 
@@ -60,12 +61,14 @@ public class JobRoleDao {
                         resultSet.getString("location"),
                         resultSet.getString("capabilityName"),
                         resultSet.getString("bandName"),
-                        resultSet.getDate("closingDate"),
-                        resultSet.getString("description"),
-                        resultSet.getString("responsibilities"),
-                        resultSet.getString("sharepointUrl"),
-                        resultSet.getInt("numberOfOpenPositions"),
-                        resultSet.getString("statusName")
+                        new DetailedJobRole(
+                                resultSet.getDate("closingDate"),
+                                resultSet.getString("description"),
+                                resultSet.getString("responsibilities"),
+                                resultSet.getString("sharepointUrl"),
+                                resultSet.getInt("numberOfOpenPositions"),
+                                resultSet.getString("statusName")
+                        )
                 );
                 jobRoleDetailedResponses.add(jobRole);
             }
