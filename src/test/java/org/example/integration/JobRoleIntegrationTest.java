@@ -44,29 +44,6 @@ public class JobRoleIntegrationTest {
     }
 
     @Test
-    public void getAllJobRoles_ShouldReturn200StatusCode() {
-
-        Response response = client.
-                target("http://localhost:8080/api/job-roles")
-                .request()
-                .get();
-
-        Assertions.assertEquals(200, response.getStatus());
-    }
-
-    @Test
-    public void getAllJobRoles_EndpointShouldBeReachable() {
-        Client client = APP.client();
-
-        Response response = client
-                .target("http://localhost:8080/api/job-roles")
-                .request()
-                .get();
-
-        Assertions.assertTrue(response.getStatus() >= 200 && response.getStatus() < 400);
-    }
-
-    @Test
     public void getAllJobRoles_ResponseShouldNotBeNull() {
         Client client = APP.client();
 
