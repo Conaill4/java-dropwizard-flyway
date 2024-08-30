@@ -1,23 +1,35 @@
 package org.example.models;
 
+import java.sql.Date;
+
 public class JobRole {
     private int jobRoleId;
     private String roleName;
     private String location;
     private String capabilityName;
     private String bandName;
-    private JobRoleDetailed jobRoleDetailed;
+    private Date closingDate;
+
+    public Date getClosingDate() {
+        return closingDate;
+    }
+
+    public void setClosingDate(final Date closingDate) {
+        this.closingDate = closingDate;
+    }
 
     public JobRole(final int jobRoleId,
                    final String roleName,
                    final String location,
                    final String capabilityName,
-                   final String bandName) {
+                   final String bandName,
+                   final Date closingDate) {
         this.jobRoleId = jobRoleId;
         this.roleName = roleName;
         this.location = location;
         this.capabilityName = capabilityName;
         this.bandName = bandName;
+        this.closingDate = closingDate;
     }
 
     public int getJobRoleId() {

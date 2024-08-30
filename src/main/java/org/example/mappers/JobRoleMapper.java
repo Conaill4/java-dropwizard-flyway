@@ -29,7 +29,6 @@ public class JobRoleMapper {
                 .stream()
                 .map(jobRole -> new JobRoleDetailedResponse(
                         jobRole.getJobRole(),
-                        jobRole.getClosingDate(),
                         jobRole.getDescription(),
                         jobRole.getResponsibilities(),
                         jobRole.getSharepointUrl(),

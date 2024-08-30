@@ -32,9 +32,9 @@ class JobRoleServiceTest {
             "Manager",
             "Derry",
             "Senior",
-            "Grade 5 -£50,001+"
+            "Grade 5 -£50,001+",
+            Date.valueOf("2024-12-28")
             ),
-            Date.valueOf("2024-12-28"),
             "Kainos Senior Front End Developer",
             "Managing front end projects for clients",
             "https://learn.microsoft.com/en-us/sharepoint/dev/general-development/urls-and-tokens-in-sharepoint",

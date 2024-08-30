@@ -29,9 +29,9 @@ public class JobRoleMapperTest {
             "Manager",
             "Derry",
             "Senior",
-            "Grade 5 -£50,001+"
+            "Grade 5 -£50,001+",
+            Date.valueOf("2024-12-28")
             ),
-            Date.valueOf("2024-12-28"),
             "Kainos Senior Front End Developer",
             "Managing front end projects for clients",
             "https://learn.microsoft.com/en-us/sharepoint/dev/general-development/urls-and-tokens-in-sharepoint",
@@ -77,8 +77,6 @@ public class JobRoleMapperTest {
         assertEquals(1, jobRoleResponse.size());
         assertEquals(jobRoleDetailed1.getJobRole(),
                 jobRoleResponse.get(0).getJobRole());
-        assertEquals(jobRoleDetailed1.getClosingDate(),
-                jobRoleResponse.get(0).getClosingDate());
         assertEquals(jobRoleDetailed1.getDescription(),
                 jobRoleResponse.get(0).getDescription());
         assertEquals(jobRoleDetailed1.getResponsibilities(),

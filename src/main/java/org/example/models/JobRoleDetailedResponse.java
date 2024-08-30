@@ -1,10 +1,7 @@
 package org.example.models;
 
-import java.sql.Date;
-
 public class JobRoleDetailedResponse {
     private JobRole jobRole;
-    private Date closingDate;
     private String description;
     private String responsibilities;
 
@@ -14,14 +11,6 @@ public class JobRoleDetailedResponse {
 
     public void setJobRole(final JobRole jobRole) {
         this.jobRole = jobRole;
-    }
-
-    public Date getClosingDate() {
-        return closingDate;
-    }
-
-    public void setClosingDate(final Date closingDate) {
-        this.closingDate = closingDate;
     }
 
     public String getDescription() {
@@ -71,14 +60,12 @@ public class JobRoleDetailedResponse {
 
     public JobRoleDetailedResponse(
             final JobRole jobRole,
-            final Date closingDate,
             final String description,
             final String responsibilities,
             final String sharepointUrl,
             final int numberOfOpenPositions,
             final String status) {
         this.jobRole = jobRole;
-        this.closingDate = closingDate;
         this.description = description;
         this.responsibilities = responsibilities;
         this.sharepointUrl = sharepointUrl;
