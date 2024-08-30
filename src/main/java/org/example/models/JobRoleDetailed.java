@@ -2,7 +2,16 @@ package org.example.models;
 
 import java.sql.Date;
 
-public class DetailedJobRole {
+public class JobRoleDetailed {
+    public JobRole getJobRole() {
+        return jobRole;
+    }
+
+    public void setJobRole(final JobRole jobRole) {
+        this.jobRole = jobRole;
+    }
+
+    private JobRole jobRole;
     private Date closingDate;
     private String description;
     private String responsibilities;
@@ -58,12 +67,15 @@ public class DetailedJobRole {
         this.status = status;
     }
 
-    public DetailedJobRole(final Date closingDate,
-                           final String description,
-                           final String responsibilities,
-                           final String sharepointUrl,
-                           final int numberOfOpenPositions,
-                           final String status) {
+    public JobRoleDetailed(
+            final JobRole jobRole,
+            final Date closingDate,
+            final String description,
+            final String responsibilities,
+            final String sharepointUrl,
+            final int numberOfOpenPositions,
+            final String status) {
+        this.jobRole = jobRole;
         this.closingDate = closingDate;
         this.description = description;
         this.responsibilities = responsibilities;

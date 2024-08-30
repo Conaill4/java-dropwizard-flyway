@@ -1,7 +1,7 @@
 package org.example.daos;
 
-import org.example.models.DetailedJobRole;
-import org.example.models.JobRoleDetailedResponse;
+import org.example.models.JobRole;
+import org.example.models.JobRoleDetailed;
 import org.example.models.JobRoleResponse;
 
 import java.sql.Connection;
@@ -20,7 +20,7 @@ public class JobRoleDao {
                     + "closingDate FROM `job-roles`"
                     + " JOIN Capability using(capabilityId)"
                     + " JOIN Band using(bandId)"
-                    + " WHERE closingDate > current_date();";
+                    + " WHERE statusId = 1;";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -37,9 +37,9 @@ public class JobRoleDao {
         return jobRoles;
     }
 
-    public List<JobRoleDetailedResponse> getJobRole(final int jobRoleId)
+    public List<JobRoleDetailed> getJobRoleById(final int jobRoleId)
             throws SQLException {
-        List<JobRoleDetailedResponse> jobRoleDetailedResponses =
+        List<JobRoleDetailed> jobRoleDetaileds =
                 new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT jobRoleId, roleName, description, location,"
@@ -56,24 +56,22 @@ public class JobRoleDao {
             statement.setInt(1, jobRoleId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                JobRoleDetailedResponse jobRole =  new JobRoleDetailedResponse(
+                JobRoleDetailed jobRole = new JobRoleDetailed(
+                        new JobRole(
                         resultSet.getInt("jobRoleId"),
                         resultSet.getString("roleName"),
                         resultSet.getString("location"),
                         resultSet.getString("capabilityName"),
-                        resultSet.getString("bandName"),
-                        new DetailedJobRole(
-                                resultSet.getDate("closingDate"),
-                                resultSet.getString("description"),
-                                resultSet.getString("responsibilities"),
-                                resultSet.getString("sharepointUrl"),
-                                resultSet.getInt("numberOfOpenPositions"),
-                                resultSet.getString("statusName")
-                        )
-                );
-                jobRoleDetailedResponses.add(jobRole);
+                        resultSet.getString("bandName")),
+                        resultSet.getDate("closingDate"),
+                        resultSet.getString("description"),
+                        resultSet.getString("responsibilities"),
+                        resultSet.getString("sharepointUrl"),
+                        resultSet.getInt("numberOfOpenPositions"),
+                        resultSet.getString("statusName"));
+                jobRoleDetaileds.add(jobRole);
             }
-            return jobRoleDetailedResponses;
+            return jobRoleDetaileds;
         }
     }
 }

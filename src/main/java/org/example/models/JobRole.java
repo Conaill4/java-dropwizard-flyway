@@ -6,28 +6,18 @@ public class JobRole {
     private String location;
     private String capabilityName;
     private String bandName;
-    private DetailedJobRole detailedJobRole;
-
-    public DetailedJobRole getDetailedJobRole() {
-        return detailedJobRole;
-    }
-
-    public void setDetailedJobRole(final DetailedJobRole detailedJobRole) {
-        this.detailedJobRole = detailedJobRole;
-    }
+    private JobRoleDetailed jobRoleDetailed;
 
     public JobRole(final int jobRoleId,
                    final String roleName,
                    final String location,
                    final String capabilityName,
-                   final String bandName,
-                   final DetailedJobRole detailedJobRole) {
+                   final String bandName) {
         this.jobRoleId = jobRoleId;
         this.roleName = roleName;
         this.location = location;
         this.capabilityName = capabilityName;
         this.bandName = bandName;
-        this.detailedJobRole = detailedJobRole;
     }
 
     public int getJobRoleId() {
