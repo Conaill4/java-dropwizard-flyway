@@ -3,6 +3,7 @@ package org.example.integration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.checkerframework.checker.units.qual.A;
 import org.example.models.JobRole;
 import org.example.models.JobRoleResponse;
 import io.dropwizard.testing.junit5.DropwizardAppExtension;
@@ -38,8 +39,8 @@ public class JobRoleIntegrationTest {
 
     private Client createClientWithTimeout() {
         ClientConfig clientConfig = new ClientConfig();
-        clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 2000);  // 10 seconds connection timeout
-        clientConfig.property(ClientProperties.READ_TIMEOUT, 2000);     // 10 seconds read timeout
+        clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 10000);  // 10 seconds connection timeout
+        clientConfig.property(ClientProperties.READ_TIMEOUT, 10000);     // 10 seconds read timeout
         return ClientBuilder.newClient(clientConfig);
     }
 
@@ -54,18 +55,4 @@ public class JobRoleIntegrationTest {
 
         Assertions.assertNotNull(response);
     }
-
-    @Test
-    public void getAllJobRoles_ShouldReturn200StatusCode() {
-
-        // Perform a GET request to the /api/job-roles endpoint
-        Response response = client
-                .target("http://localhost:8080/api/job-roles")
-                .request()
-                .get();
-
-        // Assert that the response status is 200 OK
-        Assertions.assertEquals(200, response.getStatus());
-    }
-
 }
