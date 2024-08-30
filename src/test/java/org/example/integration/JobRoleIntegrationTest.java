@@ -3,6 +3,7 @@ package org.example.integration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.checkerframework.checker.units.qual.A;
 import org.example.models.JobRole;
 import org.example.models.JobRoleResponse;
 import io.dropwizard.testing.junit5.DropwizardAppExtension;
@@ -57,6 +58,7 @@ public class JobRoleIntegrationTest {
 
     @Test
     public void getAllJobRoles_ShouldReturn200StatusCode() {
+        Client client = APP.client();
 
         // Perform a GET request to the /api/job-roles endpoint
         Response response = client
