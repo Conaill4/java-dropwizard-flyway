@@ -38,8 +38,8 @@ public class JobRoleIntegrationTest {
 
     private Client createClientWithTimeout() {
         ClientConfig clientConfig = new ClientConfig();
-        clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 2000);  // 10 seconds connection timeout
-        clientConfig.property(ClientProperties.READ_TIMEOUT, 2000);     // 10 seconds read timeout
+        clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 10000);  // 10 seconds connection timeout
+        clientConfig.property(ClientProperties.READ_TIMEOUT, 10000);     // 10 seconds read timeout
         return ClientBuilder.newClient(clientConfig);
     }
 
