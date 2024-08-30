@@ -38,8 +38,8 @@ public class JobRoleIntegrationTest {
 
     private Client createClientWithTimeout() {
         ClientConfig clientConfig = new ClientConfig();
-        clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 10000);  // 10 seconds connection timeout
-        clientConfig.property(ClientProperties.READ_TIMEOUT, 10000);     // 10 seconds read timeout
+        clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 2000);  // 10 seconds connection timeout
+        clientConfig.property(ClientProperties.READ_TIMEOUT, 2000);     // 10 seconds read timeout
         return ClientBuilder.newClient(clientConfig);
     }
 
@@ -56,18 +56,16 @@ public class JobRoleIntegrationTest {
     }
 
     @Test
-    public void getAllJobRoles_ShouldReturnSomeData() {
-        Client client = APP.client();
+    public void getAllJobRoles_ShouldReturn200StatusCode() {
 
+        // Perform a GET request to the /api/job-roles endpoint
         Response response = client
                 .target("http://localhost:8080/api/job-roles")
                 .request()
                 .get();
 
-        Assertions.assertNotNull(response.readEntity(String.class));
+        // Assert that the response status is 200 OK
+        Assertions.assertEquals(200, response.getStatus());
     }
-
-
-
 
 }
