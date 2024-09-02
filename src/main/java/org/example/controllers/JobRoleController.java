@@ -27,9 +27,7 @@ public class JobRoleController {
             return Response.ok().entity(jobRoleService.getAllJobRoles())
                     .build();
         } catch (SQLException e) {
-            System.out.println(e);
-            return Response.status(
-                    Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.serverError().build();
         }
     }
 
@@ -40,8 +38,7 @@ public class JobRoleController {
             return Response.ok().entity(jobRoleService.getJobRoleById(id))
                     .build();
         } catch (SQLException e) {
-            return Response.status(
-                    Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.serverError().build();
         }
     }
 }

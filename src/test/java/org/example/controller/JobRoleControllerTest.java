@@ -1,7 +1,7 @@
 package org.example.controller;
 
 import org.example.controllers.JobRoleController;
-import org.example.models.DetailedJobRole;
+import org.example.models.JobRole;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
@@ -39,19 +39,19 @@ class JobRoleControllerTest {
             Date.valueOf("2024-12-30"));
 
     JobRoleDetailedResponse jobRoleDetailed1 = new JobRoleDetailedResponse(
-            3,
-            "Manager",
-            "Derry",
-            "Senior",
-            "Grade 5 -£50,001+",
-            new DetailedJobRole(
-                    Date.valueOf("2024-12-28"),
-                    "Kainos Senior Front End Developer",
-                    "Managing front end projects for clients",
-                    "https://learn.microsoft.com/en-us/sharepoint/dev/general-development/urls-and-tokens-in-sharepoint",
-                    1,
-                    "OPEN"
-            )
+            new JobRole(
+                    3,
+                    "Manager",
+                    "Derry",
+                    "Senior",
+                    "Grade 5 -£50,001+",
+                    Date.valueOf("2024-12-28")
+            ),
+            "Kainos Senior Front End Developer",
+            "Managing front end projects for clients",
+            "https://learn.microsoft.com/en-us/sharepoint/dev/general-development/urls-and-tokens-in-sharepoint",
+            1,
+            "OPEN"
 
     );
 
@@ -76,16 +76,16 @@ class JobRoleControllerTest {
     void getJobRoleById_shouldReturnJobRole() throws SQLException {
         List<JobRoleDetailedResponse> expected = new ArrayList<>();
         expected.add(jobRoleDetailed1);
-        Mockito.when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRoleId())).thenReturn(expected);
-        Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRoleId());
+        Mockito.when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenReturn(expected);
+        Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId());
         assertEquals(200, response.getStatus());
         assertEquals(expected, response.getEntity());
     }
 
     @Test
     void getJobRoleById_shouldReturnError_whenServiceThrowSQLException() throws SQLException {
-        Mockito.when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRoleId())).thenThrow(SQLException.class);
-        Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRoleId());
+        Mockito.when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenThrow(SQLException.class);
+        Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId());
 
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
     }

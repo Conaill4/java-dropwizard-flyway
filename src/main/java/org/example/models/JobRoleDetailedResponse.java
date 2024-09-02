@@ -1,79 +1,76 @@
 package org.example.models;
 
 public class JobRoleDetailedResponse {
-    private int jobRoleId;
-    private String roleName;
-    private String location;
-    private String capabilityName;
-    private String bandName;
-    private JobDetailedResponse jobDetailed;
+    private JobRole jobRole;
+    private String description;
+    private String responsibilities;
 
-    public DetailedJobRole getDetailedJobRole() {
-        return detailedJobRole;
+    public JobRole getJobRole() {
+        return jobRole;
     }
 
-    public void setDetailedJobRole(final DetailedJobRole detailedJobRole) {
-        this.detailedJobRole = detailedJobRole;
+    public void setJobRole(final JobRole jobRole) {
+        this.jobRole = jobRole;
     }
 
-    private DetailedJobRole detailedJobRole;
-
-    public JobRoleDetailedResponse(final int jobRoleId,
-                   final String roleName,
-                   final String location,
-                   final String capabilityName,
-                   final String bandName,
-                   final DetailedJobRole detailedJobRole) {
-        this.jobRoleId = jobRoleId;
-        this.roleName = roleName;
-        this.location = location;
-        this.capabilityName = capabilityName;
-        this.bandName = bandName;
-        this.jobDetailed = jobDetailed;
-        this.detailedJobRole = detailedJobRole;
+    public String getDescription() {
+        return description;
     }
 
-    public int getJobRoleId() {
-        return jobRoleId;
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
-    public void setJobRoleId(final int jobRoleId) {
-        this.jobRoleId = jobRoleId;
+    public String getResponsibilities() {
+        return responsibilities;
     }
 
-    public String getCapabilityName() {
-        return capabilityName;
+    public void setResponsibilities(final String responsibilities) {
+        this.responsibilities = responsibilities;
     }
 
-    public void setCapabilityName(final String capabilityName) {
-        this.capabilityName = capabilityName;
+    public String getSharepointUrl() {
+        return sharepointUrl;
     }
 
-    public String getBandName() {
-        return bandName;
+    public void setSharepointUrl(final String sharepointUrl) {
+        this.sharepointUrl = sharepointUrl;
     }
 
-    public void setBandName(final String bandName) {
-        this.bandName = bandName;
+    public int getNumberOfOpenPositions() {
+        return numberOfOpenPositions;
     }
 
-    public String getLocation() {
-        return location;
+    public void setNumberOfOpenPositions(final int numberOfOpenPositions) {
+        this.numberOfOpenPositions = numberOfOpenPositions;
     }
 
-    public void setLocation(final String location) {
-        this.location = location;
+    public String getStatus() {
+        return status;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public void setStatus(final String status) {
+        this.status = status;
     }
 
-    public void setRoleName(final String roleName) {
-        this.roleName = roleName;
-    }
+    private String sharepointUrl;
+    private int numberOfOpenPositions;
+    private String status;
 
-    public JobDetailedResponse getJobDetailed() {
-        return jobDetailed;
+
+    public JobRoleDetailedResponse(
+            final JobRole jobRole,
+            final String description,
+            final String responsibilities,
+            final String sharepointUrl,
+            final int numberOfOpenPositions,
+            final String status) {
+        this.jobRole = jobRole;
+        this.description = description;
+        this.responsibilities = responsibilities;
+        this.sharepointUrl = sharepointUrl;
+        this.numberOfOpenPositions = numberOfOpenPositions;
+        this.status = status;
     }
 }
+
