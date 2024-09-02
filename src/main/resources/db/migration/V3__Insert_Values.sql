@@ -15,3 +15,4 @@ INSERT INTO Capability (capabilityName) VALUES ('Testing');
 
 INSERT INTO `job-roles` (roleName,location,capabilityId,bandId,closingDate) VALUES("Software Engineer","Derry",'1','5','2024-12-25');
 INSERT INTO `job-roles` (roleName,location,capabilityId,bandId,closingDate) VALUES("Tester","Derry",'6','2','2024-12-26');
+INSERT INTO `job-roles` (roleName,location,capabilityId,bandId,closingDate) VALUES("Senior Tester","Derry",'6','4','2023-12-26');
