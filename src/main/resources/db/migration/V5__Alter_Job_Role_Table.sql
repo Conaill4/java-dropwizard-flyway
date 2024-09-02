@@ -24,3 +24,11 @@ SET description = "Kainos Test Engineer role in Derry",
     statusId = 1,
     numberOfOpenPositions = 2
 WHERE jobRoleId = 2;
+
+UPDATE `job-roles`
+SET description = "Kainos Test Engineer role in Derry",
+    responsibilities = "You will be responsible for testing software for clients all over the world",
+    sharepointUrl = "https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration",
+    statusId = 2,
+    numberOfOpenPositions = 1
+WHERE jobRoleId = 3;
