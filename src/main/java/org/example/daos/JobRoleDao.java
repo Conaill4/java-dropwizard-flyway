@@ -2,7 +2,6 @@ package org.example.daos;
 
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailed;
-import org.example.models.JobRoleResponse;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
