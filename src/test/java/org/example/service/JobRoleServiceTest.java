@@ -87,7 +87,7 @@ class JobRoleServiceTest {
         int jobRoleId = jobRoleDetailed1.getJobRole().getJobRoleId();
 
         Mockito.when(jobRoleDao.getJobRoleById((jobRoleDetailed1.getJobRole().getJobRoleId()))).thenReturn(jobRoleDetailed1);
-        Mockito.when(jobRoleMapper.mapJobRoleListToJobRoleDetailedResponse(jobRoleDetailed1)).thenReturn(jobRoleDetailedResponse);
+        Mockito.when(jobRoleMapper.mapJobRoleToJobRoleDetailedResponse(jobRoleDetailed1)).thenReturn(jobRoleDetailedResponse);
 
         JobRoleDetailedResponse result = jobRoleService.getJobRoleById(jobRoleId);
         

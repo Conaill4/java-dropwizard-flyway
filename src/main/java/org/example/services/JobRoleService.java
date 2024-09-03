@@ -34,7 +34,7 @@ public class JobRoleService {
         if (jobRoleDetailed == null) {
             throw new DoesNotExistException(Entity.JOBROLEDETAILED);
         }
-        return jobRoleMapper.mapJobRoleListToJobRoleDetailedResponse(
+        return jobRoleMapper.mapJobRoleToJobRoleDetailedResponse(
                 jobRoleDao.getJobRoleById(id));
 
     }

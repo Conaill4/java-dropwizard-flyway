@@ -23,7 +23,7 @@ public class JobRoleMapper {
                 .collect(Collectors.toList());
     }
 
-    public JobRoleDetailedResponse mapJobRoleListToJobRoleDetailedResponse(
+    public JobRoleDetailedResponse mapJobRoleToJobRoleDetailedResponse(
             final JobRoleDetailed jobRole) {
         return new JobRoleDetailedResponse(
             jobRole.getJobRole(),

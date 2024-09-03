@@ -8,7 +8,6 @@ import org.example.models.JobRoleResponse;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +70,7 @@ public class JobRoleMapperTest {
         JobRoleMapper jobRoleMapper = new JobRoleMapper();
 
         JobRoleDetailedResponse jobRoleResponse = jobRoleMapper
-                .mapJobRoleListToJobRoleDetailedResponse(jobRoleDetailed1);
+                .mapJobRoleToJobRoleDetailedResponse(jobRoleDetailed1);
 
         assertEquals(jobRoleDetailed1.getJobRole(),
                 jobRoleResponse.getJobRole());
