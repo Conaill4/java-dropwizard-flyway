@@ -1,7 +1,6 @@
 package org.example.daos;
 
 import org.example.Exceptions.DoesNotExistException;
-import org.example.Exceptions.Entity;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailed;
 
