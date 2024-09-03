@@ -1,8 +1,10 @@
 package org.example.services;
 
 import org.example.Exceptions.DoesNotExistException;
+import org.example.Exceptions.Entity;
 import org.example.daos.JobRoleDao;
 import org.example.mappers.JobRoleMapper;
+import org.example.models.JobRoleDetailed;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 
@@ -27,8 +29,13 @@ public class JobRoleService {
     public JobRoleDetailedResponse getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
 
-            return jobRoleMapper.mapJobRoleListToJobRoleDetailedResponse(
-                    jobRoleDao.getJobRoleById(id));
+        JobRoleDetailed jobRoleDetailed = jobRoleDao.getJobRoleById(id);
+
+        if (jobRoleDetailed == null) {
+            throw new DoesNotExistException(Entity.JOBROLEDETAILED);
+        }
+        return jobRoleMapper.mapJobRoleListToJobRoleDetailedResponse(
+                jobRoleDao.getJobRoleById(id));
 
     }
 }

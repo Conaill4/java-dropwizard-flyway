@@ -70,9 +70,8 @@ public class JobRoleDao {
                         resultSet.getInt("numberOfOpenPositions"),
                         resultSet.getString("statusName"));
                 return jobRole;
-            } else {
-                throw new DoesNotExistException(Entity.JOBROLE);
             }
         }
+        return null;
     }
 }

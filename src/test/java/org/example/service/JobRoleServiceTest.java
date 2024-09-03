@@ -101,4 +101,11 @@ class JobRoleServiceTest {
        assertThrows(SQLException.class, () -> jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId()));
     }
 
+    @Test
+    void getJobRoleById_shouldReturnDoesNotExistException() throws SQLException, DoesNotExistException {
+        Mockito.when(jobRoleDao.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenThrow(DoesNotExistException.class);
+
+        assertThrows(DoesNotExistException.class, () -> jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId()));
+    }
+
 }

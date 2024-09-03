@@ -63,13 +63,4 @@ public class JobRoleDaoTest {
 
         assertEquals(jobRoleDetailed1.getJobRole().getJobRoleId(), jobRoleDao.getJobRoleById(id).getJobRole().getJobRoleId());
     }
-
-    @Test
-    void getJobRoles_DAOShouldThrowDoesNotExistException()
-            throws SQLException, DoesNotExistException {
-
-        int id=101;
-
-        assertThrows(DoesNotExistException.class, () -> jobRoleDao.getJobRoleById(id));
-    }
 }
