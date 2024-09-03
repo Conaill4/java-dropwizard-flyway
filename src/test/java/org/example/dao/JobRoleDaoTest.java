@@ -1,11 +1,10 @@
 package org.example.dao;
 
+import org.example.Exceptions.DoesNotExistException;
 import org.example.daos.JobRoleDao;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailed;
-import org.example.models.JobRoleResponse;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -16,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class JobRoleDaoTest {
+    private final JobRoleDao jobRoleDao = new JobRoleDao();
 
     JobRole jobRole = new JobRole(
             1,
@@ -41,10 +41,8 @@ public class JobRoleDaoTest {
             "OPEN"
     );
 
-    JobRoleDao jobRoleDao = Mockito.mock(JobRoleDao.class);
-
     @Test
-    void getJobRoles_DAOshouldReturnListOfJobRolesById()
+    void getJobRoles_DAOShouldReturnJobRoles()
             throws SQLException {
         List<JobRole> expectedJobRoles = new ArrayList<>();
         expectedJobRoles.add(jobRole);
@@ -52,42 +50,26 @@ public class JobRoleDaoTest {
         List<JobRole> result = new ArrayList<>();
         result.add(jobRole);
 
-        Mockito.when(jobRoleDao.getJobRoles()).thenReturn(expectedJobRoles);
+        jobRoleDao.getJobRoles();
 
         assertEquals(expectedJobRoles, result);
     }
 
     @Test
-    void getJobRoles_DAOshouldReturnSQLExceptionById()
-            throws SQLException {
-        Mockito.when(jobRoleDao.getJobRoles()).thenThrow(SQLException.class);
-
-        assertThrows(SQLException.class, () -> jobRoleDao.getJobRoles());
-    }
-
-    @Test
-    void getJobRoles_DAOshouldReturnDetailedJobRoleById()
-            throws SQLException {
-        List<JobRoleDetailed> expectedJobRole = new ArrayList<>();
-        expectedJobRole.add(jobRoleDetailed1);
+    void getJobRoles_DAOShouldReturnDetailedJobRoleById()
+            throws SQLException, DoesNotExistException {
 
         int id = jobRoleDetailed1.getJobRole().getJobRoleId();
 
-        List<JobRoleDetailed> result = new ArrayList<>();
-        result.add(jobRoleDetailed1);
-
-        Mockito.when(jobRoleDao.getJobRoleById(id)).thenReturn(expectedJobRole);
-
-        assertEquals(expectedJobRole, result);
+        assertEquals(jobRoleDetailed1.getJobRole().getJobRoleId(), jobRoleDao.getJobRoleById(id).getJobRole().getJobRoleId());
     }
 
     @Test
-    void getJobRolesById_DAOshouldReturnSQLExceptionById()
-            throws SQLException {
+    void getJobRoles_DAOShouldThrowDoesNotExistException()
+            throws SQLException, DoesNotExistException {
 
-        int id = 1;
-        Mockito.when(jobRoleDao.getJobRoleById(id)).thenThrow(SQLException.class);
+        int id=101;
 
-        assertThrows(SQLException.class, () -> jobRoleDao.getJobRoleById(id));
+        assertThrows(DoesNotExistException.class, () -> jobRoleDao.getJobRoleById(id));
     }
 }

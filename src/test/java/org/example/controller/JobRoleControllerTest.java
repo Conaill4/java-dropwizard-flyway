@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.Exceptions.DoesNotExistException;
 import org.example.controllers.JobRoleController;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailedResponse;
@@ -73,17 +74,15 @@ class JobRoleControllerTest {
     }
 
     @Test
-    void getJobRoleById_shouldReturnJobRole() throws SQLException {
-        List<JobRoleDetailedResponse> expected = new ArrayList<>();
-        expected.add(jobRoleDetailed1);
-        Mockito.when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenReturn(expected);
+    void getJobRoleById_shouldReturnJobRole() throws SQLException, DoesNotExistException {
+        Mockito.when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenReturn(jobRoleDetailed1);
         Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId());
         assertEquals(200, response.getStatus());
-        assertEquals(expected, response.getEntity());
+        assertEquals(jobRoleDetailed1, response.getEntity());
     }
 
     @Test
-    void getJobRoleById_shouldReturnError_whenServiceThrowSQLException() throws SQLException {
+    void getJobRoleById_shouldReturnError_whenServiceThrowSQLException() throws SQLException, DoesNotExistException {
         Mockito.when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenThrow(SQLException.class);
         Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId());
 

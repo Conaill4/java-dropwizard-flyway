@@ -1,5 +1,7 @@
 package org.example.daos;
 
+import org.example.Exceptions.DoesNotExistException;
+import org.example.Exceptions.Entity;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailed;
 
@@ -36,10 +38,9 @@ public class JobRoleDao {
         return jobRoles;
     }
 
-    public List<JobRoleDetailed> getJobRoleById(final int jobRoleId)
-            throws SQLException {
-        List<JobRoleDetailed> jobRoleDetaileds =
-                new ArrayList<>();
+    public JobRoleDetailed getJobRoleById(final int jobRoleId)
+            throws SQLException, DoesNotExistException {
+
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT jobRoleId, roleName, description, location,"
                     + " responsibilities, sharepointUrl,"
@@ -68,9 +69,10 @@ public class JobRoleDao {
                         resultSet.getString("sharepointUrl"),
                         resultSet.getInt("numberOfOpenPositions"),
                         resultSet.getString("statusName"));
-                jobRoleDetaileds.add(jobRole);
+                return jobRole;
+            } else {
+                throw new DoesNotExistException(Entity.JOBROLE);
             }
-            return jobRoleDetaileds;
         }
     }
 }

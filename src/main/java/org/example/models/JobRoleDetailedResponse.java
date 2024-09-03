@@ -4,6 +4,24 @@ public class JobRoleDetailedResponse {
     private JobRole jobRole;
     private String description;
     private String responsibilities;
+    private String sharepointUrl;
+    private int numberOfOpenPositions;
+    private String status;
+
+    public JobRoleDetailedResponse(
+            final JobRole jobRole,
+            final String description,
+            final String responsibilities,
+            final String sharepointUrl,
+            final int numberOfOpenPositions,
+            final String status) {
+        this.jobRole = jobRole;
+        this.description = description;
+        this.responsibilities = responsibilities;
+        this.sharepointUrl = sharepointUrl;
+        this.numberOfOpenPositions = numberOfOpenPositions;
+        this.status = status;
+    }
 
     public JobRole getJobRole() {
         return jobRole;
@@ -50,26 +68,6 @@ public class JobRoleDetailedResponse {
     }
 
     public void setStatus(final String status) {
-        this.status = status;
-    }
-
-    private String sharepointUrl;
-    private int numberOfOpenPositions;
-    private String status;
-
-
-    public JobRoleDetailedResponse(
-            final JobRole jobRole,
-            final String description,
-            final String responsibilities,
-            final String sharepointUrl,
-            final int numberOfOpenPositions,
-            final String status) {
-        this.jobRole = jobRole;
-        this.description = description;
-        this.responsibilities = responsibilities;
-        this.sharepointUrl = sharepointUrl;
-        this.numberOfOpenPositions = numberOfOpenPositions;
         this.status = status;
     }
 }

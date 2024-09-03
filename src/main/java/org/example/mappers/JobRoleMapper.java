@@ -23,18 +23,14 @@ public class JobRoleMapper {
                 .collect(Collectors.toList());
     }
 
-    public List<JobRoleDetailedResponse>
-    mapJobRoleListToJobRoleDetailedResponse(
-            final List<JobRoleDetailed> jobRoles) {
-        return jobRoles
-                .stream()
-                .map(jobRole -> new JobRoleDetailedResponse(
-                        jobRole.getJobRole(),
-                        jobRole.getDescription(),
-                        jobRole.getResponsibilities(),
-                        jobRole.getSharepointUrl(),
-                        jobRole.getNumberOfOpenPositions(),
-                        jobRole.getStatus()))
-                .collect(Collectors.toList());
+    public JobRoleDetailedResponse mapJobRoleListToJobRoleDetailedResponse(
+            final JobRoleDetailed jobRole) {
+        return new JobRoleDetailedResponse(
+            jobRole.getJobRole(),
+            jobRole.getDescription(),
+            jobRole.getResponsibilities(),
+            jobRole.getSharepointUrl(),
+            jobRole.getNumberOfOpenPositions(),
+            jobRole.getStatus());
     }
 }

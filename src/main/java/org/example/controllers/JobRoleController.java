@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import org.example.Exceptions.DoesNotExistException;
 import org.example.services.JobRoleService;
 
 import javax.ws.rs.GET;
@@ -39,6 +40,9 @@ public class JobRoleController {
                     .build();
         } catch (SQLException e) {
             return Response.serverError().build();
+        } catch (DoesNotExistException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
         }
     }
 }
