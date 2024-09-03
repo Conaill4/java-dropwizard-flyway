@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class JobRoleDaoTest {
 
-    JobRoleResponse jobRole = new JobRoleResponse(
+    JobRole jobRole = new JobRole(
             1,
             "Manager",
             "Derry",
@@ -46,10 +46,10 @@ public class JobRoleDaoTest {
     @Test
     void getJobRoles_DAOshouldReturnListOfJobRolesById()
             throws SQLException {
-        List<JobRoleResponse> expectedJobRoles = new ArrayList<>();
+        List<JobRole> expectedJobRoles = new ArrayList<>();
         expectedJobRoles.add(jobRole);
 
-        List<JobRoleResponse> result = new ArrayList<>();
+        List<JobRole> result = new ArrayList<>();
         result.add(jobRole);
 
         Mockito.when(jobRoleDao.getJobRoles()).thenReturn(expectedJobRoles);

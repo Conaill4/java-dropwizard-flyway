@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobRoleDao {
-    public List<JobRoleResponse> getJobRoles() throws SQLException {
-        List<JobRoleResponse> jobRoles = new ArrayList<>();
+    public List<JobRole> getJobRoles() throws SQLException {
+        List<JobRole> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT jobRoleId, roleName, location,"
                     + " Capability.capabilityName, Band.bandName, "
@@ -24,14 +24,14 @@ public class JobRoleDao {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                JobRoleResponse jobRoleResponse = new JobRoleResponse(
+                JobRole jobRole = new JobRole(
                         resultSet.getInt("jobRoleId"),
                         resultSet.getString("roleName"),
                         resultSet.getString("location"),
                         resultSet.getString("capabilityName"),
                         resultSet.getString("bandName"),
                         resultSet.getDate("closingDate"));
-                jobRoles.add(jobRoleResponse);
+                jobRoles.add(jobRole);
             }
         }
         return jobRoles;
