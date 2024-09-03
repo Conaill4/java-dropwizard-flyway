@@ -2,22 +2,22 @@ package org.example.models;
 
 public class User {
 
-    String username;
+    String email;
     String password;
     int roleId;
 
-    public User(final String username, final String password, final int roleId) {
-        this.username = username;
+    public User(final String email, final String password, final int roleId) {
+        this.email = email;
         this.password = password;
         this.roleId = roleId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(final String username) {
-        this.username = username;
+    public void setEmail(final String email) {
+        this.email = email;
     }
 
     public String getPassword() {

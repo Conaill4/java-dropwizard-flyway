@@ -38,7 +38,7 @@ public class AuthService {
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .claim("Role", user.getRoleId())
-                .subject(user.getUsername())
+                .subject(user.getEmail())
                 .issuer("java-dropwizard-flyway")
                 .signWith(key)
                 .compact();
