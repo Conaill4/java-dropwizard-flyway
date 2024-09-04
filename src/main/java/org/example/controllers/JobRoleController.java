@@ -1,8 +1,10 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import org.example.models.UserRole;
 import org.example.services.JobRoleService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,6 +15,7 @@ import java.sql.SQLException;
 
 @Api
 @Path("/api/job-roles")
+@RolesAllowed({UserRole.ADMIN, UserRole.USER})
 public class JobRoleController {
     JobRoleService jobRoleService;
     public JobRoleController(final JobRoleService jobRoleService) {
