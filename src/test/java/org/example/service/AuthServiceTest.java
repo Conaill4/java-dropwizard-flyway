@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AuthServiceTest {
 
     AuthDao authDao = Mockito.mock(AuthDao.class);
-    Key key = Mockito.mock(Key.class);
+    Key key;
     AuthService authService = new AuthService(authDao, key);
 
     LoginRequest loginRequest = new LoginRequest(
