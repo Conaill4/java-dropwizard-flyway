@@ -5,10 +5,12 @@ import org.example.models.JobRole;
 import org.example.models.LoginRequest;
 import org.example.models.User;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AuthDaoTest {
 
@@ -35,6 +37,4 @@ public class AuthDaoTest {
         assertEquals(user.getPassword(), actualUser.getPassword());
         assertEquals(user.getRoleId(), actualUser.getRoleId());
     }
-
-
 }
