@@ -1,5 +1,6 @@
 package org.example.service;
 
+import io.jsonwebtoken.security.Keys;
 import org.example.daos.AuthDao;
 import org.example.exceptions.InvalidException;
 import org.example.models.LoginRequest;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AuthServiceTest {
 
     AuthDao authDao = Mockito.mock(AuthDao.class);
-    Key key;
+    Key key = Keys.secretKeyFor(io.jsonwebtoken.SignatureAlgorithm.HS256);
     AuthService authService = new AuthService(authDao, key);
 
     LoginRequest loginRequest = new LoginRequest(
@@ -37,9 +38,8 @@ public class AuthServiceTest {
 
     @Test
     void login_ShouldThrowInvalidException_WhenCredentialsAreInvalid() throws SQLException, InvalidException {
-        User validUser = new User("admin@kainos.co", "admin", 1);
 
-        Mockito.when(authDao.getUser(loginRequest)).thenThrow(InvalidException.class);
+        Mockito.when(authDao.getUser(loginRequest)).thenReturn(null);
 
         assertThrows(InvalidException.class, () -> authService.login(loginRequest));
     }
