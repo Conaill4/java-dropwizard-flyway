@@ -35,4 +35,6 @@ public class AuthDaoTest {
         assertEquals(user.getPassword(), actualUser.getPassword());
         assertEquals(user.getRoleId(), actualUser.getRoleId());
     }
+
+
 }

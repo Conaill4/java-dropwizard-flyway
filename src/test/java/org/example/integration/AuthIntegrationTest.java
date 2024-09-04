@@ -1,6 +1,7 @@
 package org.example.integration;
 
 import io.dropwizard.testing.junit5.DropwizardAppExtension;
+import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import org.example.TestApplication;
 import org.example.TestConfiguration;
 import org.glassfish.jersey.client.ClientConfig;
@@ -8,11 +9,14 @@ import org.glassfish.jersey.client.ClientProperties;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.extension.ExtendWith;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@ExtendWith(DropwizardExtensionsSupport.class)
 public class AuthIntegrationTest {
 
     private static final DropwizardAppExtension<TestConfiguration> APP =
@@ -36,10 +40,12 @@ public class AuthIntegrationTest {
     public void getAllJobRoles_ResponseShouldNotBeNull() {
         Client client = APP.client();
 
+        String jsonPayload = "{\"email\":\"admin@kainos.com\",\"password\":\"$2a$10$abwOc0Pn.kTEmWCa7GJ0ROXGwmwJXFzX6Fh.81fmS4zOZdjj81jzW\"}";
+
         Response response = client
                 .target("http://localhost:8080/api/auth/login")
-                .request()
-                .get();
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(jsonPayload));
 
         Assertions.assertNotNull(response);
     }
