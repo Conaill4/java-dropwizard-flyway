@@ -45,4 +45,32 @@ public class JobRoleIntegrationTest {
 
         Assertions.assertNotNull(response);
     }
+
+    @Test
+    public void getAllJobRoles_ShouldReturnSomeData() {
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles")
+                .request()
+                .get();
+
+        Assertions.assertNotNull(response.readEntity(String.class));
+    }
+
+    @Test
+    public void getJobRoleById_ResponseShouldNotBeNull() {
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles/1")
+                .request()
+                .get();
+
+        Assertions.assertNotNull(response);
+    }
+
+
+
+
 }
