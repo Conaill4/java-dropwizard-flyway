@@ -15,13 +15,9 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
-//?limit=5&offset=0/
 @Api("JobRole API")
 @Path("/api/job-roles/")
 public class JobRoleController {
-
-    private static final int THREE = 3;
-    private static final int MAX_ALLOWEDLIMIT = 20;
 
     JobRoleService jobRoleService;
     public JobRoleController(final JobRoleService jobRoleService) {
@@ -36,10 +32,7 @@ public class JobRoleController {
         try {
             //validate your params... if invalid - exit...
              //if limit > MAX_ALLOWED (eg 20), then set limit = MAX_ALLOWED
-            // convert varialbes to ints...
 
-            //pass thes variables dow to the service method and
-            // then into the dao to update your query
             List<JobRoleResponse> jobRoles = jobRoleService
                     .getAllJobRoles(page, pageSize);
             final int totalPages = jobRoleService.getTotalPages(pageSize);
@@ -50,7 +43,9 @@ public class JobRoleController {
                     .header("X-Page-Size", pageSize)
                     .build();
             } catch (SQLException e) {
-            return Response.serverError().build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error retrieving job roles")
+                    .build();
         }
     }
 
