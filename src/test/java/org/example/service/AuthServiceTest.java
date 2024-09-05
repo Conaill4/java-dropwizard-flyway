@@ -215,4 +215,17 @@ public class AuthServiceTest {
 
         assertThrows(PasswordException.class, () -> authService.login(loginRequest));
     }
+    @Test
+    void login_ShouldThrowPasswordException_WhenPasswordDoesHaveASpace() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "Adm 1n$"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(PasswordException.class);
+
+        assertThrows(PasswordException.class, () -> authService.login(loginRequest));
+    }
 }
