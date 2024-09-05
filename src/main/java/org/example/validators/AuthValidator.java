@@ -8,21 +8,21 @@ import org.example.models.LoginRequest;
 public class AuthValidator {
     public boolean isLoginValid(final LoginRequest loginRequest) throws
             EmailException, PasswordException {
-        if (loginRequest.getEmail() == ""
-                || loginRequest.getEmail() == null) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+        if (email == "" || email == null) {
             throw new EmailException(Entity.EMAIL, " is empty.");
         }
-        if (!loginRequest.getEmail().matches("^[A-Za-z0-9+_.-]"
-                + "+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+        if (!email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]"
+                + "+\\.[A-Za-z]{2,}$")) {
             throw new EmailException(Entity.EMAIL,
                     " is invalid.");
         }
-        if (loginRequest.getPassword() == ""
-                || loginRequest.getPassword() == null) {
+        if (password == "" || password == null) {
             throw new PasswordException(Entity.PASSWORD, " is empty.");
         }
-        if (loginRequest.getPassword().matches("^(?=.*[0-9])(?=.*[a-z])"
-                + "(?=.*[A-Z])(?=.*[@#$%^&+=])(?=/S+$).{8,}$")) {
+        if (!password.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)"
+                + "(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{4,}$")) {
             throw new PasswordException(Entity.PASSWORD,
                     " is invalid.");
         }
