@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jwts;
 import org.example.models.JwtToken;
 import org.example.models.UserRole;
 
-import javax.naming.AuthenticationException;
 import java.security.Key;
 import java.util.Optional;
 

@@ -10,7 +10,8 @@ public class UserRole {
 
     private static final Map<Integer, String> ROLESMAP = Map.of(
             1, ADMIN,
-            2, USER);
+            2, USER
+    );
 
     public UserRole(final int roleId) {
         setRoleId(roleId);
