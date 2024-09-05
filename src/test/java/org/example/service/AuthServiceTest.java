@@ -163,4 +163,56 @@ public class AuthServiceTest {
 
         assertThrows(PasswordException.class, () -> authService.login(loginRequest));
     }
+    @Test
+    void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveACaptial() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "adm1n$"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(PasswordException.class);
+
+        assertThrows(PasswordException.class, () -> authService.login(loginRequest));
+    }
+    @Test
+    void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveANumber() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "Admin$"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(PasswordException.class);
+
+        assertThrows(PasswordException.class, () -> authService.login(loginRequest));
+    }
+    @Test
+    void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveASpecialCharacter() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "Adm1n"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(PasswordException.class);
+
+        assertThrows(PasswordException.class, () -> authService.login(loginRequest));
+    }
+    @Test
+    void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveALowerCase() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "ADM1N$"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(PasswordException.class);
+
+        assertThrows(PasswordException.class, () -> authService.login(loginRequest));
+    }
 }
