@@ -3,7 +3,6 @@ package org.example.integration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.checkerframework.checker.units.qual.A;
 import org.example.models.JobRole;
 import org.example.models.JobRoleResponse;
 import io.dropwizard.testing.junit5.DropwizardAppExtension;
@@ -55,4 +54,32 @@ public class JobRoleIntegrationTest {
 
         Assertions.assertNotNull(response);
     }
+
+    @Test
+    public void getAllJobRoles_ShouldReturnSomeData() {
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles")
+                .request()
+                .get();
+
+        Assertions.assertNotNull(response.readEntity(String.class));
+    }
+
+    @Test
+    public void getJobRoleById_ResponseShouldNotBeNull() {
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles/1")
+                .request()
+                .get();
+
+        Assertions.assertNotNull(response);
+    }
+
+
+
+
 }
