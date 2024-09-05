@@ -59,11 +59,11 @@ public class AuthServiceTest {
 
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
     }
-    /*@Test
+    @Test
     void login_ShouldThrowEmailException_WhenEmailIsInvalid() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
-                "admin.@kainos.com",
+                "admin&@kainos.com",
                 "Adm1n$"
         );
 
@@ -71,7 +71,7 @@ public class AuthServiceTest {
                 .thenThrow(EmailException.class);
 
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
-    }*/
+    }
     @Test
     void login_ShouldThrowPasswordException_WhenPasswordIsNull() throws
             EmailException, PasswordException {
