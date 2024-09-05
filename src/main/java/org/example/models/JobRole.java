@@ -32,14 +32,6 @@ public class JobRole {
         this.jobRoleId = jobRoleId;
     }
 
-    public Date getClosingDate() {
-        return closingDate;
-    }
-
-    public void setClosingDate(final Date closingDate) {
-        this.closingDate = closingDate;
-    }
-
     public String getCapabilityName() {
         return capabilityName;
     }
@@ -70,5 +62,13 @@ public class JobRole {
 
     public void setRoleName(final String roleName) {
         this.roleName = roleName;
+    }
+
+    public Date getClosingDate() {
+        return closingDate;
+    }
+
+    public void setClosingDate(final Date closingDate) {
+        this.closingDate = closingDate;
     }
 }
