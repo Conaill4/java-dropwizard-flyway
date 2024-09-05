@@ -2,7 +2,6 @@ package org.example.controllers;
 
 import io.swagger.annotations.Api;
 import org.example.exceptions.EmailException;
-import org.example.exceptions.InvalidException;
 import org.example.exceptions.PasswordException;
 import org.example.models.LoginRequest;
 import org.example.services.AuthService;
