@@ -15,35 +15,9 @@ public class JobRoleDao {
 
     private static final int TEN = 10;
 
-    public List<JobRoleResponse> getJobRoles() throws SQLException {
-        List<JobRoleResponse> jobRoles = new ArrayList<>();
-        try (Connection connection = DatabaseConnector.getConnection()) {
-            String query = "SELECT jobRoleId, roleName, location,"
-                    + " Capability.capabilityName, Band.bandName, "
-                    + "closingDate FROM `job-roles`"
-                    + " JOIN Capability using(capabilityId)"
-                    + " JOIN Band using(bandId)"
-                    + " WHERE statusId = 1;";
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                JobRoleResponse jobRoleResponse = new JobRoleResponse(
-                        resultSet.getInt("jobRoleId"),
-                        resultSet.getString("roleName"),
-                        resultSet.getString("location"),
-                        resultSet.getString("capabilityName"),
-                        resultSet.getString("bandName"),
-                        resultSet.getDate("closingDate"));
-                jobRoles.add(jobRoleResponse);
-            }
-        }
-        return jobRoles;
-    }
-
-    public List<JobRoleResponse> getPaginatedJobRoles(
+    public List<JobRoleResponse> getJobRoles(
             final int offset, final int limit) throws SQLException {
         List<JobRoleResponse> jobRoles = new ArrayList<>();
-
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT jobRoleId, roleName, location,"
                     + " Capability.capabilityName, Band.bandName, "
@@ -51,9 +25,9 @@ public class JobRoleDao {
                     + " JOIN Capability using(capabilityId)"
                     + " JOIN Band using(bandId)"
                     + " WHERE statusId = 1"
+                    + " ORDER BY jobRoleId"
                     + " LIMIT ? OFFSET ?;";
             PreparedStatement statement = connection.prepareStatement(query);
-
             statement.setInt(1, limit);
             statement.setInt(2, offset);
             ResultSet resultSet = statement.executeQuery();
@@ -70,7 +44,6 @@ public class JobRoleDao {
         }
         return jobRoles;
     }
-
     public int countTotalJobs() throws SQLException {
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT COUNT(*) "
@@ -85,7 +58,6 @@ public class JobRoleDao {
         }
         return 0;
     }
-
 
     public List<JobRoleDetailed> getJobRoleById(final int jobRoleId)
             throws SQLException {

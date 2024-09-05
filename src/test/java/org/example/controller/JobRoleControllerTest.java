@@ -56,18 +56,18 @@ class JobRoleControllerTest {
     );
 
     @Test
-    void getJobRoles_shouldReturnListOfEmployees() throws SQLException {
+    void getJobRoles_shouldReturnListOfJobs() throws SQLException {
         List<JobRoleResponse> mockJobRoles = Arrays.asList(jobRole1, jobRole2);
-        Mockito.when(jobRoleService.getAllJobRoles()).thenReturn(mockJobRoles);
-        Response response = jobRoleController.getAllJobRoles();
+        Mockito.when(jobRoleService.getAllJobRoles(1,10)).thenReturn(mockJobRoles);
+        Response response = jobRoleController.getAllJobRoles(1,10);
         assertEquals(200, response.getStatus());
         assertEquals(mockJobRoles, response.getEntity());
     }
 
     @Test
     void getAllJobRoles_shouldReturnError_whenServiceThrowsSQLException() throws SQLException {
-        Mockito.when(jobRoleService.getAllJobRoles()).thenThrow(SQLException.class);
-        Response response = jobRoleController.getAllJobRoles();
+        Mockito.when(jobRoleService.getAllJobRoles(1,10)).thenThrow(SQLException.class);
+        Response response = jobRoleController.getAllJobRoles(1,10);
 
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
     }

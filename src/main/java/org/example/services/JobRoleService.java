@@ -18,26 +18,16 @@ public class JobRoleService {
         this.jobRoleMapper = jobRoleMapper;
     }
 
-    public List<JobRoleResponse> getAllJobRoles() throws SQLException {
-        try {
-            return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
-                    jobRoleDao.getJobRoles());
-        } catch (SQLException e) {
-            throw new SQLException(e);
-        }
-    }
-
-    public List<JobRoleResponse> getPaginatedAllJobRoles(
-             final int page, final int pageSize) throws SQLException {
+    public List<JobRoleResponse> getAllJobRoles(
+            final int page, final int pageSize) throws SQLException {
         try {
             final int offset = (page - 1) * pageSize;
-            return jobRoleDao.getPaginatedJobRoles(offset, pageSize);
+            return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
+                    jobRoleDao.getJobRoles(offset, pageSize));
         } catch (SQLException e) {
             throw new SQLException(e);
         }
-
     }
-
     public int getTotalPages(final int pageSize) throws SQLException {
         int totalRecords = jobRoleDao.countTotalJobs();
         return (int) Math.ceil((double) totalRecords / pageSize);

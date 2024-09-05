@@ -41,7 +41,7 @@ public class JobRoleController {
             //pass thes variables dow to the service method and
             // then into the dao to update your query
             List<JobRoleResponse> jobRoles = jobRoleService
-                    .getPaginatedAllJobRoles(page, pageSize);
+                    .getAllJobRoles(page, pageSize);
             final int totalPages = jobRoleService.getTotalPages(pageSize);
             return Response.ok()
                     .entity(jobRoles)

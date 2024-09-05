@@ -52,7 +52,7 @@ public class JobRoleDaoTest {
         List<JobRoleResponse> result = new ArrayList<>();
         result.add(jobRole);
 
-        Mockito.when(jobRoleDao.getJobRoles()).thenReturn(expectedJobRoles);
+        Mockito.when(jobRoleDao.getJobRoles(0,10)).thenReturn(expectedJobRoles);
 
         assertEquals(expectedJobRoles, result);
     }
@@ -60,9 +60,10 @@ public class JobRoleDaoTest {
     @Test
     void getJobRoles_DAOshouldReturnSQLExceptionById()
             throws SQLException {
-        Mockito.when(jobRoleDao.getJobRoles()).thenThrow(SQLException.class);
+        Mockito.when(jobRoleDao.getJobRoles(0,10)).thenThrow(SQLException.class);
 
-        assertThrows(SQLException.class, () -> jobRoleDao.getJobRoles());
+        assertThrows(SQLException.class, () -> jobRoleDao
+                .getJobRoles(0,10));
     }
 
     @Test
