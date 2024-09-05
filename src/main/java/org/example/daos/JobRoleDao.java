@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobRoleDao {
+
+    private static final int TEN = 10;
+
     public List<JobRoleResponse> getJobRoles() throws SQLException {
         List<JobRoleResponse> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
@@ -36,6 +39,53 @@ public class JobRoleDao {
         }
         return jobRoles;
     }
+
+    public List<JobRoleResponse> getPaginatedJobRoles(
+            final int offset, final int limit) throws SQLException {
+        List<JobRoleResponse> jobRoles = new ArrayList<>();
+
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String query = "SELECT jobRoleId, roleName, location,"
+                    + " Capability.capabilityName, Band.bandName, "
+                    + "closingDate FROM `job-roles`"
+                    + " JOIN Capability using(capabilityId)"
+                    + " JOIN Band using(bandId)"
+                    + " WHERE statusId = 1"
+                    + " LIMIT ? OFFSET ?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                JobRoleResponse jobRoleResponse = new JobRoleResponse(
+                        resultSet.getInt("jobRoleId"),
+                        resultSet.getString("roleName"),
+                        resultSet.getString("location"),
+                        resultSet.getString("capabilityName"),
+                        resultSet.getString("bandName"),
+                        resultSet.getDate("closingDate"));
+                jobRoles.add(jobRoleResponse);
+            }
+        }
+        return jobRoles;
+    }
+
+    public int countTotalJobs() throws SQLException {
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String query = "SELECT COUNT(*) "
+                    + "FROM `job-roles`JOIN Capability using(capabilityId) "
+                    + "JOIN Band using(bandId) "
+                    + "WHERE statusId = 1;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        }
+        return 0;
+    }
+
 
     public List<JobRoleDetailed> getJobRoleById(final int jobRoleId)
             throws SQLException {

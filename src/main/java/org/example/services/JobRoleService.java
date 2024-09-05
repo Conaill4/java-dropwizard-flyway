@@ -26,6 +26,23 @@ public class JobRoleService {
             throw new SQLException(e);
         }
     }
+
+    public List<JobRoleResponse> getPaginatedAllJobRoles(
+             final int page, final int pageSize) throws SQLException {
+        try {
+            final int offset = (page - 1) * pageSize;
+            return jobRoleDao.getPaginatedJobRoles(offset, pageSize);
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }
+
+    }
+
+    public int getTotalPages(final int pageSize) throws SQLException {
+        int totalRecords = jobRoleDao.countTotalJobs();
+        return (int) Math.ceil((double) totalRecords / pageSize);
+    }
+
     public List<JobRoleDetailedResponse> getJobRoleById(final int id)
             throws SQLException {
         try {
