@@ -2,7 +2,8 @@ package org.example.exceptions;
 
 public enum Entity {
 
-    USER("User");
+    EMAIL("Email"),
+    PASSWORD("Password");
 
     private final String entity;
 
