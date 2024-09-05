@@ -1,5 +1,4 @@
 package org.example.models;
-
 import java.sql.Date;
 
 public class JobDetailedResponse {
@@ -71,4 +70,4 @@ public class JobDetailedResponse {
         public void setClosingDate(final Date closingDate) {
             this.closingDate = closingDate;
         }
-    }
+    };
