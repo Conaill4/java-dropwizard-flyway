@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jwts;
 import org.example.models.JwtToken;
 import org.example.models.UserRole;
 
-import javax.naming.AuthenticationException;
 import java.security.Key;
 import java.util.Optional;
 
@@ -17,8 +16,7 @@ public class JwtAuthenticator implements Authenticator<String, JwtToken> {
     }
 
     @Override
-    public Optional<JwtToken> authenticate(final String token) throws
-            AuthenticationException {
+    public Optional<JwtToken> authenticate(final String token) {
         try {
             Integer roleId = Jwts.parser()
                     .setSigningKey(key)
