@@ -73,6 +73,71 @@ public class AuthServiceTest {
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
     }
     @Test
+    void login_ShouldThrowEmailException_WhenEmailIsHasExtraAt() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@@kainos.com",
+                "Adm1n$"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(EmailException.class);
+
+        assertThrows(EmailException.class, () -> authService.login(loginRequest));
+    }
+    @Test
+    void login_ShouldThrowEmailException_WhenEmailIsHasNoAt() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "adminkainos.com",
+                "Adm1n$"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(EmailException.class);
+
+        assertThrows(EmailException.class, () -> authService.login(loginRequest));
+    }
+    @Test
+    void login_ShouldThrowEmailException_WhenEmailIsHasAtInTheBeginning() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "@adminkainos.com",
+                "Adm1n$"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(EmailException.class);
+
+        assertThrows(EmailException.class, () -> authService.login(loginRequest));
+    }
+    @Test
+    void login_ShouldThrowEmailException_WhenEmailIsHasASpace() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "admin @kainos.com",
+                "Adm1n$"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(EmailException.class);
+
+        assertThrows(EmailException.class, () -> authService.login(loginRequest));
+    }
+    @Test
+    void login_ShouldThrowEmailException_WhenEmailIsHasNoDomain() throws
+            EmailException, PasswordException {
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@",
+                "Adm1n$"
+        );
+
+        Mockito.when(authValidator.isLoginValid(loginRequest))
+                .thenThrow(EmailException.class);
+
+        assertThrows(EmailException.class, () -> authService.login(loginRequest));
+    }
+    @Test
     void login_ShouldThrowPasswordException_WhenPasswordIsNull() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
