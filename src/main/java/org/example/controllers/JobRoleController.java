@@ -1,7 +1,7 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
-import org.example.Exceptions.DoesNotExistException;
+import org.example.exceptions.DoesNotExistException;
 import org.example.services.JobRoleService;
 
 import javax.ws.rs.GET;

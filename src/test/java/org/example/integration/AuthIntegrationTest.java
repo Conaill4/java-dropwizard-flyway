@@ -12,10 +12,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
-public class JobRoleIntegrationTest {
+public class AuthIntegrationTest {
 
     private static final DropwizardAppExtension<TestConfiguration> APP =
             new DropwizardAppExtension<>(TestApplication.class);
@@ -38,39 +40,13 @@ public class JobRoleIntegrationTest {
     public void getAllJobRoles_ResponseShouldNotBeNull() {
         Client client = APP.client();
 
+        String jsonPayload = "{\"email\":\"admin@kainos.com\",\"password\":\"$2a$10$hK06hO1rep2GeyyksoEA1ue01/ypRDpaYneXFTtaHtdT3DAFX1ayC\"}";
+
         Response response = client
-                .target("http://localhost:8080/api/job-roles")
-                .request()
-                .get();
+                .target("http://localhost:8080/api/auth/login")
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(jsonPayload));
 
         Assertions.assertNotNull(response);
     }
-
-    @Test
-    public void getAllJobRoles_ShouldReturnSomeData() {
-        Client client = APP.client();
-
-        Response response = client
-                .target("http://localhost:8080/api/job-roles")
-                .request()
-                .get();
-
-        Assertions.assertNotNull(response.readEntity(String.class));
-    }
-
-    @Test
-    public void getJobRoleById_ResponseShouldNotBeNull() {
-        Client client = APP.client();
-
-        Response response = client
-                .target("http://localhost:8080/api/job-roles/1")
-                .request()
-                .get();
-
-        Assertions.assertNotNull(response);
-    }
-
-
-
-
 }
