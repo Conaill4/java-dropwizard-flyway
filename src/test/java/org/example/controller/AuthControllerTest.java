@@ -2,7 +2,6 @@ package org.example.controller;
 
 import org.example.controllers.AuthController;
 import org.example.exceptions.EmailException;
-import org.example.exceptions.InvalidException;
 import org.example.exceptions.PasswordException;
 import org.example.models.LoginRequest;
 import org.example.services.AuthService;

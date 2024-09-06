@@ -3,7 +3,6 @@ package org.example.service;
 import io.jsonwebtoken.security.Keys;
 import org.example.daos.AuthDao;
 import org.example.exceptions.EmailException;
-import org.example.exceptions.InvalidException;
 import org.example.exceptions.PasswordException;
 import org.example.models.LoginRequest;
 import org.example.models.User;
