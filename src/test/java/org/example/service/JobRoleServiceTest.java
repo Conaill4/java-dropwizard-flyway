@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.Exceptions.DoesNotExistException;
+import org.example.exceptions.DoesNotExistException;
 import org.example.daos.JobRoleDao;
 import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRole;
@@ -76,7 +76,7 @@ class JobRoleServiceTest {
     @Test
     void getAllJobRoles_shouldReturnSQLException()
             throws SQLException{
-        Mockito.when(jobRoleDao.getJobRoles(1,10))
+        Mockito.when(jobRoleDao.getJobRoles(0,10))
                 .thenThrow(SQLException.class);
 
         assertThrows(SQLException.class, () -> jobRoleService.getAllJobRoles(1,10));

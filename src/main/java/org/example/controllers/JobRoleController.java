@@ -1,9 +1,9 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
-import org.example.Exceptions.DoesNotExistException;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
+import org.example.exceptions.DoesNotExistException;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -50,8 +50,6 @@ public class JobRoleController {
         }
     }
 
-
-
     @GET
     @Path("/{id}")
     public Response getJobRoleById(@PathParam("id") final int id) {
@@ -61,9 +59,8 @@ public class JobRoleController {
         } catch (SQLException e) {
             return Response.serverError().build();
         } catch (DoesNotExistException e) {
-            throw new RuntimeException(e);
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
         }
     }
-
-
 }
