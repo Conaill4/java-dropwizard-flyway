@@ -1,15 +1,14 @@
-package org.example.Exceptions;
+package org.example.exceptions;
 
 public enum Entity {
-    JOBROLE("JobRole"),
-    JOBROLEDETAILED("JobRoleDetailed");
+    JOBROLEDETAILED("JobRoleDetailed"),
+    USER("User");
 
     private final String entity;
 
     Entity(final String entity) {
         this.entity = entity;
     }
-
     public String getEntity() {
         return entity;
     }

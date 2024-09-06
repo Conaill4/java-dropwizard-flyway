@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.Exceptions.DoesNotExistException;
+import org.example.exceptions.DoesNotExistException;
 import org.example.controllers.JobRoleController;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailedResponse;
@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

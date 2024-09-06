@@ -1,7 +1,7 @@
 package org.example.services;
 
-import org.example.Exceptions.DoesNotExistException;
-import org.example.Exceptions.Entity;
+import org.example.exceptions.DoesNotExistException;
+import org.example.exceptions.Entity;
 import org.example.daos.JobRoleDao;
 import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRoleDetailed;

@@ -1,7 +1,7 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
-import org.example.Exceptions.DoesNotExistException;
+import org.example.exceptions.DoesNotExistException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.example.models.JobRole;
@@ -21,7 +21,6 @@ import java.sql.SQLException;
 
 @Api("JobRole API")
 @Path("/api/job-roles")
-@RolesAllowed({UserRole.ADMIN, UserRole.USER})
 public class JobRoleController {
     JobRoleService jobRoleService;
     public JobRoleController(final JobRoleService jobRoleService) {

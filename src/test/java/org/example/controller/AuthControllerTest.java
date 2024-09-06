@@ -1,7 +1,7 @@
 package org.example.controller;
 
-import org.example.controllers.AuthController;
 import org.example.exceptions.InvalidException;
+import org.example.controllers.AuthController;
 import org.example.models.LoginRequest;
 import org.example.services.AuthService;
 import org.junit.jupiter.api.Test;
