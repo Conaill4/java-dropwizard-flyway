@@ -65,27 +65,24 @@ public class JobRoleMapperTest {
     }
 
     @Test
-    void getJobRoleMapper_shouldReturnDetailedJobRoles() {
+    void getJobRoleMapper_shouldReturnDetailedJobRoleResponse() {
 
         JobRoleMapper jobRoleMapper = new JobRoleMapper();
-        List<JobRoleDetailed> jobRoles = new ArrayList<>();
-        jobRoles.add(jobRoleDetailed1);
 
-        List<JobRoleDetailedResponse> jobRoleResponse = jobRoleMapper
-                .mapJobRoleListToJobRoleDetailedResponse(jobRoles);
+        JobRoleDetailedResponse jobRoleResponse = jobRoleMapper
+                .mapJobRoleToJobRoleDetailedResponse(jobRoleDetailed1);
 
-        assertEquals(1, jobRoleResponse.size());
         assertEquals(jobRoleDetailed1.getJobRole(),
-                jobRoleResponse.get(0).getJobRole());
+                jobRoleResponse.getJobRole());
         assertEquals(jobRoleDetailed1.getDescription(),
-                jobRoleResponse.get(0).getDescription());
+                jobRoleResponse.getDescription());
         assertEquals(jobRoleDetailed1.getResponsibilities(),
-                jobRoleResponse.get(0).getResponsibilities());
+                jobRoleResponse.getResponsibilities());
         assertEquals(jobRoleDetailed1.getSharepointUrl(),
-                jobRoleResponse.get(0).getSharepointUrl());
+                jobRoleResponse.getSharepointUrl());
         assertEquals(jobRoleDetailed1.getNumberOfOpenPositions(),
-                jobRoleResponse.get(0).getNumberOfOpenPositions());
+                jobRoleResponse.getNumberOfOpenPositions());
         assertEquals(jobRoleDetailed1.getStatus(),
-                jobRoleResponse.get(0).getStatus());
+                jobRoleResponse.getStatus());
     }
 }

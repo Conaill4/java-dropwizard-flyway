@@ -1,13 +1,6 @@
 package org.example.models;
 
 public class JobRoleDetailed {
-    public JobRole getJobRole() {
-        return jobRole;
-    }
-
-    public void setJobRole(final JobRole jobRole) {
-        this.jobRole = jobRole;
-    }
 
     private JobRole jobRole;
     private String description;
@@ -15,6 +8,29 @@ public class JobRoleDetailed {
     private String sharepointUrl;
     private int numberOfOpenPositions;
     private String status;
+
+    public JobRoleDetailed(
+            final JobRole jobRole,
+            final String description,
+            final String responsibilities,
+            final String sharepointUrl,
+            final int numberOfOpenPositions,
+            final String status) {
+        this.jobRole = jobRole;
+        this.description = description;
+        this.responsibilities = responsibilities;
+        this.sharepointUrl = sharepointUrl;
+        this.numberOfOpenPositions = numberOfOpenPositions;
+        this.status = status;
+    }
+
+    public JobRole getJobRole() {
+        return jobRole;
+    }
+
+    public void setJobRole(final JobRole jobRole) {
+        this.jobRole = jobRole;
+    }
 
     public String getDescription() {
         return description;
@@ -53,21 +69,6 @@ public class JobRoleDetailed {
     }
 
     public void setStatus(final String status) {
-        this.status = status;
-    }
-
-    public JobRoleDetailed(
-            final JobRole jobRole,
-            final String description,
-            final String responsibilities,
-            final String sharepointUrl,
-            final int numberOfOpenPositions,
-            final String status) {
-        this.jobRole = jobRole;
-        this.description = description;
-        this.responsibilities = responsibilities;
-        this.sharepointUrl = sharepointUrl;
-        this.numberOfOpenPositions = numberOfOpenPositions;
         this.status = status;
     }
 }

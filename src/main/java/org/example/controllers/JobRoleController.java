@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import org.example.Exceptions.DoesNotExistException;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
 
@@ -15,10 +16,10 @@ import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.List;
 
-@Api("JobRole API")
-@Path("/api/job-roles/")
-public class JobRoleController {
 
+@Api("JobRole API")
+@Path("/api/job-roles")
+public class JobRoleController {
     JobRoleService jobRoleService;
     public JobRoleController(final JobRoleService jobRoleService) {
         this.jobRoleService = jobRoleService;
@@ -59,6 +60,10 @@ public class JobRoleController {
                     .build();
         } catch (SQLException e) {
             return Response.serverError().build();
+        } catch (DoesNotExistException e) {
+            throw new RuntimeException(e);
         }
     }
+
+
 }

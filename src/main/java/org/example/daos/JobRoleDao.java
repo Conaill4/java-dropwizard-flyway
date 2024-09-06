@@ -59,10 +59,9 @@ public class JobRoleDao {
         return 0;
     }
 
-    public List<JobRoleDetailed> getJobRoleById(final int jobRoleId)
+    public JobRoleDetailed getJobRoleById(final int jobRoleId)
             throws SQLException {
-        List<JobRoleDetailed> jobRoleDetaileds =
-                new ArrayList<>();
+
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT jobRoleId, roleName, description, location,"
                     + " responsibilities, sharepointUrl,"
@@ -80,20 +79,20 @@ public class JobRoleDao {
             if (resultSet.next()) {
                 JobRoleDetailed jobRole = new JobRoleDetailed(
                         new JobRole(
-                        resultSet.getInt("jobRoleId"),
-                        resultSet.getString("roleName"),
-                        resultSet.getString("location"),
-                        resultSet.getString("capabilityName"),
-                        resultSet.getString("bandName"),
-                        resultSet.getDate("closingDate")),
+                                resultSet.getInt("jobRoleId"),
+                                resultSet.getString("roleName"),
+                                resultSet.getString("location"),
+                                resultSet.getString("capabilityName"),
+                                resultSet.getString("bandName"),
+                                resultSet.getDate("closingDate")),
                         resultSet.getString("description"),
                         resultSet.getString("responsibilities"),
                         resultSet.getString("sharepointUrl"),
                         resultSet.getInt("numberOfOpenPositions"),
                         resultSet.getString("statusName"));
-                jobRoleDetaileds.add(jobRole);
+                return jobRole;
             }
-            return jobRoleDetaileds;
         }
+        return null;
     }
-}
+};

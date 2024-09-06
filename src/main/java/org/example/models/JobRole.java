@@ -10,13 +10,6 @@ public class JobRole {
     private String bandName;
     private Date closingDate;
 
-    public Date getClosingDate() {
-        return closingDate;
-    }
-
-    public void setClosingDate(final Date closingDate) {
-        this.closingDate = closingDate;
-    }
     public JobRole(final int jobRoleId,
                    final String roleName,
                    final String location,
@@ -37,6 +30,14 @@ public class JobRole {
 
     public void setJobRoleId(final int jobRoleId) {
         this.jobRoleId = jobRoleId;
+    }
+
+    public Date getClosingDate() {
+        return closingDate;
+    }
+
+    public void setClosingDate(final Date closingDate) {
+        this.closingDate = closingDate;
     }
 
     public String getCapabilityName() {
