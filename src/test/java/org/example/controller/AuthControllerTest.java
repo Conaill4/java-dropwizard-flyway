@@ -1,7 +1,8 @@
 package org.example.controller;
 
-import org.example.exceptions.InvalidException;
 import org.example.controllers.AuthController;
+import org.example.exceptions.EmailException;
+import org.example.exceptions.PasswordException;
 import org.example.models.LoginRequest;
 import org.example.services.AuthService;
 import org.junit.jupiter.api.Test;
@@ -18,11 +19,12 @@ public class AuthControllerTest {
 
     LoginRequest loginRequest = new LoginRequest(
             "admin@kainos.com",
-            "admin"
+            "Adm1n$"
     );
 
     @Test
-    void successfulLogin_shouldReturn200() throws SQLException, InvalidException {
+    void successfulLogin_shouldReturn200() throws SQLException, EmailException,
+            PasswordException {
         String token = "123";
         Mockito.when(authService.login(loginRequest)).thenReturn(token);
 
@@ -32,7 +34,8 @@ public class AuthControllerTest {
     }
 
     @Test
-    void Login_shouldReturn500IfSQLError() throws SQLException, InvalidException {
+    void Login_shouldReturn500IfSQLError() throws SQLException, EmailException,
+            PasswordException {
 
         Mockito.when(authService.login(loginRequest)).thenThrow(SQLException.class);
 
@@ -42,9 +45,10 @@ public class AuthControllerTest {
     }
 
     @Test
-    void Login_shouldReturn400IfBadRequest() throws SQLException, InvalidException {
+    void Login_shouldReturn400IfBadRequest() throws SQLException, EmailException,
+            PasswordException {
 
-        Mockito.when(authService.login(loginRequest)).thenThrow(InvalidException.class);
+        Mockito.when(authService.login(loginRequest)).thenThrow(EmailException.class);
 
         Response response = authController.login(loginRequest);
 

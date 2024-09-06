@@ -23,6 +23,7 @@ import org.example.services.AuthService;
 import org.example.services.JobRoleService;
 import org.example.services.TestService;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.example.validators.AuthValidator;
 
 import java.security.Key;
 
@@ -64,7 +65,7 @@ public class TestApplication extends Application<TestConfiguration> {
         environment.jersey().register((new JobRoleController(
                 new JobRoleService(new JobRoleDao(), new JobRoleMapper()))));
         environment.jersey().register(new AuthController(
-                new AuthService(new AuthDao(), jwtKey)));
+                new AuthService(new AuthDao(), jwtKey, new AuthValidator())));
     }
 
 }

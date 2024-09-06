@@ -16,6 +16,6 @@ CREATE TABLE `User` (
 );
 
 INSERT INTO User(Email, Password, RoleID)
-    VALUES ('admin@kainos.com', '$2a$10$abwOc0Pn.kTEmWCa7GJ0ROXGwmwJXFzX6Fh.81fmS4zOZdjj81jzW', 1);
+    VALUES ('admin@kainos.com', '$2a$10$hK06hO1rep2GeyyksoEA1ue01/ypRDpaYneXFTtaHtdT3DAFX1ayC', 1);
 INSERT INTO User(Email, Password, RoleID)
-    VALUES ('user@kainos.com', '$2a$10$DDH8AlCUekJsEspG9gTO4Od.D6UeqWAWkVS1mZJhNCN.1A90vQF2y', 2);
+    VALUES ('user@kainos.com', '$2a$10$y1uLZnPS7P2MH8MfAaTjI.Az9UcK5S.u5gtSacwuS5ALld7ia.fIq', 2);

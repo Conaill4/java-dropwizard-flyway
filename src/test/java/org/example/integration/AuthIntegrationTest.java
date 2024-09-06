@@ -40,7 +40,7 @@ public class AuthIntegrationTest {
     public void getAllJobRoles_ResponseShouldNotBeNull() {
         Client client = APP.client();
 
-        String jsonPayload = "{\"email\":\"admin@kainos.com\",\"password\":\"$2a$10$abwOc0Pn.kTEmWCa7GJ0ROXGwmwJXFzX6Fh.81fmS4zOZdjj81jzW\"}";
+        String jsonPayload = "{\"email\":\"admin@kainos.com\",\"password\":\"$2a$10$hK06hO1rep2GeyyksoEA1ue01/ypRDpaYneXFTtaHtdT3DAFX1ayC\"}";
 
         Response response = client
                 .target("http://localhost:8080/api/auth/login")
