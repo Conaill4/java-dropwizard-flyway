@@ -14,6 +14,7 @@ import java.util.List;
 public class JobRoleService {
     private final JobRoleDao jobRoleDao;
     private final JobRoleMapper jobRoleMapper;
+    private final int maxPageSize = 10;
 
     public JobRoleService(final JobRoleDao jobRoleDao,
                           final JobRoleMapper jobRoleMapper) {
@@ -26,20 +27,19 @@ public class JobRoleService {
         try {
             final int offset = (page - 1) * pageSize;
             return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
-                    jobRoleDao.getJobRoles(offset, pageSize));
+                    jobRoleDao.getOpenJobRoles(offset, pageSize));
         } catch (SQLException e) {
             throw new SQLException(e);
         }
     }
     public int getTotalPages(final int pageSize) throws SQLException {
-        int totalRecords = jobRoleDao.countTotalJobs();
+        int totalRecords = jobRoleDao.getTotalOpenJobs();
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
     public JobRoleDetailedResponse getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
 
-        JobRoleDetailed jobRoleDetailed =
-                (JobRoleDetailed) jobRoleDao.getJobRoleById(id);
+        JobRoleDetailed jobRoleDetailed = jobRoleDao.getJobRoleById(id);
 
         if (jobRoleDetailed == null) {
             throw new DoesNotExistException(Entity.JOBROLEDETAILED);

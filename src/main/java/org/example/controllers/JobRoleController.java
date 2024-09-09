@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import io.swagger.annotations.Api;
 import org.example.models.JobRoleResponse;
+import org.example.models.Pagination;
 import org.example.services.JobRoleService;
 import org.example.exceptions.DoesNotExistException;
 
@@ -14,7 +15,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Api("JobRole API")
@@ -31,18 +34,14 @@ public class JobRoleController {
             @QueryParam("page") @DefaultValue("1") final int page,
             @QueryParam("pageSize") @DefaultValue("10") final int pageSize) {
         try {
-            //validate your params... if invalid - exit...
-             //if limit > MAX_ALLOWED (eg 20), then set limit = MAX_ALLOWED
-
             List<JobRoleResponse> jobRoles = jobRoleService
                     .getAllJobRoles(page, pageSize);
-            final int totalPages = jobRoleService.getTotalPages(pageSize);
-            return Response.ok()
-                    .entity(jobRoles)
-                    .header("X-Total-Pages", totalPages)
-                    .header("X-Current-Page", page)
-                    .header("X-Page-Size", pageSize)
-                    .build();
+            Pagination pagination = new Pagination(
+                    jobRoleService.getTotalPages(pageSize));
+                Map<String, Object> response = new HashMap<>();
+                response.put("jobRoles", jobRoles);
+                response.put("pagination", pagination);
+                return Response.ok().entity(response).build();
             } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Error retrieving job roles")

@@ -13,9 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobRoleDao {
-
-    public List<JobRoleResponse> getJobRoles(
-            final int offset, final int limit) throws SQLException {
+    private static final int STATUS_ID = 1;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    public List<JobRoleResponse> getOpenJobRoles(
+            final int offset, final int limit)
+            throws SQLException {
         List<JobRoleResponse> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT jobRoleId, roleName, location,"
@@ -23,12 +27,13 @@ public class JobRoleDao {
                     + "closingDate FROM `job-roles`"
                     + " JOIN Capability using(capabilityId)"
                     + " JOIN Band using(bandId)"
-                    + " WHERE statusId = 1"
+                    + " WHERE statusId = ?"
                     + " ORDER BY jobRoleId"
                     + " LIMIT ? OFFSET ?;";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, limit);
-            statement.setInt(2, offset);
+            statement.setInt(ONE, STATUS_ID);
+            statement.setInt(TWO, limit);
+            statement.setInt(THREE, offset);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 JobRoleResponse jobRoleResponse = new JobRoleResponse(
@@ -43,13 +48,13 @@ public class JobRoleDao {
         }
         return jobRoles;
     }
-    public int countTotalJobs() throws SQLException {
+    public int getTotalOpenJobs() throws SQLException {
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT COUNT(*) "
-                    + "FROM `job-roles`JOIN Capability using(capabilityId) "
-                    + "JOIN Band using(bandId) "
-                    + "WHERE statusId = 1;";
+                    + "FROM `job-roles` "
+                    + "WHERE statusId = ?;";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(ONE, STATUS_ID);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getInt(1);
@@ -73,7 +78,7 @@ public class JobRoleDao {
                     + " WHERE `jobRoleId` = ?";
 
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, jobRoleId);
+            statement.setInt(ONE, jobRoleId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 JobRoleDetailed jobRole = new JobRoleDetailed(
