@@ -7,6 +7,7 @@ import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRoleDetailed;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
+import org.example.validators.PaginationSanitiser;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,12 +15,11 @@ import java.util.List;
 public class JobRoleService {
     private final JobRoleDao jobRoleDao;
     private final JobRoleMapper jobRoleMapper;
-    private final int maxPageSize = 10;
-
     public JobRoleService(final JobRoleDao jobRoleDao,
                           final JobRoleMapper jobRoleMapper) {
         this.jobRoleDao = jobRoleDao;
         this.jobRoleMapper = jobRoleMapper;
+
     }
 
     public List<JobRoleResponse> getAllJobRoles(

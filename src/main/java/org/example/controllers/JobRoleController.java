@@ -25,8 +25,11 @@ import java.util.Map;
 @Path("/api/job-roles")
 public class JobRoleController {
     JobRoleService jobRoleService;
-    public JobRoleController(final JobRoleService jobRoleService) {
+    PaginationSanitiser paginationSanitiser;
+    public JobRoleController(final JobRoleService jobRoleService,
+                             final PaginationSanitiser paginationSanitiser) {
         this.jobRoleService = jobRoleService;
+        this.paginationSanitiser = paginationSanitiser;
     }
 
     @GET
@@ -35,14 +38,11 @@ public class JobRoleController {
             @QueryParam("page") @DefaultValue("1") final int page,
             @QueryParam("pageSize") @DefaultValue("10") final int pageSize) {
         try {
-            PaginationSanitiser paginationSanitiser = new PaginationSanitiser();
             int totalRecords = jobRoleService.getTotalRecords();
-            int sanitisedPageSize = PaginationSanitiser.sanitisePageSize(
+            int sanitisedPageSize = paginationSanitiser.sanitisePageSize(
                     pageSize);
             int sanitisedPage = paginationSanitiser.sanitisePage(
                     page, sanitisedPageSize, totalRecords);
-
-
             List<JobRoleResponse> jobRoles = jobRoleService
                     .getAllJobRoles(sanitisedPage, sanitisedPageSize);
             Pagination pagination = new Pagination(
