@@ -9,7 +9,6 @@ import org.example.models.UserRole;
 import org.example.models.JobRoleResponse;
 import org.example.models.Pagination;
 import org.example.services.JobRoleService;
-import org.example.exceptions.DoesNotExistException;
 import org.example.validators.PaginationSanitiser;
 
 import javax.ws.rs.DefaultValue;
@@ -38,7 +37,6 @@ public class JobRoleController {
         this.jobRoleService = jobRoleService;
         this.paginationSanitiser = paginationSanitiser;
     }
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({UserRole.ADMIN, UserRole.USER})
@@ -58,11 +56,12 @@ public class JobRoleController {
             List<JobRoleResponse> jobRoles = jobRoleService
                     .getAllJobRoles(sanitisedPage, sanitisedPageSize);
             Pagination pagination = new Pagination(
-                    jobRoleService.getTotalpages(sanitisedPageSize,
+                    jobRoleService.getTotalpages(
+                            sanitisedPageSize,
                             sanitisedPage),
-                    sanitisedPage,
-                    jobRoleService.getNextPage(sanitisedPage),
-                    jobRoleService.getPreviousPage(sanitisedPage));
+                            sanitisedPage,
+                   sanitisedPage + 1,
+                sanitisedPage - 1);
                 Map<String, Object> response = new HashMap<>();
                 response.put("jobRoles", jobRoles);
                 response.put("pagination", pagination);
@@ -73,7 +72,6 @@ public class JobRoleController {
                     .build();
         }
     }
-
     @GET
     @Path("/{id}")
     @RolesAllowed({UserRole.ADMIN, UserRole.USER})

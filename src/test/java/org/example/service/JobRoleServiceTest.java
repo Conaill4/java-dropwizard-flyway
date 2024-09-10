@@ -27,8 +27,7 @@ class JobRoleServiceTest {
 
     JobRoleDao jobRoleDao = Mockito.mock(JobRoleDao.class);
     JobRoleMapper jobRoleMapper = Mockito.mock(JobRoleMapper.class);
-    JobRoleService jobRoleService = new JobRoleService(jobRoleDao, jobRoleMapper,
-            new PaginationSanitiser());
+    JobRoleService jobRoleService = new JobRoleService(jobRoleDao, jobRoleMapper);
 
     JobRoleDetailedResponse jobRoleDetailedResponse = new JobRoleDetailedResponse(
             new JobRole(

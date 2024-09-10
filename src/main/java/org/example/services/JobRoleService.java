@@ -7,7 +7,7 @@ import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRoleDetailed;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
-import org.example.validators.PaginationSanitiser;
+
 
 import java.sql.SQLException;
 import java.util.List;
@@ -40,32 +40,6 @@ public class JobRoleService {
         int totalRecords = jobRoleDao.getTotalOpenJobs();
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
-
-    public int getCurrentPage(final int currentPage)
-            throws SQLException {
-        return currentPage;
-    }
-
-    public int getNextPage(final int currentPage)
-            throws SQLException {
-        final int pageSize = 10;
-        if (currentPage >= getTotalpages(pageSize, currentPage)) {
-            return currentPage;
-        } else {
-            return currentPage + 1;
-        }
-    }
-
-    public int getPreviousPage(final int currentPage)
-            throws SQLException {
-        final int pageSize = 10;
-        if (currentPage <= 1) {
-            return currentPage;
-        } else {
-            return currentPage - 1;
-        }
-    }
-
     public JobRoleDetailedResponse getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
 
