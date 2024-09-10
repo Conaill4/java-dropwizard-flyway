@@ -18,7 +18,8 @@ public class JobRoleDao {
     private static final int TWO = 2;
     private static final int THREE = 3;
     public List<JobRoleResponse> getOpenJobRoles(
-            final int offset, final int limit, final String fieldName, final String orderBy)
+            final int offset, final int limit, final String fieldName,
+            final String orderBy)
             throws SQLException {
         List<JobRoleResponse> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {

@@ -22,9 +22,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.*;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -50,13 +47,14 @@ public class JobRoleController {
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
             response = JobRole.class)
     public Response getAllJobRoles(
-            @QueryParam("fieldName") @DefaultValue("roleName") final String fieldName,
+            @QueryParam("fieldName") @DefaultValue("roleName")
+            final String fieldName,
             @QueryParam("orderBy") @DefaultValue("ASC") final String orderBy,
             @QueryParam("page") @DefaultValue("1") final int page,
             @QueryParam("pageSize") @DefaultValue("10") final int pageSize) {
         try {
             List<JobRoleResponse> jobRoles = jobRoleService
-                    .getAllJobRoles(page, pageSize);
+                    .getAllJobRoles(page, pageSize, fieldName, orderBy);
             Pagination pagination = new Pagination(
                     jobRoleService.getTotalpages(pageSize, page),
                     jobRoleService.getCurrentPage(page),
