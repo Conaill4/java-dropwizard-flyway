@@ -8,7 +8,7 @@ class PaginationSanitiserTest {
     private final PaginationSanitiser paginationSanitiser = new PaginationSanitiser();
 
     @Test
-    void sanitisePage_WhenPageIsZero_ReturnsMinPage() {
+    public void sanitisePage_WhenPageIsZero_ReturnsMinPage() {
         int page = 0;
         int sanitisedPageSize = 10;
         int totalRecords = 50;
@@ -19,7 +19,7 @@ class PaginationSanitiserTest {
     }
 
     @Test
-    void sanitisePage_WhenPageIsNegative_ReturnsMinPage() {
+    public void sanitisePage_WhenPageIsNegative_ReturnsMinPage() {
         int page = -5;
         int sanitisedPageSize = 10;
         int totalRecords = 50;
@@ -30,7 +30,7 @@ class PaginationSanitiserTest {
     }
 
     @Test
-    void sanitisePage_WhenPageIsGreaterThanMaxPage_ReturnsMaxPage() {
+    public void sanitisePage_WhenPageIsGreaterThanMaxPage_ReturnsMaxPage() {
         int page = 10;
         int sanitisedPageSize = 10;
         int totalRecords = 50; // Max pages should be 5
@@ -41,7 +41,7 @@ class PaginationSanitiserTest {
     }
 
     @Test
-    void sanitisePage_WhenPageIsWithinRange_ReturnsSamePage() {
+    public void sanitisePage_WhenPageIsWithinRange_ReturnsSamePage() {
         int page = 3;
         int sanitisedPageSize = 10;
         int totalRecords = 50; // Max pages should be 5
@@ -52,7 +52,7 @@ class PaginationSanitiserTest {
     }
 
     @Test
-    void sanitisePageSize_WhenPageSizeIsNotValid_ReturnsValidPageSize() {
+    public void sanitisePageSize_WhenPageSizeIsNotValid_ReturnsValidPageSize() {
         int pageSize = 5; // Invalid page size
 
         int result = paginationSanitiser.sanitisePageSize(pageSize);
@@ -61,7 +61,7 @@ class PaginationSanitiserTest {
     }
 
     @Test
-    void sanitisePageSize_WhenPageSizeIsValid_ReturnsValidPageSize() {
+    public void sanitisePageSize_WhenPageSizeIsValid_ReturnsValidPageSize() {
         int pageSize = 10; // Valid page size
 
         int result = paginationSanitiser.sanitisePageSize(pageSize);

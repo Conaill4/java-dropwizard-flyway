@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-class JobRoleServiceTest {
+public class JobRoleServiceTest {
 
     JobRoleDao jobRoleDao = Mockito.mock(JobRoleDao.class);
     JobRoleMapper jobRoleMapper = Mockito.mock(JobRoleMapper.class);
@@ -63,7 +63,7 @@ class JobRoleServiceTest {
     );
 
     @Test
-    void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsJobRoleList()
+    public void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsJobRoleList()
             throws SQLException {
         List<JobRoleResponse> expectedJobRoles = new ArrayList<>();
         Mockito.when(jobRoleMapper.mapJobRoleListToJobRoleResponseList(
@@ -75,7 +75,7 @@ class JobRoleServiceTest {
     }
 
     @Test
-    void getAllJobRoles_shouldReturnSQLException()
+    public void getAllJobRoles_shouldReturnSQLException()
             throws SQLException{
         Mockito.when(jobRoleDao.getOpenJobRoles( 0,10))
                 .thenThrow(SQLException.class);
@@ -84,7 +84,7 @@ class JobRoleServiceTest {
     }
 
     @Test
-    void getJobRoleById_shouldReturnJobRole_WhenDAOReturnsJobRole() throws SQLException, DoesNotExistException {
+    public void getJobRoleById_shouldReturnJobRole_WhenDAOReturnsJobRole() throws SQLException, DoesNotExistException {
         int jobRoleId = jobRoleDetailed1.getJobRole().getJobRoleId();
 
         Mockito.when(jobRoleDao.getJobRoleById((jobRoleDetailed1.getJobRole().getJobRoleId()))).thenReturn(jobRoleDetailed1);
@@ -96,14 +96,14 @@ class JobRoleServiceTest {
     }
 
     @Test
-    void getJobRoleById_shouldReturnSQLException() throws SQLException, DoesNotExistException {
+    public void getJobRoleById_shouldReturnSQLException() throws SQLException, DoesNotExistException {
         Mockito.when(jobRoleDao.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenThrow(SQLException.class);
 
        assertThrows(SQLException.class, () -> jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId()));
     }
 
     @Test
-    void getJobRoleById_shouldReturnDoesNotExistException() throws SQLException, DoesNotExistException {
+    public void getJobRoleById_shouldReturnDoesNotExistException() throws SQLException, DoesNotExistException {
         Mockito.when(jobRoleDao.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenThrow(DoesNotExistException.class);
 
         assertThrows(DoesNotExistException.class, () -> jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId()));

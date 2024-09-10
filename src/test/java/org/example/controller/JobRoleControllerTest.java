@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 
-class JobRoleControllerTest {
+public class JobRoleControllerTest {
     JobRoleService jobRoleService = Mockito.mock(JobRoleService.class);
     PaginationSanitiser paginationSanitiser = Mockito.mock(PaginationSanitiser.class);
     private final JobRoleController jobRoleController = new JobRoleController(jobRoleService,paginationSanitiser);
@@ -89,7 +89,7 @@ class JobRoleControllerTest {
     }
 
     @Test
-    public void testGetAllJobRoles_SQLException() throws SQLException {
+    public void getAllJobRoles_SQLException() throws SQLException {
         // Arrange
         int page = 1;
         int pageSize = 10;
@@ -109,7 +109,7 @@ class JobRoleControllerTest {
 
 
     @Test
-    void getJobRoleById_shouldReturnJobRole() throws SQLException, DoesNotExistException {
+    public void getJobRoleById_shouldReturnJobRole() throws SQLException, DoesNotExistException {
         when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenReturn(jobRoleDetailed1);
         Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId());
         assertEquals(200, response.getStatus());
@@ -117,7 +117,7 @@ class JobRoleControllerTest {
     }
 
     @Test
-    void getJobRoleById_shouldReturnError_whenServiceThrowSQLException() throws SQLException, DoesNotExistException {
+    public void getJobRoleById_shouldReturnError_whenServiceThrowSQLException() throws SQLException, DoesNotExistException {
         when(jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenThrow(SQLException.class);
         Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId());
 

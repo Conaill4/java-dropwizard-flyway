@@ -40,7 +40,7 @@ public class JobRoleMapperTest {
     );
 
     @Test
-    void getJobRoleMapper_shouldReturnJobRoles() {
+    public void getJobRoleMapper_shouldReturnJobRoles() {
 
         JobRoleMapper jobRoleMapper = new JobRoleMapper();
         List<JobRoleResponse> jobRoles = new ArrayList<>();
@@ -65,7 +65,7 @@ public class JobRoleMapperTest {
     }
 
     @Test
-    void getJobRoleMapper_shouldReturnDetailedJobRoleResponse() {
+    public void getJobRoleMapper_shouldReturnDetailedJobRoleResponse() {
 
         JobRoleMapper jobRoleMapper = new JobRoleMapper();
 
