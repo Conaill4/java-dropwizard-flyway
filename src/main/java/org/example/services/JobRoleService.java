@@ -24,10 +24,6 @@ public class JobRoleService {
 
     public List<JobRoleResponse> getAllJobRoles(
             final int page, final int pageSize) throws SQLException {
-        if (page <= 0 || pageSize <= 0) {
-            throw new IllegalArgumentException(
-                    "Page and PageSize must be greater than 0");
-        }
         try {
             final int offset = (page - 1) * pageSize;
             return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
@@ -39,10 +35,37 @@ public class JobRoleService {
                     + pageSize, e);
         }
     }
-    public int getTotalPages(final int pageSize) throws SQLException {
+    public int getTotalpages(final int pageSize, final int page)
+            throws SQLException {
         int totalRecords = jobRoleDao.getTotalOpenJobs();
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
+
+    public int getCurrentPage(final int currentPage)
+            throws SQLException {
+        return currentPage;
+    }
+
+    public int getNextPage(final int currentPage)
+            throws SQLException {
+        final int pageSize = 10;
+        if (currentPage >= getTotalpages(pageSize, currentPage)) {
+            return currentPage;
+        } else {
+            return currentPage + 1;
+        }
+    }
+
+    public int getPreviousPage(final int currentPage)
+            throws SQLException {
+        final int pageSize = 10;
+        if (currentPage <= 1) {
+            return currentPage;
+        } else {
+            return currentPage - 1;
+        }
+    }
+
     public JobRoleDetailedResponse getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
 
@@ -54,5 +77,9 @@ public class JobRoleService {
         return jobRoleMapper.mapJobRoleToJobRoleDetailedResponse(
                 jobRoleDao.getJobRoleById(id));
 
+    }
+
+    public int getTotalRecords() throws SQLException {
+        return jobRoleDao.getTotalOpenJobs();
     }
 }
