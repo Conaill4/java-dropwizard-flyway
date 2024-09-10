@@ -37,7 +37,10 @@ public class JobRoleController {
             List<JobRoleResponse> jobRoles = jobRoleService
                     .getAllJobRoles(page, pageSize);
             Pagination pagination = new Pagination(
-                    jobRoleService.getTotalPages(pageSize));
+                    jobRoleService.getTotalpages(pageSize, page),
+                    jobRoleService.getCurrentPage(page),
+                    jobRoleService.getNextPage(page),
+                    jobRoleService.getPreviousPage(page));
                 Map<String, Object> response = new HashMap<>();
                 response.put("jobRoles", jobRoles);
                 response.put("pagination", pagination);

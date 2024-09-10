@@ -39,10 +39,37 @@ public class JobRoleService {
                     + pageSize, e);
         }
     }
-    public int getTotalPages(final int pageSize) throws SQLException {
+    public int getTotalpages(final int pageSize, final int page)
+            throws SQLException {
         int totalRecords = jobRoleDao.getTotalOpenJobs();
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
+
+    public int getCurrentPage(final int currentPage)
+            throws SQLException {
+        return currentPage;
+    }
+
+    public int getNextPage(final int currentPage)
+            throws SQLException {
+        final int pageSize = 10;
+        if (currentPage >= getTotalpages(pageSize, currentPage)) {
+            return currentPage;
+        } else {
+            return currentPage + 1;
+        }
+    }
+
+    public int getPreviousPage(final int currentPage)
+            throws SQLException {
+        final int pageSize = 10;
+        if (currentPage <= 1) {
+            return currentPage;
+        } else {
+            return currentPage - 1;
+        }
+    }
+
     public JobRoleDetailedResponse getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
 
