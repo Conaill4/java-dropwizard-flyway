@@ -5,6 +5,7 @@ import org.example.controllers.JobRoleController;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
+import org.example.models.Pagination;
 import org.example.services.JobRoleService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,7 +13,9 @@ import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -56,18 +59,31 @@ class JobRoleControllerTest {
     );
 
     @Test
-    void getJobRoles_shouldReturnListOfEmployees() throws SQLException {
+    void getJobRoles_shouldReturnListOfJobs() throws SQLException {
         List<JobRoleResponse> mockJobRoles = Arrays.asList(jobRole1, jobRole2);
-        Mockito.when(jobRoleService.getAllJobRoles()).thenReturn(mockJobRoles);
-        Response response = jobRoleController.getAllJobRoles();
+        Pagination mockPagination = new Pagination(jobRoleService.getTotalPages(10));
+        Map<String, Object> expectedResult = new HashMap<>();
+        expectedResult.put("jobRoles", mockJobRoles);
+        expectedResult.put("pagination", mockPagination);
+
+
+        Mockito.when(jobRoleService.getAllJobRoles(1,10)).thenReturn(mockJobRoles);
+        Mockito.when(jobRoleService.getTotalPages(3)).thenReturn(
+                mockPagination.getTotalPage());
+
+        Response response = jobRoleController.getAllJobRoles(1,10);
         assertEquals(200, response.getStatus());
-        assertEquals(mockJobRoles, response.getEntity());
+        Map<String, Object> entity = (Map<String, Object>) response.getEntity();
+        assertEquals(mockJobRoles, entity.get("jobRoles"));
+        Pagination pagination = (Pagination) entity.get("pagination");
+        assertEquals(0, pagination.getTotalPage());
+
     }
 
     @Test
     void getAllJobRoles_shouldReturnError_whenServiceThrowsSQLException() throws SQLException {
-        Mockito.when(jobRoleService.getAllJobRoles()).thenThrow(SQLException.class);
-        Response response = jobRoleController.getAllJobRoles();
+        Mockito.when(jobRoleService.getAllJobRoles(1,10)).thenThrow(SQLException.class);
+        Response response = jobRoleController.getAllJobRoles(1,10);
 
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
     }
