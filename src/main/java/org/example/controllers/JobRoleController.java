@@ -9,10 +9,7 @@ import org.example.models.UserRole;
 import org.example.services.JobRoleService;
 
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -34,10 +31,10 @@ public class JobRoleController {
             value = "Returns Job Roles",
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
             response = JobRole.class)
-    public Response getAllJobRoles() {
+    public Response getAllJobRoles(@QueryParam("fieldName") @DefaultValue("roleName") final String fieldName,
+                                   @QueryParam("orderBy") @DefaultValue("ASC") final String orderBy) {
         try {
-            return Response.ok().entity(jobRoleService.getAllJobRoles())
-                    .build();
+            return Response.ok().entity(jobRoleService.getAllJobRoles(fieldName, orderBy)).build();
         } catch (SQLException e) {
             return Response.serverError().build();
         }

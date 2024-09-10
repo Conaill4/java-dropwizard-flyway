@@ -21,10 +21,10 @@ public class JobRoleService {
         this.jobRoleMapper = jobRoleMapper;
     }
 
-    public List<JobRoleResponse> getAllJobRoles() throws SQLException {
+    public List<JobRoleResponse> getAllJobRoles(final String fieldName, final String orderBy) throws SQLException {
 
         return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
-                jobRoleDao.getJobRoles());
+                jobRoleDao.getJobRoles(fieldName, orderBy));
         }
     public JobRoleDetailedResponse getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
