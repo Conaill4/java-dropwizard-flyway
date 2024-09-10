@@ -18,7 +18,7 @@ public class PaginationSanitiser {
         return page;
     }
 
-    public static int sanitisePageSize(final int pageSize) {
+    public int sanitisePageSize(final int pageSize) {
         if (pageSize != VALID_PAGE_SIZE) {
             return VALID_PAGE_SIZE;
         }

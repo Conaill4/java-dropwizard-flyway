@@ -8,6 +8,7 @@ import org.example.models.JobRoleDetailed;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
+import org.example.validators.PaginationSanitiser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -26,7 +27,8 @@ class JobRoleServiceTest {
 
     JobRoleDao jobRoleDao = Mockito.mock(JobRoleDao.class);
     JobRoleMapper jobRoleMapper = Mockito.mock(JobRoleMapper.class);
-    JobRoleService jobRoleService = new JobRoleService(jobRoleDao, jobRoleMapper);
+    JobRoleService jobRoleService = new JobRoleService(jobRoleDao, jobRoleMapper,
+            new PaginationSanitiser());
 
     JobRoleDetailedResponse jobRoleDetailedResponse = new JobRoleDetailedResponse(
             new JobRole(
