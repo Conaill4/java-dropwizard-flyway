@@ -22,6 +22,6 @@ public class PaginationSanitiser {
         if (pageSize != VALID_PAGE_SIZE) {
             return VALID_PAGE_SIZE;
         }
-        return VALID_PAGE_SIZE;
+        return pageSize;
     }
 }
