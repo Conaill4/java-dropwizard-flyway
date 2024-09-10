@@ -25,6 +25,10 @@ public class Pagination {
     public int getTotalPage() {
         return totalPages;
     }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
 }
 
 
