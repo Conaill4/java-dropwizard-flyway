@@ -41,6 +41,18 @@ public class JobRoleService {
                     + pageSize, e);
         }
     }
+
+    public String getCurrentFieldFilter(final String fieldName)
+            throws SQLException {
+        return fieldName;
+    }
+
+    public String getCurrentOrderByFilter(final String orderBy)
+            throws SQLException {
+        return orderBy;
+    }
+
+
     public int getTotalpages(final int pageSize, final int page)
             throws SQLException {
         int totalRecords = jobRoleDao.getTotalOpenJobs();

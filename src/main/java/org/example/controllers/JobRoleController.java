@@ -3,14 +3,11 @@ package org.example.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
-import org.example.models.JobRole;
-import org.example.models.JobRoleResponse;
-import org.example.models.Pagination;
+import org.example.models.*;
 import org.example.exceptions.DoesNotExistException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.example.models.JobRole;
-import org.example.models.UserRole;
 import org.example.models.UserRole;
 import org.example.services.JobRoleService;
 import org.example.exceptions.DoesNotExistException;
@@ -47,7 +44,7 @@ public class JobRoleController {
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
             response = JobRole.class)
     public Response getAllJobRoles(
-            @QueryParam("fieldName") @DefaultValue("roleName")
+            @QueryParam("fieldName") @DefaultValue("jobRoleId")
             final String fieldName,
             @QueryParam("orderBy") @DefaultValue("ASC") final String orderBy,
             @QueryParam("page") @DefaultValue("1") final int page,
@@ -60,9 +57,14 @@ public class JobRoleController {
                     jobRoleService.getCurrentPage(page),
                     jobRoleService.getNextPage(page),
                     jobRoleService.getPreviousPage(page));
+            RoleOrdering roleOrdering = new RoleOrdering(
+                    jobRoleService.getCurrentFieldFilter(fieldName),
+                    jobRoleService.getCurrentOrderByFilter(orderBy)
+            );
                 Map<String, Object> response = new HashMap<>();
                 response.put("jobRoles", jobRoles);
                 response.put("pagination", pagination);
+                response.put("roleOrdering", roleOrdering);
                 return Response.ok().entity(response).build();
             } catch (SQLException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
