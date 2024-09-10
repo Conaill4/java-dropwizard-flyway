@@ -24,10 +24,6 @@ public class JobRoleService {
 
     public List<JobRoleResponse> getAllJobRoles(
             final int page, final int pageSize) throws SQLException {
-        if (page <= 0 || pageSize <= 0) {
-            throw new IllegalArgumentException(
-                    "Page and PageSize must be greater than 0");
-        }
         try {
             final int offset = (page - 1) * pageSize;
             return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
@@ -81,5 +77,9 @@ public class JobRoleService {
         return jobRoleMapper.mapJobRoleToJobRoleDetailedResponse(
                 jobRoleDao.getJobRoleById(id));
 
+    }
+
+    public int getTotalRecords() throws SQLException {
+        return jobRoleDao.getTotalOpenJobs();
     }
 }

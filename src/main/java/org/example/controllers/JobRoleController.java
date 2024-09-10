@@ -5,6 +5,7 @@ import org.example.models.JobRoleResponse;
 import org.example.models.Pagination;
 import org.example.services.JobRoleService;
 import org.example.exceptions.DoesNotExistException;
+import org.example.validators.PaginationSanitiser;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -34,13 +35,22 @@ public class JobRoleController {
             @QueryParam("page") @DefaultValue("1") final int page,
             @QueryParam("pageSize") @DefaultValue("10") final int pageSize) {
         try {
+            PaginationSanitiser paginationSanitiser = new PaginationSanitiser();
+            int totalRecords = jobRoleService.getTotalRecords();
+            int sanitisedPageSize = PaginationSanitiser.sanitisePageSize(
+                    pageSize);
+            int sanitisedPage = paginationSanitiser.sanitisePage(
+                    page, sanitisedPageSize, totalRecords);
+
+
             List<JobRoleResponse> jobRoles = jobRoleService
-                    .getAllJobRoles(page, pageSize);
+                    .getAllJobRoles(sanitisedPage, sanitisedPageSize);
             Pagination pagination = new Pagination(
-                    jobRoleService.getTotalpages(pageSize, page),
-                    jobRoleService.getCurrentPage(page),
-                    jobRoleService.getNextPage(page),
-                    jobRoleService.getPreviousPage(page));
+                    jobRoleService.getTotalpages(sanitisedPageSize,
+                            sanitisedPage),
+                    sanitisedPage,
+                    jobRoleService.getNextPage(sanitisedPage),
+                    jobRoleService.getPreviousPage(sanitisedPage));
                 Map<String, Object> response = new HashMap<>();
                 response.put("jobRoles", jobRoles);
                 response.put("pagination", pagination);
