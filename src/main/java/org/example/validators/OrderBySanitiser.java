@@ -25,7 +25,8 @@ public class OrderBySanitiser {
     }
 
     public String sanitiseOrderBy(final String orderBy) {
-        if (orderBy == null || (!orderBy.equalsIgnoreCase("ASC") && !orderBy.equalsIgnoreCase("DESC"))) {
+        if (orderBy == null || (!orderBy.equalsIgnoreCase("ASC")
+                && !orderBy.equalsIgnoreCase("DESC"))) {
             return DEFAULT_ORDER;
         }
         return orderBy.toUpperCase();

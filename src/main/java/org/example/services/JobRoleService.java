@@ -22,7 +22,8 @@ public class JobRoleService {
     }
 
     public List<JobRoleResponse> getAllJobRoles(
-            final int page, final int pageSize, final String fieldName, final String orderBy) throws SQLException {
+            final int page, final int pageSize, final String fieldName,
+            final String orderBy) throws SQLException {
         final int offset = (page - 1) * pageSize;
         return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
                 jobRoleDao.getOpenJobRoles(offset, pageSize,
