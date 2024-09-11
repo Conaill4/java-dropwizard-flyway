@@ -13,8 +13,8 @@ public class OrderBySanitiser {
         VALID_FIELDS.add("jobRoleId");
         VALID_FIELDS.add("roleName");
         VALID_FIELDS.add("location");
-        VALID_FIELDS.add("capabilityId");
-        VALID_FIELDS.add("bandId");
+        VALID_FIELDS.add("capabilityName");
+        VALID_FIELDS.add("bandName");
         VALID_FIELDS.add("closingDate");
 
         if (fieldName == null || (!VALID_FIELDS.contains(fieldName))) {
