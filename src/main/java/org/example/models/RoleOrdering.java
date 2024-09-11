@@ -1,8 +1,8 @@
 package org.example.models;
 
 public class RoleOrdering {
-    String fieldName;
-    String orderBy;
+    private String fieldName;
+    private String orderBy;
 
     public RoleOrdering(final String fieldName, final String orderBy) {
         this.fieldName = fieldName;

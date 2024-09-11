@@ -76,12 +76,8 @@ public class JobRoleController {
                    sanitisedPage + 1,
                 sanitisedPage - 1);
             RoleOrdering roleOrdering = new RoleOrdering(
-                    jobRoleService.getCurrentFieldFilter(
-                            sanitisedFieldName
-                    ),
-                    jobRoleService.getCurrentOrderByFilter(
-                            sanitisedOrderBy
-                    )
+                    sanitisedFieldName,
+                    sanitisedOrderBy
             );
                 Map<String, Object> response = new HashMap<>();
                 response.put("jobRoles", jobRoles);

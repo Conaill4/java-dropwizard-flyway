@@ -16,7 +16,6 @@ public class JobRoleDao {
     private static final int OPEN = 1;
     private static final int ONE = 1;
     private static final int TWO = 2;
-    private static final int THREE = 3;
     public List<JobRoleResponse> getOpenJobRoles(
             final int offset, final int limit, final String fieldName,
             final String orderBy)

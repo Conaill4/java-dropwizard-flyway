@@ -162,9 +162,6 @@ public class JobRoleControllerTest {
         when(jobRoleService.getAllJobRoles(page, pageSize, sanitisedFieldName, sanitisedOrderBy)).thenReturn(jobRolesDesc);
         when(jobRoleService.getTotalpages(pageSize, page)).thenReturn(1);
 
-        when(jobRoleService.getCurrentFieldFilter(sanitisedFieldName)).thenReturn(sanitisedFieldName);
-        when(jobRoleService.getCurrentOrderByFilter(sanitisedOrderBy)).thenReturn(sanitisedOrderBy);
-
         Response response = jobRoleController.getAllJobRoles(fieldName, orderBy, page, pageSize);
 
 
@@ -201,9 +198,6 @@ public class JobRoleControllerTest {
 
         when(jobRoleService.getAllJobRoles(page, pageSize, sanitisedFieldName, sanitisedOrderBy)).thenReturn(jobRolesAsc);
         when(jobRoleService.getTotalpages(pageSize, page)).thenReturn(1);
-
-        when(jobRoleService.getCurrentFieldFilter(sanitisedFieldName)).thenReturn(sanitisedFieldName);
-        when(jobRoleService.getCurrentOrderByFilter(sanitisedOrderBy)).thenReturn(sanitisedOrderBy);
 
         Response response = jobRoleController.getAllJobRoles(fieldName, orderBy, page, pageSize);
 
