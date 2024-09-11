@@ -22,24 +22,12 @@ public class JobRoleService {
     }
 
     public List<JobRoleResponse> getAllJobRoles(
-            final int page, final int pageSize, final String fieldName,
-            final String orderBy) throws SQLException {
-        if (page <= 0 || pageSize <= 0) {
-            throw new IllegalArgumentException(
-                    "Page and PageSize must be greater than 0");
-        }
-        try {
-            final int offset = (page - 1) * pageSize;
-            return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
-                    jobRoleDao.getOpenJobRoles(offset, pageSize,
-                            fieldName, orderBy));
-        } catch (SQLException e) {
-            throw new SQLException(
-                    "Error fetching job roles with pagination: page="
-                    + page + ", pageSize="
-                    + pageSize, e);
-        }
-    }
+            final int page, final int pageSize, final String fieldName, final String orderBy) throws SQLException {
+        final int offset = (page - 1) * pageSize;
+        return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
+                jobRoleDao.getOpenJobRoles(offset, pageSize,
+                        fieldName, orderBy));
+}
 
     public String getCurrentFieldFilter(final String fieldName)
             throws SQLException {

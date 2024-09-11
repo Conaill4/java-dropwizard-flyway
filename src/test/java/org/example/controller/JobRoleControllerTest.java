@@ -19,6 +19,7 @@ import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static javax.ws.rs.core.Response.Status.OK;
 import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 
@@ -26,7 +27,7 @@ public class JobRoleControllerTest {
     JobRoleService jobRoleService = Mockito.mock(JobRoleService.class);
     PaginationSanitiser paginationSanitiser = Mockito.mock(PaginationSanitiser.class);
     OrderBySanitiser orderBySanitiser = Mockito.mock(OrderBySanitiser.class);
-    private final JobRoleController jobRoleController = new JobRoleController(jobRoleService,paginationSanitiser, orderBySanitiser);
+    private final JobRoleController jobRoleController = new JobRoleController(jobRoleService, paginationSanitiser, orderBySanitiser);
     JobRoleResponse jobRole1 = new JobRoleResponse(
             1,
             "Manager",
@@ -101,21 +102,23 @@ public class JobRoleControllerTest {
 
     @Test
     public void getAllJobRoles_SQLException() throws SQLException {
-        // Arrange
+
         int page = 1;
         int pageSize = 10;
-        String fieldName = "jobRoleId";
+        String fieldName = "roleName";
         String orderBy = "ASC";
 
         when(jobRoleService.getTotalRecords()).thenReturn(100);
+        when(orderBySanitiser.sanitiseFieldName(fieldName)).thenReturn(fieldName);
+        when(orderBySanitiser.sanitiseOrderBy(orderBy)).thenReturn(orderBy);
         when(paginationSanitiser.sanitisePageSize(pageSize)).thenReturn(pageSize);
         when(paginationSanitiser.sanitisePage(page, pageSize, 100)).thenReturn(page);
-        when(jobRoleService.getAllJobRoles(1, 10, fieldName, orderBy)).thenThrow(new SQLException());
+        when(jobRoleService.getAllJobRoles(1, 10, "roleName", "ASC")).thenThrow(new SQLException());
 
-        // Act
+
         Response response = jobRoleController.getAllJobRoles(fieldName, orderBy, page, pageSize);
 
-        // Assert
+
         assertEquals(INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
         assertEquals("Error retrieving job roles", response.getEntity());
     }

@@ -57,8 +57,8 @@ public class JobRoleController {
             value = "Returns Job Roles",
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
             response = JobRole.class)
-    public Response getAllJobRoles(
-            @QueryParam("fieldName") @DefaultValue("jobRoleId")
+    public Response getAllJobRoles(@QueryParam("fieldName")
+                                       @DefaultValue("jobRoleId")
             final String fieldName,
             @QueryParam("orderBy") @DefaultValue("ASC") final String orderBy,
             @QueryParam("page") @DefaultValue("1") final int page,
@@ -96,9 +96,9 @@ public class JobRoleController {
                 response.put("roleOrdering", roleOrdering);
                 return Response.ok().entity(response).build();
             } catch (SQLException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Error retrieving job roles")
-                    .build();
+                return Response.serverError()
+                        .entity("Error retrieving job roles")
+                        .build();
         }
     }
 
