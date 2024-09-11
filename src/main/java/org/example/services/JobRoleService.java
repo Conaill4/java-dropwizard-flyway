@@ -30,7 +30,7 @@ public class JobRoleService {
                         fieldName, orderBy));
 }
 
-    public int getTotalpages(final int pageSize, final int page)
+    public int getTotalPages(final int pageSize)
             throws SQLException {
         int totalRecords = jobRoleDao.getTotalOpenJobs();
         return (int) Math.ceil((double) totalRecords / pageSize);

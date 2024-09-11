@@ -69,9 +69,8 @@ public class JobRoleController {
                     .getAllJobRoles(sanitisedPage, sanitisedPageSize,
                             sanitisedFieldName, sanitisedOrderBy);
             Pagination pagination = new Pagination(
-                    jobRoleService.getTotalpages(
-                            sanitisedPageSize,
-                            sanitisedPage),
+                    jobRoleService.getTotalPages(
+                            sanitisedPageSize),
                             sanitisedPage,
                    sanitisedPage + 1,
                 sanitisedPage - 1);

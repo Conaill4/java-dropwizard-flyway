@@ -61,10 +61,6 @@ public class JobRoleControllerTest {
 
     );
 
-    List<JobRoleResponse> jobRolesDesc = Arrays.asList(jobRole2, jobRole1);
-    List<JobRoleResponse> jobRolesAsc = Arrays.asList(jobRole1, jobRole2);
-
-
     @Test
     public void getJobRoles_shouldReturnListOfJobs() throws SQLException {
         int page = 1;
@@ -86,7 +82,7 @@ public class JobRoleControllerTest {
         when(paginationSanitiser.sanitisePageSize(pageSize)).thenReturn(sanitisedPageSize);
         when(paginationSanitiser.sanitisePage(page, sanitisedPageSize, totalRecords)).thenReturn(sanitisedPage);
         when(jobRoleService.getAllJobRoles(sanitisedPage, sanitisedPageSize, sanitisedFieldName, sanitisedOrderBy)).thenReturn(mockJobRoles);
-        when(jobRoleService.getTotalpages(sanitisedPageSize, sanitisedPage)).thenReturn(10);
+        when(jobRoleService.getTotalPages(sanitisedPageSize)).thenReturn(10);
 
         Response response = jobRoleController.getAllJobRoles(sanitisedFieldName, sanitisedOrderBy, sanitisedPage, sanitisedPageSize);
 
@@ -160,7 +156,7 @@ public class JobRoleControllerTest {
         when(orderBySanitiser.sanitiseOrderBy(orderBy)).thenReturn(sanitisedOrderBy);
 
         when(jobRoleService.getAllJobRoles(page, pageSize, sanitisedFieldName, sanitisedOrderBy)).thenReturn(jobRolesDesc);
-        when(jobRoleService.getTotalpages(pageSize, page)).thenReturn(1);
+        when(jobRoleService.getTotalPages(pageSize)).thenReturn(1);
 
         Response response = jobRoleController.getAllJobRoles(fieldName, orderBy, page, pageSize);
 
@@ -197,7 +193,7 @@ public class JobRoleControllerTest {
         when(orderBySanitiser.sanitiseOrderBy(orderBy)).thenReturn(sanitisedOrderBy);
 
         when(jobRoleService.getAllJobRoles(page, pageSize, sanitisedFieldName, sanitisedOrderBy)).thenReturn(jobRolesAsc);
-        when(jobRoleService.getTotalpages(pageSize, page)).thenReturn(1);
+        when(jobRoleService.getTotalPages(pageSize)).thenReturn(1);
 
         Response response = jobRoleController.getAllJobRoles(fieldName, orderBy, page, pageSize);
 
