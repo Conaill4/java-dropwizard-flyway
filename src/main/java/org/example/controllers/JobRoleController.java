@@ -9,8 +9,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.example.models.JobRole;
 import org.example.models.UserRole;
-import org.example.services.JobRoleService;
 import org.example.exceptions.DoesNotExistException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+import org.example.models.JobRole;
+import org.example.models.UserRole;
+import org.example.models.JobRoleResponse;
+import org.example.models.Pagination;
+import org.example.services.JobRoleService;
+import org.example.validators.OrderBySanitiser;
+import org.example.validators.PaginationSanitiser;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.DefaultValue;
@@ -32,8 +40,14 @@ import java.util.Map;
 @Path("/api/job-roles")
 public class JobRoleController {
     JobRoleService jobRoleService;
-    public JobRoleController(final JobRoleService jobRoleService) {
+    PaginationSanitiser paginationSanitiser;
+    OrderBySanitiser orderBySanitiser;
+    public JobRoleController(final JobRoleService jobRoleService,
+                             final PaginationSanitiser paginationSanitiser,
+                             final OrderBySanitiser orderBySanitiser) {
         this.jobRoleService = jobRoleService;
+        this.paginationSanitiser = paginationSanitiser;
+        this.orderBySanitiser = orderBySanitiser;
     }
 
     @GET
@@ -50,16 +64,31 @@ public class JobRoleController {
             @QueryParam("page") @DefaultValue("1") final int page,
             @QueryParam("pageSize") @DefaultValue("10") final int pageSize) {
         try {
+            int totalRecords = jobRoleService.getTotalRecords();
+            int sanitisedPageSize = paginationSanitiser.sanitisePageSize(
+                    pageSize);
+            int sanitisedPage = paginationSanitiser.sanitisePage(
+                    page, sanitisedPageSize, totalRecords);
+            String sanitisedFieldName = orderBySanitiser
+                    .sanitiseFieldName(fieldName);
+            String sanitisedOrderBy = orderBySanitiser.sanitiseOrderBy(orderBy);
             List<JobRoleResponse> jobRoles = jobRoleService
-                    .getAllJobRoles(page, pageSize, fieldName, orderBy);
+                    .getAllJobRoles(sanitisedPage, sanitisedPageSize,
+                            fieldName, orderBy);
             Pagination pagination = new Pagination(
-                    jobRoleService.getTotalpages(pageSize, page),
-                    jobRoleService.getCurrentPage(page),
-                    jobRoleService.getNextPage(page),
-                    jobRoleService.getPreviousPage(page));
+                    jobRoleService.getTotalpages(
+                            sanitisedPageSize,
+                            sanitisedPage),
+                            sanitisedPage,
+                   sanitisedPage + 1,
+                sanitisedPage - 1);
             RoleOrdering roleOrdering = new RoleOrdering(
-                    jobRoleService.getCurrentFieldFilter(fieldName),
-                    jobRoleService.getCurrentOrderByFilter(orderBy)
+                    jobRoleService.getCurrentFieldFilter(
+                            sanitisedFieldName
+                    ),
+                    jobRoleService.getCurrentOrderByFilter(
+                            sanitisedOrderBy
+                    )
             );
                 Map<String, Object> response = new HashMap<>();
                 response.put("jobRoles", jobRoles);

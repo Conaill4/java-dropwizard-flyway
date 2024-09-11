@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobRoleDao {
-    private static final int STATUS_ID = 1;
+    private static final int OPEN = 1;
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
@@ -28,13 +28,12 @@ public class JobRoleDao {
                     + "closingDate FROM `job-roles`"
                     + " JOIN Capability using(capabilityId)"
                     + " JOIN Band using(bandId)"
-                    + " WHERE statusId = ?"
+                    + " WHERE statusId = " + OPEN
                     + " ORDER BY " + fieldName + " " + orderBy
                     + " LIMIT ? OFFSET ?;";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(ONE, STATUS_ID);
-            statement.setInt(TWO, limit);
-            statement.setInt(THREE, offset);
+            statement.setInt(ONE, limit);
+            statement.setInt(TWO, offset);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 JobRoleResponse jobRoleResponse = new JobRoleResponse(
@@ -53,9 +52,8 @@ public class JobRoleDao {
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT COUNT(*) "
                     + "FROM `job-roles` "
-                    + "WHERE statusId = ?;";
+                    + "WHERE statusId = " + OPEN + ";";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(ONE, STATUS_ID);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getInt(1);

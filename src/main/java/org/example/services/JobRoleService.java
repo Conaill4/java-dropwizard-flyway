@@ -8,14 +8,13 @@ import org.example.models.JobRoleDetailed;
 import org.example.models.JobRoleDetailedResponse;
 import org.example.models.JobRoleResponse;
 
+
 import java.sql.SQLException;
 import java.util.List;
 
 public class JobRoleService {
     private final JobRoleDao jobRoleDao;
     private final JobRoleMapper jobRoleMapper;
-    private final int maxPageSize = 10;
-
     public JobRoleService(final JobRoleDao jobRoleDao,
                           final JobRoleMapper jobRoleMapper) {
         this.jobRoleDao = jobRoleDao;
@@ -95,5 +94,9 @@ public class JobRoleService {
         return jobRoleMapper.mapJobRoleToJobRoleDetailedResponse(
                 jobRoleDao.getJobRoleById(id));
 
+    }
+
+    public int getTotalRecords() throws SQLException {
+        return jobRoleDao.getTotalOpenJobs();
     }
 }
