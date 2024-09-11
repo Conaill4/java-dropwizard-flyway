@@ -22,6 +22,7 @@ import org.example.models.JwtToken;
 import org.example.services.AuthService;
 import org.example.services.JobRoleService;
 import org.example.services.TestService;
+import org.example.validators.OrderBySanitiser;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.example.validators.AuthValidator;
 import org.example.validators.PaginationSanitiser;
@@ -65,7 +66,7 @@ public class TestApplication extends Application<TestConfiguration> {
                 new TestService(new TestDao())));
         environment.jersey().register((new JobRoleController(
                new JobRoleService(new JobRoleDao(), new JobRoleMapper()),
-                new PaginationSanitiser()
+                new PaginationSanitiser(), new OrderBySanitiser()
                 )));
         environment.jersey().register(new AuthController(
                 new AuthService(new AuthDao(), jwtKey, new AuthValidator())));

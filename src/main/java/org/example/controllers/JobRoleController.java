@@ -74,7 +74,7 @@ public class JobRoleController {
             String sanitisedOrderBy = orderBySanitiser.sanitiseOrderBy(orderBy);
             List<JobRoleResponse> jobRoles = jobRoleService
                     .getAllJobRoles(sanitisedPage, sanitisedPageSize,
-                            fieldName, orderBy);
+                            sanitisedFieldName, sanitisedOrderBy);
             Pagination pagination = new Pagination(
                     jobRoleService.getTotalpages(
                             sanitisedPageSize,
