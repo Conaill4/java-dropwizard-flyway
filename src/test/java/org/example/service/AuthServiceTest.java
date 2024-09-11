@@ -29,7 +29,7 @@ public class AuthServiceTest {
     );
 
     @Test
-    void login_ShouldReturnJwtToken_WhenCredentialsAreValid() throws SQLException,
+    public void login_ShouldReturnJwtToken_WhenCredentialsAreValid() throws SQLException,
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",
@@ -46,7 +46,7 @@ public class AuthServiceTest {
     }
 
     @Test
-    void login_ShouldThrowEmailException_WhenEmailIsNull() throws EmailException,
+    public void login_ShouldThrowEmailException_WhenEmailIsNull() throws EmailException,
             PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "",
@@ -59,7 +59,7 @@ public class AuthServiceTest {
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowEmailException_WhenEmailIsInvalid() throws
+    public void login_ShouldThrowEmailException_WhenEmailIsInvalid() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin&@kainos.com",
@@ -72,7 +72,7 @@ public class AuthServiceTest {
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowEmailException_WhenEmailIsHasExtraAt() throws
+    public void login_ShouldThrowEmailException_WhenEmailIsHasExtraAt() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@@kainos.com",
@@ -85,7 +85,7 @@ public class AuthServiceTest {
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowEmailException_WhenEmailIsHasNoAt() throws
+    public void login_ShouldThrowEmailException_WhenEmailIsHasNoAt() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "adminkainos.com",
@@ -98,7 +98,7 @@ public class AuthServiceTest {
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowEmailException_WhenEmailIsHasAtInTheBeginning() throws
+    public void login_ShouldThrowEmailException_WhenEmailIsHasAtInTheBeginning() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "@adminkainos.com",
@@ -111,7 +111,7 @@ public class AuthServiceTest {
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowEmailException_WhenEmailIsHasASpace() throws
+    public void login_ShouldThrowEmailException_WhenEmailIsHasASpace() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin @kainos.com",
@@ -124,7 +124,7 @@ public class AuthServiceTest {
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowEmailException_WhenEmailIsHasNoDomain() throws
+    public void login_ShouldThrowEmailException_WhenEmailIsHasNoDomain() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@",
@@ -137,7 +137,7 @@ public class AuthServiceTest {
         assertThrows(EmailException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowPasswordException_WhenPasswordIsNull() throws
+    public void login_ShouldThrowPasswordException_WhenPasswordIsNull() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",
@@ -150,7 +150,7 @@ public class AuthServiceTest {
         assertThrows(PasswordException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowPasswordException_WhenPasswordIsInvalid() throws
+    public void login_ShouldThrowPasswordException_WhenPasswordIsInvalid() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",
@@ -163,7 +163,7 @@ public class AuthServiceTest {
         assertThrows(PasswordException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveACaptial() throws
+    public void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveACaptial() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",
@@ -176,7 +176,7 @@ public class AuthServiceTest {
         assertThrows(PasswordException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveANumber() throws
+    public void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveANumber() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",
@@ -189,7 +189,7 @@ public class AuthServiceTest {
         assertThrows(PasswordException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveASpecialCharacter() throws
+    public void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveASpecialCharacter() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",
@@ -202,7 +202,7 @@ public class AuthServiceTest {
         assertThrows(PasswordException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveALowerCase() throws
+    public void login_ShouldThrowPasswordException_WhenPasswordDoesNotHaveALowerCase() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",
@@ -215,7 +215,7 @@ public class AuthServiceTest {
         assertThrows(PasswordException.class, () -> authService.login(loginRequest));
     }
     @Test
-    void login_ShouldThrowPasswordException_WhenPasswordDoesHaveASpace() throws
+    public void login_ShouldThrowPasswordException_WhenPasswordDoesHaveASpace() throws
             EmailException, PasswordException {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",

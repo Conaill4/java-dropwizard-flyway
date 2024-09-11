@@ -3,6 +3,7 @@ package org.example.daos;
 import org.example.exceptions.DoesNotExistException;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailed;
+import org.example.models.JobRoleResponse;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,29 +13,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobRoleDao {
-    public List<JobRole> getJobRoles() throws SQLException {
-        List<JobRole> jobRoles = new ArrayList<>();
+    private static final int OPEN = 1;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    public List<JobRoleResponse> getOpenJobRoles(
+            final int offset, final int limit)
+            throws SQLException {
+        List<JobRoleResponse> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "SELECT jobRoleId, roleName, location,"
                     + " Capability.capabilityName, Band.bandName, "
                     + "closingDate FROM `job-roles`"
                     + " JOIN Capability using(capabilityId)"
                     + " JOIN Band using(bandId)"
-                    + " WHERE statusId = 1;";
+                    + " WHERE statusId = " + OPEN
+                    + " ORDER BY jobRoleId"
+                    + " LIMIT ? OFFSET ?;";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(ONE, limit);
+            statement.setInt(TWO, offset);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                JobRole jobRole = new JobRole(
+                JobRoleResponse jobRoleResponse = new JobRoleResponse(
                         resultSet.getInt("jobRoleId"),
                         resultSet.getString("roleName"),
                         resultSet.getString("location"),
                         resultSet.getString("capabilityName"),
                         resultSet.getString("bandName"),
                         resultSet.getDate("closingDate"));
-                jobRoles.add(jobRole);
+                jobRoles.add(jobRoleResponse);
             }
         }
         return jobRoles;
+    }
+    public int getTotalOpenJobs() throws SQLException {
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String query = "SELECT COUNT(*) "
+                    + "FROM `job-roles` "
+                    + "WHERE statusId = " + OPEN + ";";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        }
+        return 0;
     }
 
     public JobRoleDetailed getJobRoleById(final int jobRoleId)
@@ -52,17 +75,17 @@ public class JobRoleDao {
                     + " WHERE `jobRoleId` = ?";
 
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, jobRoleId);
+            statement.setInt(ONE, jobRoleId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 JobRoleDetailed jobRole = new JobRoleDetailed(
                         new JobRole(
-                        resultSet.getInt("jobRoleId"),
-                        resultSet.getString("roleName"),
-                        resultSet.getString("location"),
-                        resultSet.getString("capabilityName"),
-                        resultSet.getString("bandName"),
-                        resultSet.getDate("closingDate")),
+                                resultSet.getInt("jobRoleId"),
+                                resultSet.getString("roleName"),
+                                resultSet.getString("location"),
+                                resultSet.getString("capabilityName"),
+                                resultSet.getString("bandName"),
+                                resultSet.getDate("closingDate")),
                         resultSet.getString("description"),
                         resultSet.getString("responsibilities"),
                         resultSet.getString("sharepointUrl"),

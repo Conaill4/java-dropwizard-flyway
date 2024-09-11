@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JobRoleMapperTest {
 
-    JobRole jobRole1 = new JobRole(
+    JobRoleResponse jobRole1 = new JobRoleResponse(
             1,
             "Manager",
             "Derry",
@@ -40,32 +40,32 @@ public class JobRoleMapperTest {
     );
 
     @Test
-    void getJobRoleMapper_shouldReturnJobRoles() {
+    public void getJobRoleMapper_shouldReturnJobRoles() {
 
         JobRoleMapper jobRoleMapper = new JobRoleMapper();
-        List<JobRole> jobRoles = new ArrayList<>();
+        List<JobRoleResponse> jobRoles = new ArrayList<>();
         jobRoles.add(jobRole1);
 
-        List<JobRoleResponse> jobRole = jobRoleMapper
+        List<JobRoleResponse> jobRoleResponse = jobRoleMapper
                 .mapJobRoleListToJobRoleResponseList(jobRoles);
 
-        assertEquals(1, jobRole.size());
+        assertEquals(1, jobRoleResponse.size());
         assertEquals(jobRole1.getJobRoleId(),
-                jobRole.get(0).getJobRoleId());
+                jobRoleResponse.get(0).getJobRoleId());
         assertEquals(jobRole1.getRoleName(),
-                jobRole.get(0).getRoleName());
+                jobRoleResponse.get(0).getRoleName());
         assertEquals(jobRole1.getLocation(),
-                jobRole.get(0).getLocation());
+                jobRoleResponse.get(0).getLocation());
         assertEquals(jobRole1.getCapabilityName(),
-                jobRole.get(0).getCapabilityName());
+                jobRoleResponse.get(0).getCapabilityName());
         assertEquals(jobRole1.getBandName(),
-                jobRole.get(0).getBandName());
+                jobRoleResponse.get(0).getBandName());
         assertEquals(jobRole1.getClosingDate(),
-                jobRole.get(0).getClosingDate());
+                jobRoleResponse.get(0).getClosingDate());
     }
 
     @Test
-    void getJobRoleMapper_shouldReturnDetailedJobRoleResponse() {
+    public void getJobRoleMapper_shouldReturnDetailedJobRoleResponse() {
 
         JobRoleMapper jobRoleMapper = new JobRoleMapper();
 
