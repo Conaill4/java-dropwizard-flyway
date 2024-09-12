@@ -10,6 +10,7 @@ public class OrderBySanitiser {
     public static final Set<String> VALID_FIELDS = new HashSet<>();
 
     public String sanitiseFieldName(final String fieldName) {
+
         VALID_FIELDS.add("jobRoleId");
         VALID_FIELDS.add("roleName");
         VALID_FIELDS.add("location");
@@ -25,7 +26,8 @@ public class OrderBySanitiser {
     }
 
     public String sanitiseOrderBy(final String orderBy) {
-        if (orderBy == null || (!orderBy.equalsIgnoreCase("ASC") && !orderBy.equalsIgnoreCase("DESC"))) {
+        if (orderBy == null || (!orderBy.equalsIgnoreCase("ASC")
+                && !orderBy.equalsIgnoreCase("DESC"))) {
             return DEFAULT_ORDER;
         }
         return orderBy.toUpperCase();

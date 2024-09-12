@@ -22,53 +22,18 @@ public class JobRoleService {
     }
 
     public List<JobRoleResponse> getAllJobRoles(
-            final int page, final int pageSize, final String fieldName, final String orderBy) throws SQLException {
+            final int page, final int pageSize, final String fieldName,
+            final String orderBy) throws SQLException {
         final int offset = (page - 1) * pageSize;
         return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
                 jobRoleDao.getOpenJobRoles(offset, pageSize,
                         fieldName, orderBy));
 }
 
-    public String getCurrentFieldFilter(final String fieldName)
-            throws SQLException {
-        return fieldName;
-    }
-
-    public String getCurrentOrderByFilter(final String orderBy)
-            throws SQLException {
-        return orderBy;
-    }
-
-
-    public int getTotalpages(final int pageSize, final int page)
+    public int getTotalPages(final int pageSize)
             throws SQLException {
         int totalRecords = jobRoleDao.getTotalOpenJobs();
         return (int) Math.ceil((double) totalRecords / pageSize);
-    }
-
-    public int getCurrentPage(final int currentPage)
-            throws SQLException {
-        return currentPage;
-    }
-
-    public int getNextPage(final int currentPage)
-            throws SQLException {
-        final int pageSize = 10;
-        if (currentPage >= getTotalpages(pageSize, currentPage)) {
-            return currentPage;
-        } else {
-            return currentPage + 1;
-        }
-    }
-
-    public int getPreviousPage(final int currentPage)
-            throws SQLException {
-        final int pageSize = 10;
-        if (currentPage <= 1) {
-            return currentPage;
-        } else {
-            return currentPage - 1;
-        }
     }
 
     public JobRoleDetailedResponse getJobRoleById(final int id)

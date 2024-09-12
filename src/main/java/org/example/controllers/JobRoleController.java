@@ -4,11 +4,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.example.exceptions.DoesNotExistException;
-import org.example.models.JobRole;
-import org.example.models.JobRoleResponse;
-import org.example.models.Pagination;
 import org.example.models.RoleOrdering;
 import org.example.models.UserRole;
+import org.example.models.JobRole;
+import org.example.models.Pagination;
+import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
 import org.example.validators.OrderBySanitiser;
 import org.example.validators.PaginationSanitiser;
@@ -69,19 +69,14 @@ public class JobRoleController {
                     .getAllJobRoles(sanitisedPage, sanitisedPageSize,
                             sanitisedFieldName, sanitisedOrderBy);
             Pagination pagination = new Pagination(
-                    jobRoleService.getTotalpages(
-                            sanitisedPageSize,
-                            sanitisedPage),
+                    jobRoleService.getTotalPages(
+                            sanitisedPageSize),
                             sanitisedPage,
                    sanitisedPage + 1,
                 sanitisedPage - 1);
             RoleOrdering roleOrdering = new RoleOrdering(
-                    jobRoleService.getCurrentFieldFilter(
-                            sanitisedFieldName
-                    ),
-                    jobRoleService.getCurrentOrderByFilter(
-                            sanitisedOrderBy
-                    )
+                    sanitisedFieldName,
+                    sanitisedOrderBy
             );
                 Map<String, Object> response = new HashMap<>();
                 response.put("jobRoles", jobRoles);
