@@ -2,11 +2,9 @@ package org.example.service;
 
 import org.example.exceptions.DoesNotExistException;
 import org.example.daos.JobRoleDao;
+import org.example.exceptions.FailedToCreateException;
 import org.example.mappers.JobRoleMapper;
-import org.example.models.JobRole;
-import org.example.models.JobRoleDetailed;
-import org.example.models.JobRoleDetailedResponse;
-import org.example.models.JobRoleResponse;
+import org.example.models.*;
 import org.example.services.JobRoleService;
 import org.example.validators.PaginationSanitiser;
 import org.junit.jupiter.api.Test;
@@ -14,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -62,6 +61,19 @@ public class JobRoleServiceTest {
             "OPEN"
     );
 
+    JobRoleRequest jobRoleRequest = new JobRoleRequest(
+            "Graduate Software Engineer",
+            "Derry",
+            2,
+            3,
+            Date.valueOf("2024-12-30"),
+            "Engineering Academy",
+            "7 Week academy teaching Programming/Web-Dev/Testing",
+            "https://learn.microsoft.com/en-us/sharepoint/dev/general-development/urls-and-tokens-in-sharepoint",
+            1);
+
+
+
     @Test
     public void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsJobRoleList()
             throws SQLException {
@@ -107,6 +119,36 @@ public class JobRoleServiceTest {
         Mockito.when(jobRoleDao.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId())).thenThrow(DoesNotExistException.class);
 
         assertThrows(DoesNotExistException.class, () -> jobRoleService.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId()));
+    }
+
+    @Test
+    public void createJobRole_shouldReturnJobRoleId() throws DoesNotExistException, SQLException, FailedToCreateException {
+        Mockito.when(jobRoleDao.createJobRole(jobRoleRequest)).thenReturn(1);
+
+        int response = jobRoleService.createJobRole(jobRoleRequest);
+
+        assertEquals(1, response);
+    }
+
+    @Test
+    public void createJobRole_shouldThrowSQLException() throws DoesNotExistException, SQLException, FailedToCreateException {
+        Mockito.when(jobRoleDao.createJobRole(jobRoleRequest)).thenThrow(SQLException.class);
+
+        assertThrows(SQLException.class, () -> jobRoleService.createJobRole(jobRoleRequest));
+    }
+
+    @Test
+    public void createJobRole_shouldThrowDoesNotExistException() throws DoesNotExistException, SQLException, FailedToCreateException {
+        Mockito.when(jobRoleDao.createJobRole(jobRoleRequest)).thenThrow(DoesNotExistException.class);
+
+        assertThrows(DoesNotExistException.class, () -> jobRoleService.createJobRole(jobRoleRequest));
+    }
+
+    @Test
+    public void createJobRole_shouldThrowFailedToCreateException() throws DoesNotExistException, SQLException, FailedToCreateException {
+        Mockito.when(jobRoleDao.createJobRole(jobRoleRequest)).thenThrow(FailedToCreateException.class);
+
+        assertThrows(FailedToCreateException.class, () -> jobRoleService.createJobRole(jobRoleRequest));
     }
 
 }

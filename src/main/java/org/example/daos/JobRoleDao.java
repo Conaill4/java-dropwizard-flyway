@@ -1,6 +1,7 @@
 package org.example.daos;
 
 import org.example.exceptions.DoesNotExistException;
+import org.example.exceptions.FailedToCreateException;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailed;
 import org.example.models.JobRoleRequest;
@@ -110,7 +111,8 @@ public class JobRoleDao {
         return null;
     }
     public int createJobRole(final JobRoleRequest jobRoleRequest)
-            throws SQLException, DoesNotExistException {
+            throws SQLException, DoesNotExistException,
+            FailedToCreateException {
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "INSERT INTO `job-roles`"
                     + " (roleName, location,"
