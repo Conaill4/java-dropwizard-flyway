@@ -28,7 +28,8 @@ public class JobRoleDao {
     private static final int TEN = 10;
     private static final int ELEVEN = 11;
     public List<JobRoleResponse> getOpenJobRoles(
-            final int offset, final int limit)
+            final int offset, final int limit, final String fieldName,
+            final String orderBy)
             throws SQLException {
         List<JobRoleResponse> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
@@ -38,7 +39,8 @@ public class JobRoleDao {
                     + " JOIN Capability using(capabilityId)"
                     + " JOIN Band using(bandId)"
                     + " WHERE statusId = " + OPEN
-                    + " ORDER BY jobRoleId"
+                    + " ORDER BY " + fieldName
+                    + " COLLATE utf8mb4_general_ci " + orderBy
                     + " LIMIT ? OFFSET ?;";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(ONE, limit);

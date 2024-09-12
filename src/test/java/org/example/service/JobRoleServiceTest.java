@@ -67,9 +67,9 @@ public class JobRoleServiceTest {
             throws SQLException {
         List<JobRoleResponse> expectedJobRoles = new ArrayList<>();
         Mockito.when(jobRoleMapper.mapJobRoleListToJobRoleResponseList(
-                jobRoleDao.getOpenJobRoles(0,10))).thenReturn(expectedJobRoles);
+                jobRoleDao.getOpenJobRoles(0,10, "jobRoleId", "ASC"))).thenReturn(expectedJobRoles);
 
-        List<JobRoleResponse> JobRoleList = jobRoleService.getAllJobRoles(1,10);
+        List<JobRoleResponse> JobRoleList = jobRoleService.getAllJobRoles(1,10, "jobRoleId", "ASC");
 
         assertEquals(expectedJobRoles, JobRoleList);
     }
@@ -77,10 +77,10 @@ public class JobRoleServiceTest {
     @Test
     public void getAllJobRoles_shouldReturnSQLException()
             throws SQLException{
-        Mockito.when(jobRoleDao.getOpenJobRoles( 0,10))
+        Mockito.when(jobRoleDao.getOpenJobRoles( 0,10, "jobRoleId", "ASC"))
                 .thenThrow(SQLException.class);
 
-        assertThrows(SQLException.class, () -> jobRoleService.getAllJobRoles(1,10));
+        assertThrows(SQLException.class, () -> jobRoleService.getAllJobRoles(1,10, "jobRoleId", "ASC"));
     }
 
     @Test
