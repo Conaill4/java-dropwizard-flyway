@@ -1,8 +1,10 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import org.example.models.UserRole;
 import org.example.services.BandService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
@@ -12,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 
 @Api("JobRole API")
+@RolesAllowed({UserRole.ADMIN})
 @Path("/api/Band")
 public class BandController {
     BandService bandService;

@@ -86,4 +86,5 @@ public class TestApplication extends Application<TestConfiguration> {
                         new CapabilityService(
                                 new CapabilityDao())));
     }
+
 }
