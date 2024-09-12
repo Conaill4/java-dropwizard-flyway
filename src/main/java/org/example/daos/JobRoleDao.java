@@ -28,7 +28,8 @@ public class JobRoleDao {
                     + " JOIN Capability using(capabilityId)"
                     + " JOIN Band using(bandId)"
                     + " WHERE statusId = " + OPEN
-                    + " ORDER BY " + fieldName + " " + orderBy
+                    + " ORDER BY " + fieldName
+                    + " COLLATE utf8mb4_general_ci " + orderBy
                     + " LIMIT ? OFFSET ?;";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(ONE, limit);
