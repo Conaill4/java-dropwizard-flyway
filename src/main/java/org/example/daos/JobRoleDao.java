@@ -3,12 +3,14 @@ package org.example.daos;
 import org.example.exceptions.DoesNotExistException;
 import org.example.models.JobRole;
 import org.example.models.JobRoleDetailed;
+import org.example.models.JobRoleRequest;
 import org.example.models.JobRoleResponse;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,15 @@ public class JobRoleDao {
     private static final int OPEN = 1;
     private static final int ONE = 1;
     private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
+    private static final int FIVE = 5;
+    private static final int SIX = 6;
+    private static final int SEVEN = 7;
+    private static final int EIGHT = 8;
+    private static final int NINE = 9;
+    private static final int TEN = 10;
+    private static final int ELEVEN = 11;
     public List<JobRoleResponse> getOpenJobRoles(
             final int offset, final int limit)
             throws SQLException {
@@ -96,4 +107,44 @@ public class JobRoleDao {
         }
         return null;
     }
-}
+    public int createJobRole(final JobRoleRequest jobRoleRequest)
+            throws SQLException, DoesNotExistException {
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String query = "INSERT INTO `job-roles`"
+                    + " (roleName, location,"
+                    + " capabilityId, bandId, closingDate,"
+                    + " description, responsibilities,"
+                    + " sharepointUrl, numberOfOpenPositions, statusId)"
+                    + " VALUES"
+                    + " (?, ?, ?, ?, ?, ?, ?, ?, ?, '1')";
+            PreparedStatement statement = connection.prepareStatement(
+                    query,
+                    Statement.RETURN_GENERATED_KEYS);
+                    statement.setString(
+                            ONE, jobRoleRequest.getRoleName());
+                    statement.setString(
+                            TWO, jobRoleRequest.getLocation());
+                    statement.setInt(
+                            THREE, jobRoleRequest.getCapabilityId());
+                    statement.setInt(
+                            FOUR, jobRoleRequest.getBandId());
+                    statement.setDate(
+                            FIVE, jobRoleRequest.getClosingDate());
+                    statement.setString(
+                            SIX, jobRoleRequest.getDescription());
+                    statement.setString(
+                            SEVEN, jobRoleRequest.getResponsibilities());
+                    statement.setString(
+                            EIGHT, jobRoleRequest.getSharepointUrl());
+                    statement.setInt(
+                            NINE, jobRoleRequest.getNumberOfOpenPositions());
+                    statement.executeUpdate();
+                    ResultSet results = statement.getGeneratedKeys();
+                    if (results.next()) {
+                    return results.getInt(1);
+                    }
+                    return -1;
+            }
+        }
+    }
+

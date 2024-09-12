@@ -10,6 +10,8 @@ public class JobRole {
     private String bandName;
     private Date closingDate;
 
+    public JobRole() {
+    }
     public JobRole(final int jobRoleId,
                    final String roleName,
                    final String location,

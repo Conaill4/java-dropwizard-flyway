@@ -4,7 +4,9 @@ import io.swagger.annotations.Api;
 import org.example.exceptions.DoesNotExistException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
+import org.example.exceptions.FailedToCreateException;
 import org.example.models.JobRole;
+import org.example.models.JobRoleRequest;
 import org.example.models.UserRole;
 import org.example.models.JobRoleResponse;
 import org.example.models.Pagination;
@@ -14,6 +16,7 @@ import org.example.validators.PaginationSanitiser;
 import javax.ws.rs.DefaultValue;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -90,4 +93,28 @@ public class JobRoleController {
                     .entity(e.getMessage()).build();
         }
     }
+    @POST
+    @RolesAllowed({UserRole.ADMIN})
+    @ApiOperation(
+            value = "Add Job Roles",
+            authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
+            response = JobRoleRequest.class)
+    public Response createJobRole(final JobRoleRequest jobRoleRequest)
+            throws FailedToCreateException, DoesNotExistException,
+            SQLException {
+        try {
+            return Response.ok()
+                    .entity(jobRoleService.createJobRole(jobRoleRequest))
+                    .build();
+        } catch (FailedToCreateException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage()).build();
+        } catch (DoesNotExistException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
+        } catch (SQLException e) {
+            return Response.serverError().build();
+        }
+    }
 }
+
