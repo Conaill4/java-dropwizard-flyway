@@ -19,27 +19,23 @@ public class JobRoleService {
                           final JobRoleMapper jobRoleMapper) {
         this.jobRoleDao = jobRoleDao;
         this.jobRoleMapper = jobRoleMapper;
-
     }
 
     public List<JobRoleResponse> getAllJobRoles(
-            final int page, final int pageSize) throws SQLException {
-        try {
-            final int offset = (page - 1) * pageSize;
-            return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
-                    jobRoleDao.getOpenJobRoles(offset, pageSize));
-        } catch (SQLException e) {
-            throw new SQLException(
-                    "Error fetching job roles with pagination: page="
-                    + page + ", pageSize="
-                    + pageSize, e);
-        }
-    }
-    public int getTotalpages(final int pageSize, final int page)
+            final int page, final int pageSize, final String fieldName,
+            final String orderBy) throws SQLException {
+        final int offset = (page - 1) * pageSize;
+        return jobRoleMapper.mapJobRoleListToJobRoleResponseList(
+                jobRoleDao.getOpenJobRoles(offset, pageSize,
+                        fieldName, orderBy));
+}
+
+    public int getTotalPages(final int pageSize)
             throws SQLException {
         int totalRecords = jobRoleDao.getTotalOpenJobs();
         return (int) Math.ceil((double) totalRecords / pageSize);
     }
+
     public JobRoleDetailedResponse getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
 

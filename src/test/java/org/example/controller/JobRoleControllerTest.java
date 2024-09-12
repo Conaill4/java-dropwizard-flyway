@@ -2,11 +2,9 @@ package org.example.controller;
 
 import org.example.exceptions.DoesNotExistException;
 import org.example.controllers.JobRoleController;
-import org.example.models.JobRole;
-import org.example.models.JobRoleDetailedResponse;
-import org.example.models.JobRoleResponse;
-import org.example.models.Pagination;
+import org.example.models.*;
 import org.example.services.JobRoleService;
+import org.example.validators.OrderBySanitiser;
 import org.example.validators.PaginationSanitiser;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -19,14 +17,17 @@ import java.util.Map;
 
 import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static javax.ws.rs.core.Response.Status.OK;
+import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 
 public class JobRoleControllerTest {
     JobRoleService jobRoleService = Mockito.mock(JobRoleService.class);
     PaginationSanitiser paginationSanitiser = Mockito.mock(PaginationSanitiser.class);
-    private final JobRoleController jobRoleController = new JobRoleController(jobRoleService,paginationSanitiser);
+    OrderBySanitiser orderBySanitiser = Mockito.mock(OrderBySanitiser.class);
+    private final JobRoleController jobRoleController = new JobRoleController(jobRoleService, paginationSanitiser, orderBySanitiser);
     JobRoleResponse jobRole1 = new JobRoleResponse(
             1,
             "Manager",
@@ -59,6 +60,7 @@ public class JobRoleControllerTest {
             "OPEN"
 
     );
+
     @Test
     public void getJobRoles_shouldReturnListOfJobs() throws SQLException {
         int page = 1;
@@ -66,17 +68,23 @@ public class JobRoleControllerTest {
         int totalRecords = 22;
         int sanitisedPageSize = 10;
         int sanitisedPage = 1;
+        String orderBy = "ASC";
+        String fieldName = "jobRoleId";
+        String sanitisedOrderBy = "ASC";
+        String sanitisedFieldName = "jobRoleId";
 
         List<JobRoleResponse> mockJobRoles = Arrays.asList(jobRole1, jobRole2);
         Pagination pagination = new Pagination(10, sanitisedPage, 2, 0);
 
         when(jobRoleService.getTotalRecords()).thenReturn(totalRecords);
+        when(orderBySanitiser.sanitiseOrderBy(orderBy)).thenReturn(sanitisedOrderBy);
+        when(orderBySanitiser.sanitiseFieldName(fieldName)).thenReturn(sanitisedFieldName);
         when(paginationSanitiser.sanitisePageSize(pageSize)).thenReturn(sanitisedPageSize);
         when(paginationSanitiser.sanitisePage(page, sanitisedPageSize, totalRecords)).thenReturn(sanitisedPage);
-        when(jobRoleService.getAllJobRoles(sanitisedPage, sanitisedPageSize)).thenReturn(mockJobRoles);
-        when(jobRoleService.getTotalpages(sanitisedPageSize, sanitisedPage)).thenReturn(10);
+        when(jobRoleService.getAllJobRoles(sanitisedPage, sanitisedPageSize, sanitisedFieldName, sanitisedOrderBy)).thenReturn(mockJobRoles);
+        when(jobRoleService.getTotalPages(sanitisedPageSize)).thenReturn(10);
 
-        Response response = jobRoleController.getAllJobRoles(sanitisedPage, sanitisedPageSize);
+        Response response = jobRoleController.getAllJobRoles(sanitisedFieldName, sanitisedOrderBy, sanitisedPage, sanitisedPageSize);
 
         assertEquals(OK.getStatusCode(), response.getStatus());
 
@@ -90,19 +98,23 @@ public class JobRoleControllerTest {
 
     @Test
     public void getAllJobRoles_SQLException() throws SQLException {
-        // Arrange
+
         int page = 1;
         int pageSize = 10;
+        String fieldName = "roleName";
+        String orderBy = "ASC";
 
         when(jobRoleService.getTotalRecords()).thenReturn(100);
+        when(orderBySanitiser.sanitiseFieldName(fieldName)).thenReturn(fieldName);
+        when(orderBySanitiser.sanitiseOrderBy(orderBy)).thenReturn(orderBy);
         when(paginationSanitiser.sanitisePageSize(pageSize)).thenReturn(pageSize);
         when(paginationSanitiser.sanitisePage(page, pageSize, 100)).thenReturn(page);
-        when(jobRoleService.getAllJobRoles(1, 10)).thenThrow(new SQLException());
+        when(jobRoleService.getAllJobRoles(1, 10, "roleName", "ASC")).thenThrow(new SQLException());
 
-        // Act
-        Response response = jobRoleController.getAllJobRoles(page, pageSize);
 
-        // Assert
+        Response response = jobRoleController.getAllJobRoles(fieldName, orderBy, page, pageSize);
+
+
         assertEquals(INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
         assertEquals("Error retrieving job roles", response.getEntity());
     }
@@ -122,5 +134,79 @@ public class JobRoleControllerTest {
         Response response = jobRoleController.getJobRoleById(jobRoleDetailed1.getJobRole().getJobRoleId());
 
         assertEquals(INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+    }
+
+    @Test
+    void getJobRoles_shouldReturnListOfJobs_orderedByJobRoleID_inDescendingOrder() throws SQLException {
+
+        int page = 1;
+        int pageSize = 10;
+        String fieldName = "jobRoleId";
+        String orderBy = "DESC";
+        String sanitisedFieldName = "jobRoleId";
+        String sanitisedOrderBy = "DESC";
+
+
+        List<JobRoleResponse> jobRolesDesc = Arrays.asList(jobRole2, jobRole1);
+
+        when(jobRoleService.getTotalRecords()).thenReturn(2);
+        when(paginationSanitiser.sanitisePageSize(pageSize)).thenReturn(pageSize);
+        when(paginationSanitiser.sanitisePage(page, pageSize, 2)).thenReturn(page);
+        when(orderBySanitiser.sanitiseFieldName(fieldName)).thenReturn(sanitisedFieldName);
+        when(orderBySanitiser.sanitiseOrderBy(orderBy)).thenReturn(sanitisedOrderBy);
+
+        when(jobRoleService.getAllJobRoles(page, pageSize, sanitisedFieldName, sanitisedOrderBy)).thenReturn(jobRolesDesc);
+        when(jobRoleService.getTotalPages(pageSize)).thenReturn(1);
+
+        Response response = jobRoleController.getAllJobRoles(fieldName, orderBy, page, pageSize);
+
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+
+        Object entity = response.getEntity();
+
+        Map<String, Object> responseBody = (Map<String, Object>) entity;
+
+        List<JobRoleResponse> returnedJobRoles = (List<JobRoleResponse>) responseBody.get("jobRoles");
+        RoleOrdering returnedRoleOrdering = (RoleOrdering) responseBody.get("roleOrdering");
+
+        assertEquals(2, returnedJobRoles.get(0).getJobRoleId());
+        assertEquals(1, returnedJobRoles.get(1).getJobRoleId());
+    }
+
+    @Test
+    void getJobRoles_shouldReturnListOfJobs_orderedByJobRoleID_inAscendingOrder() throws SQLException {
+
+        int page = 1;
+        int pageSize = 10;
+        String fieldName = "jobRoleId";
+        String orderBy = "ASC";
+        String sanitisedFieldName = "jobRoleId";
+        String sanitisedOrderBy = "ASC";
+
+        List<JobRoleResponse> jobRolesAsc = Arrays.asList(jobRole1, jobRole2);
+
+        when(jobRoleService.getTotalRecords()).thenReturn(2);
+        when(paginationSanitiser.sanitisePageSize(pageSize)).thenReturn(pageSize);
+        when(paginationSanitiser.sanitisePage(page, pageSize, 2)).thenReturn(page);
+        when(orderBySanitiser.sanitiseFieldName(fieldName)).thenReturn(sanitisedFieldName);
+        when(orderBySanitiser.sanitiseOrderBy(orderBy)).thenReturn(sanitisedOrderBy);
+
+        when(jobRoleService.getAllJobRoles(page, pageSize, sanitisedFieldName, sanitisedOrderBy)).thenReturn(jobRolesAsc);
+        when(jobRoleService.getTotalPages(pageSize)).thenReturn(1);
+
+        Response response = jobRoleController.getAllJobRoles(fieldName, orderBy, page, pageSize);
+
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+
+        Object entity = response.getEntity();
+
+        Map<String, Object> responseBody = (Map<String, Object>) entity;
+
+        List<JobRoleResponse> returnedJobRoles = (List<JobRoleResponse>) responseBody.get("jobRoles");
+        RoleOrdering returnedRoleOrdering = (RoleOrdering) responseBody.get("roleOrdering");
+
+        assertEquals(1, returnedJobRoles.get(0).getJobRoleId());
+        assertEquals(2, returnedJobRoles.get(1).getJobRoleId());
     }
 }
