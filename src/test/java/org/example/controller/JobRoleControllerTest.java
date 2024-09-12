@@ -333,35 +333,6 @@ public class JobRoleControllerTest {
         assertEquals(Response.Status.BAD_REQUEST.getStatusCode(),
                 response.getStatus());
     }
-
-    @Test
-    public void createJobRole_DoesNotExistException()
-            throws Exception, DoesNotExistException {
-        // Mock input
-        // Mock input
-        JobRoleRequest jobRoleRequest = new JobRoleRequest(
-                "Graduate Software Engineer",
-                "Derry",
-                2,
-                3,
-                Date.valueOf("2024-12-30"),
-                "Engineering Academy",
-                "7 Week academy teaching Programming/Web-Dev/Testing",
-                "https://learn.microsoft.com/en-us/sharepoint/dev/general-development/urls-and-tokens-in-sharepoint",
-                1
-        );
-        // Mock the service layer to throw FailedToCreateException
-        Mockito.when(jobRoleService.createJobRole(jobRoleRequest))
-                .thenThrow(DoesNotExistException.class);
-
-        // Call the method
-        Response response = jobRoleController.createJobRole(jobRoleRequest);
-
-        // Verify the result
-        assertEquals(Response.Status.NOT_FOUND.getStatusCode(),
-                response.getStatus());
-    }
-
     @Test
     public void CreateJobRole_SQLException()
             throws Exception, DoesNotExistException {

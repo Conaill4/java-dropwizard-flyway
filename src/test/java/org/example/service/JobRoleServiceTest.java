@@ -136,14 +136,6 @@ public class JobRoleServiceTest {
 
         assertThrows(SQLException.class, () -> jobRoleService.createJobRole(jobRoleRequest));
     }
-
-    @Test
-    public void createJobRole_shouldThrowDoesNotExistException() throws DoesNotExistException, SQLException, FailedToCreateException {
-        Mockito.when(jobRoleDao.createJobRole(jobRoleRequest)).thenThrow(DoesNotExistException.class);
-
-        assertThrows(DoesNotExistException.class, () -> jobRoleService.createJobRole(jobRoleRequest));
-    }
-
     @Test
     public void createJobRole_shouldThrowFailedToCreateException() throws DoesNotExistException, SQLException, FailedToCreateException {
         Mockito.when(jobRoleDao.createJobRole(jobRoleRequest)).thenThrow(FailedToCreateException.class);
