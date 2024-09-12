@@ -118,7 +118,7 @@ public class JobRoleController {
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
             response = JobRoleRequest.class)
     public Response createJobRole(final JobRoleRequest jobRoleRequest)
-            throws FailedToCreateException, DoesNotExistException,
+            throws FailedToCreateException,
             SQLException {
         try {
             return Response.ok()
@@ -126,9 +126,6 @@ public class JobRoleController {
                     .build();
         } catch (FailedToCreateException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(e.getMessage()).build();
-        } catch (DoesNotExistException e) {
-            return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage()).build();
         } catch (SQLException e) {
             return Response.serverError().build();

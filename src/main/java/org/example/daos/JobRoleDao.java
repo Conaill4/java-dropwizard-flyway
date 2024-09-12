@@ -111,7 +111,7 @@ public class JobRoleDao {
         return null;
     }
     public int createJobRole(final JobRoleRequest jobRoleRequest)
-            throws SQLException, DoesNotExistException,
+            throws SQLException,
             FailedToCreateException {
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query = "INSERT INTO `job-roles`"

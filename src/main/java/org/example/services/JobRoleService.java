@@ -56,8 +56,7 @@ public class JobRoleService {
     }
     public int createJobRole(
             final JobRoleRequest jobRoleRequest)
-            throws FailedToCreateException, SQLException,
-            DoesNotExistException {
+            throws FailedToCreateException, SQLException {
         final int id = jobRoleDao.createJobRole(jobRoleRequest);
 
         if (id == -1) {
