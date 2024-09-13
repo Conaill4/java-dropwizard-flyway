@@ -9,7 +9,6 @@ public class JobRole {
     private String capabilityName;
     private String bandName;
     private Date closingDate;
-
     public JobRole(final int jobRoleId,
                    final String roleName,
                    final String location,

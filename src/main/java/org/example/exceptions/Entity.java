@@ -2,6 +2,7 @@ package org.example.exceptions;
 
 public enum Entity {
     JOBROLE("JobRole"),
+    PAGINATION("Pagination"),
     JOBROLEDETAILED("JobRoleDetailed"),
     EMAIL("Email"),
     PASSWORD("Password");
